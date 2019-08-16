@@ -1,3 +1,7 @@
+# Created by https://www.gitignore.io/api/godot,macos,libreoffice
+# Edit at https://www.gitignore.io/?templates=godot,macos,libreoffice
+
+### Godot ###
 
 # Godot-specific ignores
 .import/
@@ -6,3 +10,35 @@ export_presets.cfg
 
 # Mono-specific ignores
 .mono/
+
+### LibreOffice ###
+# LibreOffice locks
+.~lock.*#
+
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
