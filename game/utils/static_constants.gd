@@ -10,6 +10,17 @@ via ingame files for easy in-place editing later
 
 """
 *****************************
+*		GAME				*
+*****************************
+"""
+"""
+Leves range from 0 to 3 for DEBUG, INFO, WARN, ERROR respectively
+"""
+const GAME_LOGGING_LEVEL: int = 1
+
+
+"""
+*****************************
 *		MOPED REBEL			*
 *****************************
 """

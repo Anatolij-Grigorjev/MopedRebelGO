@@ -55,16 +55,26 @@ func debug(message: String, params: Array = []) -> void:
 
 
 """
-
+Log message at INFO level. SHould be the preferred used debug level
+and is generally safe for info to appear
 """
 func info(message: String, params: Array = []) -> void:
 	_log_at_level(LogLevel.INFO, message, params)
 	
 	
+"""
+Log message as WARN level. Should be used for messages pertaining to 
+receoverable problem situations encountered during system run.
+"""
 func warn(message: String, params: Array = []) -> void:
 	_log_at_level(LogLevel.WARN, message, params)
 	
 	
+"""
+Log message as ERROR level. Should be used for messages pertaining to
+non-recoverable problmes and system faults that reuqire immediate attention.
+By default will break execution flow
+"""	
 func error(message: String, params: Array = [], break_here: bool = true) -> void:
 	_log_at_level(LogLevel.ERROR, message, params)
 	if (break_here):
@@ -72,6 +82,8 @@ func error(message: String, params: Array = [], break_here: bool = true) -> void
 
 
 func _log_at_level(level: int, message: String, params: Array) -> void:
+	if (level < C.GAME_LOGGING_LEVEL % LogLevel.size()):
+		return
 	#true means date time in UTC timezone
 	var current_datetime := OS.get_datetime(true)
 	var log_level_name : String = LOG_LEVEL_NAMES[level]
@@ -102,5 +114,12 @@ func _format_datetime_dict(datetime_dict: Dictionary) -> String:
 	]	
 
 func _resolve_message_params(message: String, params: Array) -> String:
-	return ""
-
+	if (not message):
+		return ""
+	if (not params):
+		return message
+	
+	#handle logback-style messages
+	var internal_template = message.replace("{}", "%s")
+	
+	return internal_template % params
