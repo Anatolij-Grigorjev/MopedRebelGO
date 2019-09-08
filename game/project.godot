@@ -8,9 +8,26 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Reference",
+"class": "C",
+"language": "GDScript",
+"path": "res://utils/static_constants.gd"
+}, {
+"base": "Reference",
+"class": "Logger",
+"language": "GDScript",
+"path": "res://utils/logger.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "MopedRebel",
+"language": "GDScript",
+"path": "res://rebel/moped_rebel.gd"
+} ]
 _global_script_class_icons={
-
+"C": "",
+"Logger": "",
+"MopedRebel": ""
 }
 
 [application]
