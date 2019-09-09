@@ -14,9 +14,7 @@ Usage:
 func test() -> void:
 	var LOG: Logger = Logger.new(<any object>)
 	LOG.info('hello!') 
-^^^^ assuming thread idx 0, 
-invocation time and doing in script of node named 'Node' 
-and same line numbers:
+^^^^ assuming invocation time and doing in script of node named 'Node' and same line numbers:
 2019.09.08 14:34:20 INFO Node#test:16 - hello!
 
 
@@ -42,9 +40,12 @@ Create a bound logger instance with the given descriptor
 func _init(descriptor: Object):
 	if (typeof(descriptor) == TYPE_STRING):
 		_logger_name = str(descriptor)
-	if (typeof(descriptor) == TYPE_OBJECT):
+	elif (typeof(descriptor) == TYPE_OBJECT):
 		_logger_name = str(descriptor.get('name'))
-		
+	else:
+		error("Tried to create logger from descriptor {} of type {}!", [descriptor, typeof(descriptor)])	
+	info("Created logger {}!", [_logger_name])
+	
 
 """
 Log message at DEBUG level. Should be used for auxillary corrective info
@@ -85,16 +86,22 @@ func _log_at_level(level: int, message: String, params: Array) -> void:
 	if (level < C.GAME_LOGGING_LEVEL % LogLevel.size()):
 		return
 	#true means date time in UTC timezone
-	var current_datetime := OS.get_datetime(true)
+	var current_datetime := OS.get_datetime(false)
 	var log_level_name : String = LOG_LEVEL_NAMES[level]
-	var current_stack_frame : Dictionary = get_stack()[0]
+	var call_stack : Array = get_stack()
+	# frame 0 is this private method, 
+	# frame 1 would be the log level wrapper
+	# frame 2 is then the method that invoked the logging
+	# might have fewer frames if logger tested standalone
+	var stack_frame_idx := min(2, call_stack.size() - 1)
+	var current_stack_frame : Dictionary = call_stack[stack_frame_idx]
 	var resolved_message: String = _resolve_message_params(message, params)
 	
 	var full_message : String = ("%s %s %s#%s:%s - %s"
 	% [
 		_format_datetime_dict(current_datetime), 
 		log_level_name, 
-		descriptor, 
+		_logger_name, 
 		current_stack_frame.function,
 		current_stack_frame.line,
 		resolved_message
@@ -102,7 +109,7 @@ func _log_at_level(level: int, message: String, params: Array) -> void:
 
 	print(full_message)
 	
-	
+
 func _format_datetime_dict(datetime_dict: Dictionary) -> String:
 	return DATETIME_FORMAT % [
 		datetime_dict.year,
@@ -112,6 +119,7 @@ func _format_datetime_dict(datetime_dict: Dictionary) -> String:
 		datetime_dict.minute,
 		datetime_dict.second
 	]	
+
 
 func _resolve_message_params(message: String, params: Array) -> String:
 	if (not message):
