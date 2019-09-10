@@ -9,14 +9,13 @@ Controls delivery packages
 """
 var Logger : Resource = preload("res://utils/logger.gd")
 
-
 const CRUISE_SPEED = C.MR_CRUISE_SPEED
 
+export(Vector2) var velocity := Vector2(CRUISE_SPEED, 0)
 
-var LOG: Logger
-
+onready var animator := $AnimationPlayer
+onready var LOG : Logger = Logger.new(self)
 
 
 func _ready() -> void:
-	LOG = Logger.new(self)
 	pass 
