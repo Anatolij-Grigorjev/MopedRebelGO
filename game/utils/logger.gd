@@ -44,7 +44,7 @@ func _init(descriptor: Object):
 		_logger_name = str(descriptor.get('name'))
 	else:
 		error("Tried to create logger from descriptor {} of type {}!", [descriptor, typeof(descriptor)])	
-	info("Created logger {}!", [_logger_name])
+	info("Created logger '{}'!", [_logger_name])
 	
 
 """
