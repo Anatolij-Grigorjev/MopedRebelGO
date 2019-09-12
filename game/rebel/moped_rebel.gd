@@ -31,6 +31,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	_process_swerve_input()
+	move_and_slide(velocity)
 	pass
 	
 	

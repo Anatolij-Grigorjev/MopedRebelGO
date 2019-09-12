@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/normal_diag_tiles.png-a9126c351493e7ebc69e31d96305c88a.stex"
+path="res://.import/normal_diag_tiles.png-fd2c64ac5d49e011a2f4d43bf73ecfe6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://stages/normal_diag_tiles.png"
-dest_files=[ "res://.import/normal_diag_tiles.png-a9126c351493e7ebc69e31d96305c88a.stex" ]
+source_file="res://stages/tiles/normal_diag_tiles.png"
+dest_files=[ "res://.import/normal_diag_tiles.png-fd2c64ac5d49e011a2f4d43bf73ecfe6.stex" ]
 
 [params]
 
