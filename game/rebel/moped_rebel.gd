@@ -53,7 +53,10 @@ func _process_swerve_input() -> void:
 		pass
 
 
-func begin_swerve(swerve_direction: int) -> void:
+"""
+Start direction-wise swerve animation
+"""
+func begin_swerve_animation(swerve_direction: int) -> void:
 	is_swerving = true
 	match(swerve_direction):
 		-1:

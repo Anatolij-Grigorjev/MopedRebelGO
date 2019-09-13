@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://utils/static_constants.gd"
 }, {
+"base": "Node",
+"class": "Helpers",
+"language": "GDScript",
+"path": "res://utils/static_helpers.gd"
+}, {
 "base": "Reference",
 "class": "Logger",
 "language": "GDScript",
@@ -31,6 +36,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "C": "",
+"Helpers": "",
 "Logger": "",
 "MopedRebel": "",
 "StageControl": ""
@@ -42,6 +48,10 @@ config/name="MopedRebelGO"
 run/main_scene="res://stages/test/test_stage.tscn"
 config/icon="res://icon.png"
 config/quit_on_go_back=false
+
+[autoload]
+
+F="*res://utils/static_helpers.gd"
 
 [debug]
 
