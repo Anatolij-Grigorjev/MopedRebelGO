@@ -3,9 +3,9 @@ class_name MopedRebel
 """
 Main Controller class for Moped Rebel Playable Character.
 
-Controls constant movement, controls invkoing of dissing and turning
-Handles collisions and plays animations at required times. 
-Controls delivery packages
+* Performs constant movement
+* Collects user input to:
+	* Perform swerve animation and tween
 """
 var Logger : Resource = preload("res://utils/logger.gd")
 
@@ -27,6 +27,7 @@ onready var _netural_transform: Dictionary = {
 	'scale': self.scale
 }
 
+
 var _is_swerving: bool = false 
 
 func _ready() -> void:
@@ -34,15 +35,22 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	_process_swerve_input()
+	#get desired swerve direction 
+	#-1 for going up +1 for going down
+	var desired_swerve_direction := _process_swerve_input()
+	if desired_swerve_direction != 0:
+		emit_signal("swerve_direction_pressed", desired_swerve_direction)
+	
 	move_and_slide(velocity)
 	pass
 	
 	
 """
-Start direction-wise swerve animation and tween
+Perform moped swerve operations, including animation, position tween
+and swerve state reset. 
+Does not validate arguments, these should come from stage.
 """
-func begin_swerve(swerve_direction: int, swerve_amount: int) -> void:
+func perform_swerve(swerve_direction: int, swerve_amount: int) -> void:
 	_is_swerving = true
 	var correct_anim_name : String
 	match(swerve_direction):
@@ -60,9 +68,9 @@ func begin_swerve(swerve_direction: int, swerve_amount: int) -> void:
 	_is_swerving = false
 	
 	
-func _process_swerve_input() -> void:
+func _process_swerve_input() -> int:
 	if (_is_swerving):
-		return
+		return 0
 	
 	var desired_swerve_direction := 0
 	if Input.is_action_pressed("swerve_up"):
@@ -70,14 +78,13 @@ func _process_swerve_input() -> void:
 	if Input.is_action_pressed("swerve_down"):
 		desired_swerve_direction += 1
 	
-	if desired_swerve_direction != 0:
-		#present stage with desired swerve direction
-		# -1 for going up
-		# +1 for going down
-		emit_signal("swerve_direction_pressed", desired_swerve_direction)
-		pass
+	return desired_swerve_direction
 
 
+"""
+Setup the tween required to perform swerve based on what direction
+the swerve needs to be made in
+"""
 func _prep_tween_swerve(direction: int, offset_amount: int) -> void:
 	var actual_offset := direction * offset_amount
 	swerve_tween.remove_all()

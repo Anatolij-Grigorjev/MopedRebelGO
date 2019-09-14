@@ -40,6 +40,6 @@ func _on_MopedRebel_swerve_direction_pressed(intended_direction: int) -> void:
 	if (intended_direction == -1 and current_moped_track == 1):
 		return
 	
-	moped_rebel.begin_swerve(intended_direction, $Road.get_cell_size().y)	
+	moped_rebel.perform_swerve(intended_direction, $Road.get_cell_size().y)	
 	current_moped_track += intended_direction
 	LOG.debug("Swerved moped to track {}!", [current_moped_track])

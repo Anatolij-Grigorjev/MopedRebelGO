@@ -21,9 +21,9 @@ func test() -> void:
 class can also invoke breakpoints when the #error log method is called
 to fail-fast handle error situations
 """
-
 const DATETIME_FORMAT := "%04d.%02d.%02d %02d:%02d:%02d"
 const LOG_LEVEL_NAMES : Array = [ "DEBUG", "INFO", "WARN", "ERROR" ]
+
 
 enum LogLevel {
 	DEBUG = 0,
@@ -32,10 +32,12 @@ enum LogLevel {
 	ERROR = 3
 }
 
+
 var _logger_name: String
 
+
 """
-Create a bound logger instance with the given descriptor
+Create a bound logger instance with the given descriptor.
 """
 func _init(descriptor: Object):
 	if (typeof(descriptor) == TYPE_STRING):
@@ -48,33 +50,37 @@ func _init(descriptor: Object):
 	
 
 """
-Log message at DEBUG level. Should be used for auxillary corrective info
-and mostly left turned off
+Log message at DEBUG level. 
+Should be used for dumping variable state and other auxillary info for 
+problem analysis purpouses that is notimportant for regular game runs.
 """
 func debug(message: String, params: Array = []) -> void:
 	_log_at_level(LogLevel.DEBUG, message, params)
 
 
 """
-Log message at INFO level. SHould be the preferred used debug level
-and is generally safe for info to appear
+Log message at INFO level. 
+Should be the preferred level for printing good-to-know information that
+does not indicate a problem situation.
 """
 func info(message: String, params: Array = []) -> void:
 	_log_at_level(LogLevel.INFO, message, params)
 	
 	
 """
-Log message as WARN level. Should be used for messages pertaining to 
-receoverable problem situations encountered during system run.
+Log message as WARN level.
+Should be used for messages pertaining to receoverable problem 
+situations encountered during system run.
 """
 func warn(message: String, params: Array = []) -> void:
 	_log_at_level(LogLevel.WARN, message, params)
 	
 	
 """
-Log message as ERROR level. Should be used for messages pertaining to
-non-recoverable problmes and system faults that reuqire immediate attention.
-By default will break execution flow
+Log message as ERROR level. 
+Should be used for messages pertaining to non-recoverable problems and
+system faults that reuqire immediate attention. 
+By default will break execution flow in debugger.
 """	
 func error(message: String, params: Array = [], break_here: bool = true) -> void:
 	_log_at_level(LogLevel.ERROR, message, params)
