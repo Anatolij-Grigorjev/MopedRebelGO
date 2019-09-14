@@ -18,7 +18,7 @@ extents = Vector2( 256, 56 )
 
 [sub_resource type="Animation" id=4]
 resource_name = "swerve_down"
-length = 0.25
+length = 0.2
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rotation_degrees")
@@ -27,7 +27,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.25 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 0.0, 5.0 ]
@@ -39,7 +39,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.25 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0.36, 0.36 ), Vector2( 0.3, 0.36 ) ]
@@ -92,11 +92,15 @@ shape = SubResource( 1 )
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2( 300, -150 )
 current = true
+limit_top = -600
+limit_bottom = 120
 drag_margin_left = 0.0
-drag_margin_top = 0.0
+drag_margin_top = 1.0
 drag_margin_right = 0.0
-drag_margin_bottom = 0.0
+drag_margin_bottom = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/swerve_down = SubResource( 4 )
 anims/swerve_up = SubResource( 3 )
+
+[node name="SwerveTween" type="Tween" parent="."]
