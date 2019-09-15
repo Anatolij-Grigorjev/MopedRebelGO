@@ -29,6 +29,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://rebel/moped_rebel.gd"
 }, {
+"base": "Area2D",
+"class": "ObstacleDetector",
+"language": "GDScript",
+"path": "res://rebel/obstacle_detector.gd"
+}, {
+"base": "Area2D",
+"class": "RoadBlock",
+"language": "GDScript",
+"path": "res://obstacles/roadblocks/roadblock.gd"
+}, {
 "base": "Node2D",
 "class": "StageControl",
 "language": "GDScript",
@@ -39,6 +49,8 @@ _global_script_class_icons={
 "Helpers": "",
 "Logger": "",
 "MopedRebel": "",
+"ObstacleDetector": "",
+"RoadBlock": "",
 "StageControl": ""
 }
 
@@ -76,6 +88,11 @@ swerve_down={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"unicode":0,"echo":false,"script":null)
  ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="physical"
+2d_physics/layer_2="obstacles"
 
 [rendering]
 

@@ -22,7 +22,8 @@ export(Vector2) var velocity := Vector2(CRUISE_SPEED, 0)
 onready var animator := $AnimationPlayer
 onready var LOG : Logger = Logger.new(self)
 onready var swerve_tween := $SwerveTween
-onready var _netural_transform: Dictionary = {
+onready var pushback_tween := $PushbackTween
+onready var _neutral_transform: Dictionary = {
 	'rotation': self.rotation_degrees,
 	'scale': self.scale
 }
@@ -30,7 +31,9 @@ onready var _netural_transform: Dictionary = {
 
 var _is_swerving: bool = false 
 
+
 func _ready() -> void:
+	$ObstacleDetect.connect("hit_obstacle", self, "_on_ObstacleDetector_hit_obstacle")
 	pass
 
 
@@ -94,7 +97,23 @@ func _prep_tween_swerve(direction: int, offset_amount: int) -> void:
 		C.MR_SWERVE_DURATION_SEC, 
 		Tween.TRANS_LINEAR, Tween.EASE_OUT
 	)
-	
+
+
+"""
+Setup and start tween required to push back rebel from current
+position by force of road obstacle
+"""
+func _prep_start_tween_pushback() -> void:
+	var final_position := global_position - Vector2(C.MR_OBSTACLE_PUSHBACK_AMOUNT, 0)
+	pushback_tween.remove_all()
+	pushback_tween.interpolate_property(
+		self, 'global_position', 
+		global_position, final_position,
+		C.MR_OBSTACLE_PUSHBACK_DURATION_SEC, 
+		Tween.TRANS_LINEAR, Tween.EASE_OUT
+	)
+	pushback_tween.start()
+
 
 """
 Reset the rotation and scale of the rebel to its original values
@@ -107,7 +126,15 @@ func _reset_transform() -> void:
 		
 	LOG.debug("Got rot/scale: {}/{}, change to {}/{}", 
 		[self.rotation_degrees, self.scale,
-		_netural_transform.rotation, _netural_transform.scale]
+		_neutral_transform.rotation, _neutral_transform.scale]
 	)
-	self.rotation_degrees = _netural_transform.rotation
-	self.scale = _netural_transform.scale
+	self.rotation_degrees = _neutral_transform.rotation
+	self.scale = _neutral_transform.scale
+	
+	
+func _on_ObstacleDetector_hit_obstacle(obstacle: Area2D) -> void:
+	velocity = Vector2()
+	animator.play("crash_obstacle")
+	yield(animator, "animation_finished")
+	velocity = Vector2(C.MR_CRUISE_SPEED, 0)
+	pass
