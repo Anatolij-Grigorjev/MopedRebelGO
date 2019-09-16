@@ -11,7 +11,7 @@ var Logger : Resource = preload("res://utils/logger.gd")
 
 
 const CRUISE_SPEED = C.MR_CRUISE_SPEED
-
+const MR_ACCELERATION : float = 5.6
 
 signal swerve_direction_pressed(swerve_direction)
 
@@ -23,6 +23,7 @@ onready var animator := $AnimationPlayer
 onready var LOG : Logger = Logger.new(self)
 onready var swerve_tween := $SwerveTween
 onready var pushback_tween := $PushbackTween
+onready var input := $InputProcessor
 onready var _neutral_transform: Dictionary = {
 	'rotation': self.rotation_degrees,
 	'scale': self.scale
@@ -38,14 +39,17 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	#get desired swerve direction 
-	#-1 for going up +1 for going down
-	var desired_swerve_direction := _process_swerve_input()
-	if desired_swerve_direction != 0:
-		emit_signal("swerve_direction_pressed", desired_swerve_direction)
-	
+	if (not _is_swerving):
+		#get desired swerve direction 
+		#-1 for going up +1 for going down
+		var desired_swerve_direction : int = input.process_swerve_input()
+		if desired_swerve_direction != 0:
+			emit_signal("swerve_direction_pressed", desired_swerve_direction)
+	var desired_speed_shift : int = input.process_speed_input()
+	if desired_speed_shift != 0:
+		velocity.x += sign(desired_speed_shift) * MR_ACCELERATION
 	move_and_slide(velocity)
-	pass
+
 	
 	
 """
@@ -69,19 +73,6 @@ func perform_swerve(swerve_direction: int, swerve_amount: int) -> void:
 	yield(swerve_tween, 'tween_all_completed')
 	_reset_transform()
 	_is_swerving = false
-	
-	
-func _process_swerve_input() -> int:
-	if (_is_swerving):
-		return 0
-	
-	var desired_swerve_direction := 0
-	if Input.is_action_pressed("swerve_up"):
-		desired_swerve_direction -= 1
-	if Input.is_action_pressed("swerve_down"):
-		desired_swerve_direction += 1
-	
-	return desired_swerve_direction
 
 
 """
@@ -130,8 +121,12 @@ func _reset_transform() -> void:
 	)
 	self.rotation_degrees = _neutral_transform.rotation
 	self.scale = _neutral_transform.scale
-	
-	
+
+
+"""
+get signal about detected obstacle ahead, 
+play crash animation and restore speed after crash over
+"""
 func _on_ObstacleDetector_hit_obstacle(obstacle: Area2D) -> void:
 	velocity = Vector2()
 	animator.play("crash_obstacle")
