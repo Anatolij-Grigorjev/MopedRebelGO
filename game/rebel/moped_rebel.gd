@@ -11,7 +11,7 @@ var Logger : Resource = preload("res://utils/logger.gd")
 
 
 const CRUISE_SPEED = C.MR_CRUISE_SPEED
-const MR_ACCELERATION : float = 5.6
+
 
 signal swerve_direction_pressed(swerve_direction)
 
@@ -31,6 +31,7 @@ onready var _neutral_transform: Dictionary = {
 
 
 var _is_swerving: bool = false 
+var _is_crashing: bool = false
 
 
 func _ready() -> void:
@@ -45,9 +46,6 @@ func _process(delta: float) -> void:
 		var desired_swerve_direction : int = input.process_swerve_input()
 		if desired_swerve_direction != 0:
 			emit_signal("swerve_direction_pressed", desired_swerve_direction)
-	var desired_speed_shift : int = input.process_speed_input()
-	if desired_speed_shift != 0:
-		velocity.x += sign(desired_speed_shift) * MR_ACCELERATION
 	move_and_slide(velocity)
 
 	
@@ -71,7 +69,9 @@ func perform_swerve(swerve_direction: int, swerve_amount: int) -> void:
 	_prep_tween_swerve(swerve_direction, swerve_amount)
 	swerve_tween.start()
 	yield(swerve_tween, 'tween_all_completed')
-	_reset_transform()
+	#if moped swerved into obstacle dont reset transform
+	if (not _is_crashing):
+		_reset_transform()
 	_is_swerving = false
 
 
@@ -128,8 +128,10 @@ get signal about detected obstacle ahead,
 play crash animation and restore speed after crash over
 """
 func _on_ObstacleDetector_hit_obstacle(obstacle: Area2D) -> void:
+	_is_crashing = true
 	velocity = Vector2()
 	animator.play("crash_obstacle")
 	yield(animator, "animation_finished")
 	velocity = Vector2(C.MR_CRUISE_SPEED, 0)
-	pass
+	_is_crashing = false
+	_reset_transform()

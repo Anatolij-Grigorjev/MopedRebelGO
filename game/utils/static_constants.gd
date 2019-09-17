@@ -16,7 +16,7 @@ via ingame files for easy in-place editing later
 """
 Leves range from 0 to 3 for DEBUG, INFO, WARN, ERROR respectively
 """
-const GAME_LOGGING_LEVEL: int = 1
+const GAME_LOGGING_LEVEL: int = 0
 """
 Group name denoting anything in-game that acts as an obstacle on the road
 An obstacle makes moped rebel crash and lose package
@@ -32,7 +32,7 @@ const GROUP_MR : String = "moped_rebel"
 *		MOPED REBEL			*
 *****************************
 """
-const MR_CRUISE_SPEED: float = 234.56
+const MR_CRUISE_SPEED: float = 334.56
 const MR_SWERVE_DURATION_SEC: float = 0.2
 const MR_OBSTACLE_PUSHBACK_DURATION_SEC: float = 0.3
 const MR_OBSTACLE_PUSHBACK_AMOUNT: float = 700.7

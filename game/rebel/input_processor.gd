@@ -10,14 +10,7 @@ func _ready() -> void:
 Collect current input about player desire to swerve (change tracks)
 """
 func process_swerve_input() -> int:
-	return _process_axis_inputs("swerve_up", "swerve_down")
-
-
-"""
-Collect current unput about player desire to change speed
-"""
-func process_speed_input() -> int:
-	return _process_axis_inputs("speed_up", "speed_down")
+	return _process_axis_inputs("swerve_down", "swerve_up")
 	
 
 func _process_axis_inputs(axis_plus_action: String, axis_minus_action: String) -> int:
