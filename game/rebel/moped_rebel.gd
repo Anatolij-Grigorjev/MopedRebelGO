@@ -40,7 +40,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if (not _is_swerving):
+	if (not _is_swerving
+		and not _is_crashing):
 		#get desired swerve direction 
 		#-1 for going up +1 for going down
 		var desired_swerve_direction : int = input.process_swerve_input()
@@ -124,7 +125,7 @@ func _reset_transform() -> void:
 
 
 """
-get signal about detected obstacle ahead, 
+Get signal about detected obstacle ahead, 
 play crash animation and restore speed after crash over
 """
 func _on_ObstacleDetector_hit_obstacle(obstacle: Area2D) -> void:
