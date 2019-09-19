@@ -39,6 +39,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://rebel/obstacle_detector.gd"
 }, {
+"base": "Node2D",
+"class": "PackagesBundle",
+"language": "GDScript",
+"path": "res://rebel/packages_bundle.gd"
+}, {
 "base": "Area2D",
 "class": "RoadBlock",
 "language": "GDScript",
@@ -56,6 +61,7 @@ _global_script_class_icons={
 "Logger": "",
 "MopedRebel": "",
 "ObstacleDetector": "",
+"PackagesBundle": "",
 "RoadBlock": "",
 "StageControl": ""
 }
