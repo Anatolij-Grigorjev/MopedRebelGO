@@ -50,3 +50,24 @@ func get_tilemap_global_bounds(tilemap: TileMap) -> Rect2:
 		#w/h vector
 		(lower_right_corner_pos - upper_left_corner_pos)
 	)
+	
+	
+"""
+Try assign new parent specified by target_parent as owner for 
+node child.
+If no parent specified or no child specified method is NOOP
+"""
+func reparent_node(child: Node2D, target_parent: Node2D, keep_global_pos: bool = true) -> Node:
+	if (not child or not target_parent):
+		return child
+	
+	var current_parent := child.get_parent()
+	var old_position : Vector2 = child.global_position
+	if (current_parent):
+		current_parent.remove_child(child)
+	target_parent.add_child(child)
+	child.set_owner(target_parent)
+	if (keep_global_pos):
+		child.global_position = old_position
+	
+	return child
