@@ -6,7 +6,8 @@ Controller class for individual static delivery package
 var Logger : Resource = preload("res://utils/logger.gd")
 
 
-onready var animator: AnimationPlayer = $Sprite/AnimationPlayer
+onready var LOG: Logger = Logger.new(self)
+onready var animator: AnimationPlayer = $AnimationPlayer
 
 
 func _ready() -> void:

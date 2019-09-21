@@ -79,7 +79,7 @@ func warn(message: String, params: Array = []) -> void:
 """
 Log message as ERROR level. 
 Should be used for messages pertaining to non-recoverable problems and
-system faults that reuqire immediate attention. 
+system faults that require immediate attention. 
 By default will break execution flow in debugger.
 """	
 func error(message: String, params: Array = [], break_here: bool = true) -> void:
@@ -103,7 +103,7 @@ func _log_at_level(level: int, message: String, params: Array) -> void:
 	var current_stack_frame : Dictionary = call_stack[stack_frame_idx]
 	var resolved_message: String = _resolve_message_params(message, params)
 	
-	var full_message : String = ("%s %s %s#%s:%s - %s"
+	var full_message : String = ("%s %s %s.%s:%s - %s"
 	% [
 		_format_datetime_dict(current_datetime), 
 		log_level_name, 

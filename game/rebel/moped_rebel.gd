@@ -36,6 +36,7 @@ var _is_crashing: bool = false
 
 func _ready() -> void:
 	$ObstacleDetect.connect("hit_obstacle", self, "_on_ObstacleDetector_hit_obstacle")
+	$AnimatedSprite/PackagesBundle.connect("delivery_package_thrown", self, "_on_PackagesBundle_delivery_package_thrown")
 	pass
 
 
@@ -136,3 +137,14 @@ func _on_ObstacleDetector_hit_obstacle(obstacle: Area2D) -> void:
 	velocity = Vector2(C.MR_CRUISE_SPEED, 0)
 	_is_crashing = false
 	_reset_transform()
+	
+
+"""
+Get signal about having lost a package after crashing into an obstacle
+param is number of packages still left on the moped
+"""
+func _on_PackagesBundle_delivery_package_thrown(remaining_packages: int) -> void:
+	LOG.info("packages left on moped: {}", [remaining_packages])
+	if (not remaining_packages):
+		LOG.error("!!!GAME OVER!!!")
+	pass

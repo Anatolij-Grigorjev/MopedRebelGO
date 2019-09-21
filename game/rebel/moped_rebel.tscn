@@ -170,6 +170,7 @@ script = ExtResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -210 )
 frames = SubResource( 2 )
+frame = 3
 playing = true
 
 [node name="PackagesBundle" parent="AnimatedSprite" instance=ExtResource( 6 )]

@@ -31,10 +31,15 @@ func _ready() -> void:
 func throw_top_package() -> void:
 	if (remaining_packages and _topmost_package):
 		remaining_packages = max(0, remaining_packages - 1)
-		F.reparent_node(_topmost_package, get_node("/root"))
-		#node reparent happens next frame, lets wait
+		LOG.debug("Throwing package {}, left: {}", [_topmost_package, remaining_packages])
+		var fly_package : DeliveryPackage = DeliveryPackage.instance()
+		fly_package.global_position = _topmost_package.global_position
+		fly_package.global_scale = _topmost_package.global_scale
+		get_tree().root.add_child(fly_package)
+		remove_child(_topmost_package)
+		#node configuration happens between frames, lets wait
 		yield(get_tree(), "idle_frame")
-		_topmost_package.do_flyoff()
+		fly_package.do_flyoff()
 		if (remaining_packages):
 			_topmost_package = get_child(0)
 	emit_signal("delivery_package_thrown", remaining_packages)
