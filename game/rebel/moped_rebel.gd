@@ -20,14 +20,11 @@ export(Vector2) var velocity := Vector2(CRUISE_SPEED, 0)
 
 
 onready var animator := $AnimationPlayer
+onready var sprite := $AnimatedSprite
 onready var LOG : Logger = Logger.new(self)
 onready var swerve_tween := $SwerveTween
 onready var pushback_tween := $PushbackTween
 onready var input := $InputProcessor
-onready var _neutral_transform: Dictionary = {
-	'rotation': self.rotation_degrees,
-	'scale': self.scale
-}
 
 
 var _is_swerving: bool = false 
@@ -73,7 +70,7 @@ func perform_swerve(swerve_direction: int, swerve_amount: int) -> void:
 	yield(swerve_tween, 'tween_all_completed')
 	#if moped swerved into obstacle dont reset transform
 	if (not _is_crashing):
-		_reset_transform()
+		_reset_sprite_transform()
 	_is_swerving = false
 
 
@@ -109,20 +106,20 @@ func _prep_start_tween_pushback() -> void:
 
 
 """
-Reset the rotation and scale of the rebel to its original values
+Reset the rotation and scale of the rebel sprite to its original values
 (after animations for example)
 """
-func _reset_transform() -> void:
+func _reset_sprite_transform() -> void:
 	#stop animations, if playing
 	if (animator.is_playing()):
 		animator.stop()
 		
-	LOG.debug("Got rot/scale: {}/{}, change to {}/{}", 
-		[self.rotation_degrees, self.scale,
-		_neutral_transform.rotation, _neutral_transform.scale]
+	LOG.debug("Got sprite rot/scale: {}/{}, reseting...", 
+		[sprite.rotation_degrees, sprite.scale]
 	)
-	self.rotation_degrees = _neutral_transform.rotation
-	self.scale = _neutral_transform.scale
+	#reset sprite
+	sprite.rotation_degrees = 0
+	sprite.scale = Vector2.ONE
 
 
 """
@@ -136,7 +133,7 @@ func _on_ObstacleDetector_hit_obstacle(obstacle: Area2D) -> void:
 	yield(animator, "animation_finished")
 	velocity = Vector2(C.MR_CRUISE_SPEED, 0)
 	_is_crashing = false
-	_reset_transform()
+	_reset_sprite_transform()
 	
 
 """
