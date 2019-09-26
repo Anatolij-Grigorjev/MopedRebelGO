@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://stages/stage_control.gd" type="Script" id=1]
 [ext_resource path="res://stages/tiles/diag_brown_white_metal.tres" type="TileSet" id=2]
 [ext_resource path="res://rebel/moped_rebel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://obstacles/roadblocks/tall/tall_roadblock.tscn" type="PackedScene" id=4]
+[ext_resource path="res://stages/non_regulation_track1.tscn" type="PackedScene" id=5]
+[ext_resource path="res://stages/non_regulation_track2.tscn" type="PackedScene" id=6]
+[ext_resource path="res://stages/non_regulation_track3.tscn" type="PackedScene" id=7]
 
 [node name="TestStage" type="Node2D"]
 script = ExtResource( 1 )
@@ -20,3 +23,21 @@ position = Vector2( 0, 50 )
 [node name="TallRoadblock" parent="." instance=ExtResource( 4 )]
 position = Vector2( 1300, 62 )
 scale = Vector2( 0.5, 0.5 )
+
+[node name="NonRegulationTrack1" parent="." instance=ExtResource( 5 )]
+position = Vector2( 753.979, 45.7332 )
+
+[node name="NonRegulationTrack2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 1145.8, -49.4413 )
+
+[node name="NonRegulationTrack3" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1747.87, 46.9692 )
+
+[node name="NonRegulationTrack4" parent="." instance=ExtResource( 6 )]
+position = Vector2( 2351.05, 48.2052 )
+
+[node name="NonRegulationTrack5" parent="." instance=ExtResource( 7 )]
+position = Vector2( 3136.05, -51.9134 )
+
+[node name="NonRegulationTrack6" parent="." instance=ExtResource( 7 )]
+position = Vector2( 3949.36, 50.6773 )

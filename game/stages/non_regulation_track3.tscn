@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://stages/non_regulation_track_base.tscn" type="PackedScene" id=1]
+[ext_resource path="res://stages/tile_light_texture.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 300, 50 )
+
+[node name="NonRegulationTrack3" instance=ExtResource( 1 )]
+position = Vector2( -200, 0 )
+
+[node name="Tile2" type="Light2D" parent="Lights" index="1"]
+position = Vector2( 200, 0 )
+texture = ExtResource( 2 )
+
+[node name="Tile3" type="Light2D" parent="Lights" index="2"]
+position = Vector2( 400, 0 )
+texture = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="." index="1"]
+position = Vector2( 200, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource( 1 )

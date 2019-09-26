@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://stages/non_regulation_track.gd" type="Script" id=1]
+[ext_resource path="res://stages/tile_light_texture.png" type="Texture" id=2]
+
+[node name="NonRegulationTrackBase" type="Node2D"]
+script = ExtResource( 1 )
+track_regular_shine = Color( 0, 0, 1, 0.501961 )
+track_moped_shine = Color( 0, 1, 0, 0.501961 )
+
+[node name="Lights" type="Node2D" parent="."]
+
+[node name="Tile1" type="Light2D" parent="Lights"]
+texture = ExtResource( 2 )
