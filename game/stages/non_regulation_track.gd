@@ -12,8 +12,10 @@ var Logger : Resource = preload("res://utils/logger.gd")
 
 signal moped_traveled(distance)
 
+
 export(Color) var track_regular_shine : Color = Color.blue
 export(Color) var track_moped_shine : Color = Color.green
+
 
 onready var LOG: Logger = Logger.new(self)
 onready var lights_nodes : Array = $Lights.get_children()
@@ -21,6 +23,7 @@ onready var area: Area2D = $Area2D
 
 
 var _moped_enter_position : Vector2 = Vector2.ZERO
+
 
 func _ready() -> void:
 	_change_track_lights_to(track_regular_shine)
@@ -33,8 +36,7 @@ func _on_body_entered(body: PhysicsBody2D) -> void:
 	if (moped_rebel):
 		_moped_enter_position = moped_rebel.global_position
 		_change_track_lights_to(track_moped_shine)
-	pass
-	
+
 
 func _on_body_exited(body: PhysicsBody2D) -> void:
 	var moped_rebel := body as MopedRebel
@@ -45,7 +47,6 @@ func _on_body_exited(body: PhysicsBody2D) -> void:
 			LOG.info("moped traveled {}px on this track", [travel_distance])
 			_change_track_lights_to(track_regular_shine)
 			_moped_enter_position = Vector2.ZERO
-	pass
 	
 	
 func _change_track_lights_to(new_lights_color: Color) -> void:

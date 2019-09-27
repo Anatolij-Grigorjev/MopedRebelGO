@@ -26,18 +26,30 @@ scale = Vector2( 0.5, 0.5 )
 
 [node name="NonRegulationTrack1" parent="." instance=ExtResource( 5 )]
 position = Vector2( 753.979, 45.7332 )
+track_regular_shine = Color( 0, 0, 1, 0.501961 )
+track_moped_shine = Color( 0, 1, 0, 0.501961 )
 
 [node name="NonRegulationTrack2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 1145.8, -49.4413 )
+track_regular_shine = Color( 0, 0, 1, 0.501961 )
+track_moped_shine = Color( 0, 1, 0, 0.501961 )
 
 [node name="NonRegulationTrack3" parent="." instance=ExtResource( 6 )]
 position = Vector2( 1747.87, 46.9692 )
+track_regular_shine = Color( 0, 0, 1, 0.501961 )
+track_moped_shine = Color( 0, 1, 0, 0.501961 )
 
 [node name="NonRegulationTrack4" parent="." instance=ExtResource( 6 )]
 position = Vector2( 2351.05, 48.2052 )
+track_regular_shine = Color( 0, 0, 1, 0.501961 )
+track_moped_shine = Color( 0, 1, 0, 0.501961 )
 
 [node name="NonRegulationTrack5" parent="." instance=ExtResource( 7 )]
 position = Vector2( 3136.05, -51.9134 )
+track_regular_shine = Color( 0, 0, 1, 0.501961 )
+track_moped_shine = Color( 0, 1, 0, 0.501961 )
 
 [node name="NonRegulationTrack6" parent="." instance=ExtResource( 7 )]
 position = Vector2( 3949.36, 50.6773 )
+track_regular_shine = Color( 0, 0, 1, 0.501961 )
+track_moped_shine = Color( 0, 1, 0, 0.501961 )
