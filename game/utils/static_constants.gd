@@ -36,3 +36,29 @@ const MR_CRUISE_SPEED: float = 334.56
 const MR_SWERVE_DURATION_SEC: float = 0.2
 const MR_OBSTACLE_PUSHBACK_DURATION_SEC: float = 0.3
 const MR_OBSTACLE_PUSHBACK_AMOUNT: float = 700.7
+const MR_STREET_CRED_LEVELS : Array = [
+	{
+		"req_sc": 0,
+		"name": "Moped Nobody"
+	},
+	{
+		"req_sc": 1000,
+		"name": "Moped Kid"
+	},
+	{
+		"req_sc": 2000,
+		"name": "Moped Punk" 
+	},
+	{
+		"req_sc": 3000,
+		"name": "Moped Bro"
+	},
+	{
+		"req_sc": 4000,
+		"name": "Moped Dude"
+	},
+	{
+		"req_sc": 5000,
+		"name": "Moped Rebel"
+	}
+]

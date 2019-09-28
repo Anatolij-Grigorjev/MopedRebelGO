@@ -12,8 +12,10 @@ onready var moped_rebel: MopedRebel = $MopedRebel
 onready var LOG: Logger = Logger.new(self)
 onready var F : Helpers = get_node("/root/F")
 
+
 export(int) var num_stage_tracks := 5
 export(int) var current_moped_track := 3
+
 
 var _upper_tracks_pos : Vector2
 

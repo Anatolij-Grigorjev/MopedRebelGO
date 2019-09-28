@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://rebel/delivery_package.gd"
 }, {
 "base": "Node",
+"class": "GameState",
+"language": "GDScript",
+"path": "res://utils/game_state.gd"
+}, {
+"base": "Node",
 "class": "Helpers",
 "language": "GDScript",
 "path": "res://utils/static_helpers.gd"
@@ -63,10 +68,16 @@ _global_script_classes=[ {
 "class": "StageControl",
 "language": "GDScript",
 "path": "res://stages/stage_control.gd"
+}, {
+"base": "ProgressBar",
+"class": "StreetCredProgressBar",
+"language": "GDScript",
+"path": "res://gui/street_cred_progress_bar.gd"
 } ]
 _global_script_class_icons={
 "C": "",
 "DeliveryPackage": "",
+"GameState": "",
 "Helpers": "",
 "InputProcessor": "",
 "Logger": "",
@@ -75,7 +86,8 @@ _global_script_class_icons={
 "ObstacleDetector": "",
 "PackagesBundle": "",
 "RoadBlock": "",
-"StageControl": ""
+"StageControl": "",
+"StreetCredProgressBar": ""
 }
 
 [application]
@@ -88,6 +100,7 @@ config/quit_on_go_back=false
 [autoload]
 
 F="*res://utils/static_helpers.gd"
+G="*res://utils/game_state.gd"
 
 [debug]
 

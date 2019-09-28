@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://gui/street_cred_progress_bar.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.839216, 0.886275, 0.0431373, 1 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 3
+border_width_bottom = 5
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="StreetCredProgressBar" type="ProgressBar"]
+margin_left = -274.213
+margin_top = 274.13
+margin_right = 325.787
+margin_bottom = 324.13
+rect_rotation = 270.0
+rect_pivot_offset = Vector2( 300, 25 )
+custom_styles/fg = SubResource( 1 )
+custom_styles/bg = SubResource( 2 )
+value = 15.0
+percent_visible = false
+script = ExtResource( 1 )
+
+[node name="SCLabel" type="Label" parent="."]
+margin_left = 40.0
+margin_right = 90.0
+margin_bottom = 50.0
+rect_rotation = 90.0
+rect_pivot_offset = Vector2( 25, 25 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "SC"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="BarGrower" type="Tween" parent="."]
