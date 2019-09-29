@@ -8,6 +8,7 @@ Street bar growth happens alongside SC label slide upwards. SC label should alwa
 remain just inside prgress bar progress section, (unless at bar bottom)
 """
 var Logger : Resource = preload("res://utils/logger.gd")
+var LevelUpText : Resource = preload("res://gui/level_up_text.tscn")
 
 
 const PROGRESS_ALTER_VELOCITY_SEC = 0.5
@@ -17,26 +18,42 @@ onready var State : GameState = get_node("/root/G")
 onready var LOG: Logger = Logger.new(self)
 onready var sc_label : Label = $SCLabel
 onready var tween : Tween = $BarGrower 
+onready var animator : AnimationPlayer = $AnimationPlayer
 
 
 var _progress_value_nodepath : NodePath = NodePath(":value")
+onready var _bar_custom_fg_handle : StyleBoxFlat = get("custom_styles/fg")
+onready var _original_bar_color: Color = _bar_custom_fg_handle.bg_color
+
 
 func _process(delta: float) -> void:
 	if (Input.is_key_pressed(KEY_SPACE)):
 		var new_value : float = randf() * max_value
 		grow_progress_local(new_value)
+	if (Input.is_key_pressed(KEY_K)):
+		var new_text : String = C.MR_STREET_CRED_LEVELS[randi() % 6].name
+		var new_value := max_value + randf() * max_value
+		grow_progress_next_level(new_value, max_value, max_value * 2, new_text)
 
 
 func _ready():
 	if (State):
 		var prev_sc_level : Dictionary = C.MR_STREET_CRED_LEVELS[State.next_street_cred_level_idx - 1]
 		var next_sc_level : Dictionary = C.MR_STREET_CRED_LEVELS[State.next_street_cred_level_idx]
-		self.min_value = prev_sc_level.req_sc
-		self.max_value = next_sc_level.req_sc
-		self.value = State.current_street_scred
-
+		_set_current_progress_ranges(
+			State.current_street_scred,
+			prev_sc_level.req_sc,
+			next_sc_level.req_sc
+		)
+		
 	sc_label.rect_position = _get_label_position_current_progress()
 	tween.connect("tween_step", self, "_on_tween_step")
+	
+	
+func _set_current_progress_ranges(curr_value: int, min_value: int, max_value: int) -> void:
+	self.min_value = min_value
+	self.max_value = max_value
+	self.value = curr_value
 
 
 func _on_tween_step(source: Object, prop_path: NodePath, elapsed: float, value: Object) -> void:
@@ -46,6 +63,10 @@ func _on_tween_step(source: Object, prop_path: NodePath, elapsed: float, value: 
 		sc_label.rect_position = new_rect_pos
 
 
+"""
+Get the correct placement position for the SC label rect in terms of
+progress bar height
+"""
 func _get_label_position_current_progress() -> Vector2:
 	var label_size := sc_label.rect_size
 	var fullness_coef : float = value / max_value
@@ -57,12 +78,56 @@ func _get_label_position_current_progress() -> Vector2:
 		return Vector2(new_label_height, 0)
 	
 	
+"""
+Perform change in amount of progress in progress bar, local to the 
+current progress ranges min-max
+If an out of range change in progress is attempted, an out of bounds
+error is thrown
+Performs required bar animations during value change
+"""	
 func grow_progress_local(new_progress: int) -> void:
 	if (new_progress > max_value):
 		LOG.error("Want to grow progress {} above current max {}, use 'grow_progress_next_level'!", 
 			[new_progress, max_value]
 		)
+	#cant go below allowed in current level
+	if (new_progress < min_value):
+		new_progress = min_value
+	
+	var old_value := value
 	_prepare_and_start_tween(new_progress)
+	if (old_value > new_progress):
+		animator.play("bar_reduce_flicker")
+	else:
+		animator.play("bar_rise_flicker")
+	yield(tween, "tween_all_completed")
+	animator.stop(true)
+	_bar_custom_fg_handle.bg_color = _original_bar_color
+
+
+"""
+Perform progress bar growth across bar threshold. This involves looping
+the bar around and using new ranges to change it. 
+Performs required animations for value changes and 
+generates text based on levelup
+"""
+func grow_progress_next_level(new_progress: int, 
+								new_min: int, 
+								new_max: int, 
+								level_up_text: String
+) -> void:
+	var prev_progress_max := max_value
+	#grow current progress to end
+	grow_progress_local(prev_progress_max)
+	#create a happy label thing
+	var level_up_node : Node2D = LevelUpText.instance()
+	level_up_node.get_node("LevelText").text = level_up_text
+	level_up_node.global_position = self.rect_position
+	add_child(level_up_node)
+	#change current bar
+	_set_current_progress_ranges(prev_progress_max, new_min, new_max)
+	#do rest of growth
+	grow_progress_local(new_progress - prev_progress_max)
 
 
 func _prepare_and_start_tween(new_progress: int) -> void:
@@ -70,7 +135,7 @@ func _prepare_and_start_tween(new_progress: int) -> void:
 	var progress_alter_distance = abs(value - new_progress)
 	var progress_alter_relative = progress_alter_distance / max_value
 	var alter_time_secs = progress_alter_relative / PROGRESS_ALTER_VELOCITY_SEC
-	LOG.info("altering {} to {}, which is {}({}), in {} seconds", [
+	LOG.debug("altering {} to {}, which is {}({}), in {} seconds", [
 		value, new_progress, 
 		progress_alter_distance, progress_alter_relative, 
 		alter_time_secs
