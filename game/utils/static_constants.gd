@@ -16,7 +16,7 @@ via ingame files for easy in-place editing later
 """
 Leves range from 0 to 3 for DEBUG, INFO, WARN, ERROR respectively
 """
-const GAME_LOGGING_LEVEL: int = 0
+const GAME_LOGGING_LEVEL: int = 1
 """
 Group name denoting anything in-game that acts as an obstacle on the road
 An obstacle makes moped rebel crash and lose package

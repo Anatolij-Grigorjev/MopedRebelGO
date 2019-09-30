@@ -71,3 +71,15 @@ func reparent_node(child: Node2D, target_parent: Node2D, keep_global_pos: bool =
 		child.global_position = old_position
 	
 	return child
+	
+	
+"""
+Returns a vector with coordinates swapped with respect to input vector
+So for a given passed Vector2(x,y) will return Vector2(y,x)
+Returns null for null input
+"""
+func swap_vector(input: Vector2) -> Vector2:
+	#if null or zero then return same
+	if (not input):
+		return input
+	return Vector2(input.y, input.x)

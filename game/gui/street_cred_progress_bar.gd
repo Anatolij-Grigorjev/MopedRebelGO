@@ -15,6 +15,7 @@ const PROGRESS_ALTER_VELOCITY_SEC = 0.5
 
 
 onready var State : GameState = get_node("/root/G")
+onready var Utils : Helpers = get_node("/root/F") 
 onready var LOG: Logger = Logger.new(self)
 onready var sc_label : Label = $SCLabel
 onready var tween : Tween = $BarGrower 
@@ -24,15 +25,18 @@ onready var animator : AnimationPlayer = $AnimationPlayer
 var _progress_value_nodepath : NodePath = NodePath(":value")
 onready var _bar_custom_fg_handle : StyleBoxFlat = get("custom_styles/fg")
 onready var _original_bar_color: Color = _bar_custom_fg_handle.bg_color
+onready var _label_size : Vector2 = sc_label.rect_size
 
 
 func _process(delta: float) -> void:
-	if (Input.is_key_pressed(KEY_SPACE)):
-		var new_value : float = randf() * max_value
+	if (Input.is_action_just_pressed("debug1")):
+		var new_value : float = min_value + randf() * (max_value - min_value)
+		LOG.debug("set new bar value {}", [new_value])
 		grow_progress_local(new_value)
-	if (Input.is_key_pressed(KEY_K)):
+	if (Input.is_action_just_pressed("debug2")):
 		var new_text : String = C.MR_STREET_CRED_LEVELS[randi() % 6].name
-		var new_value := max_value + randf() * max_value
+		var new_value : int = max_value + randf() * max_value
+		LOG.debug("set new bar value {}", [new_value])
 		grow_progress_next_level(new_value, max_value, max_value * 2, new_text)
 
 
@@ -54,6 +58,7 @@ func _set_current_progress_ranges(curr_value: int, min_value: int, max_value: in
 	self.min_value = min_value
 	self.max_value = max_value
 	self.value = curr_value
+	LOG.debug("Set bar [{};{}] with value {}/{}", [min_value, max_value, value, max_value])
 
 
 func _on_tween_step(source: Object, prop_path: NodePath, elapsed: float, value: Object) -> void:
@@ -68,10 +73,16 @@ Get the correct placement position for the SC label rect in terms of
 progress bar height
 """
 func _get_label_position_current_progress() -> Vector2:
-	var label_size := sc_label.rect_size
-	var fullness_coef : float = value / max_value
+	var fullness_coef : float = (value - min_value) / (max_value - min_value)
 	var bar_top_pos : float = rect_size.x * fullness_coef
-	var new_label_height :float = bar_top_pos - label_size.x
+	var new_label_height :float = bar_top_pos - _label_size.x
+	LOG.debug("value: {}/{}, fullness: {}, bar top: {}, label_pos: {}", [
+			value, 
+			max_value, 
+			fullness_coef, 
+			bar_top_pos, 
+			new_label_height
+	])
 	if (new_label_height <= 0):
 		return Vector2.ZERO
 	else:
@@ -120,14 +131,16 @@ func grow_progress_next_level(new_progress: int,
 	#grow current progress to end
 	grow_progress_local(prev_progress_max)
 	#create a happy label thing
-	var level_up_node : Node2D = LevelUpText.instance()
-	level_up_node.get_node("LevelText").text = level_up_text
-	level_up_node.global_position = self.rect_position
+	var level_up_node : Control = LevelUpText.instance()
+	var level_up_node_label_node : Label = level_up_node.get_node("LevelText")
+	level_up_node_label_node.text = level_up_text
+	level_up_node.rect_rotation = 90
+	level_up_node.rect_position = rect_size + Vector2(level_up_node_label_node.rect_size.y, 0)
 	add_child(level_up_node)
 	#change current bar
 	_set_current_progress_ranges(prev_progress_max, new_min, new_max)
 	#do rest of growth
-	grow_progress_local(new_progress - prev_progress_max)
+	grow_progress_local(new_progress)
 
 
 func _prepare_and_start_tween(new_progress: int) -> void:
