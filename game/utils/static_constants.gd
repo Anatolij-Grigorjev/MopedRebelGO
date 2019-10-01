@@ -16,7 +16,7 @@ via ingame files for easy in-place editing later
 """
 Leves range from 0 to 3 for DEBUG, INFO, WARN, ERROR respectively
 """
-const GAME_LOGGING_LEVEL: int = 1
+const GAME_LOGGING_LEVEL : int = 1
 """
 Group name denoting anything in-game that acts as an obstacle on the road
 An obstacle makes moped rebel crash and lose package
@@ -32,29 +32,35 @@ const GROUP_MR : String = "moped_rebel"
 *		MOPED REBEL			*
 *****************************
 """
-const MR_CRUISE_SPEED: float = 334.56
-const MR_SWERVE_DURATION_SEC: float = 0.2
-const MR_OBSTACLE_PUSHBACK_DURATION_SEC: float = 0.3
-const MR_OBSTACLE_PUSHBACK_AMOUNT: float = 700.7
+const MR_CRUISE_SPEED : float = 334.56
+const MR_SWERVE_DURATION_SEC : float = 0.2
+const MR_OBSTACLE_PUSHBACK_DURATION_SEC : float = 0.3
+const MR_OBSTACLE_PUSHBACK_AMOUNT : float = 700.7
+const MR_SC_PER_TRACK_UNIT : float = 0.75
 const MR_STREET_CRED_LEVELS : Array = [
 	{
 		"req_sc": 0,
+		"level_sc": 1000,
 		"name": "Moped Nobody"
 	},
 	{
 		"req_sc": 1000,
+		"level_sc": 2000,
 		"name": "Moped Kid"
 	},
 	{
 		"req_sc": 2000,
+		"level_sc": 3000,
 		"name": "Moped Punk" 
 	},
 	{
 		"req_sc": 3000,
+		"level_sc": 4000,
 		"name": "Moped Bro"
 	},
 	{
 		"req_sc": 4000,
+		"level_sc": 5000,
 		"name": "Moped Dude"
 	},
 	{

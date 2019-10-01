@@ -135,7 +135,7 @@ func grow_progress_next_level(new_progress: int,
 	var level_up_node_label_node : Label = level_up_node.get_node("LevelText")
 	level_up_node_label_node.text = level_up_text
 	level_up_node.rect_rotation = 90
-	level_up_node.rect_position = rect_size + Vector2(level_up_node_label_node.rect_size.y, 0)
+	level_up_node.rect_position = rect_size
 	add_child(level_up_node)
 	#change current bar
 	_set_current_progress_ranges(prev_progress_max, new_min, new_max)
