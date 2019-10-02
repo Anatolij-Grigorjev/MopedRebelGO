@@ -24,7 +24,9 @@ onready var animator : AnimationPlayer = $AnimationPlayer
 
 var _progress_value_nodepath : NodePath = NodePath(":value")
 onready var _bar_custom_fg_handle : StyleBoxFlat = get("custom_styles/fg")
-onready var _original_bar_color: Color = _bar_custom_fg_handle.bg_color
+onready var _bar_custom_bg_handle : StyleBoxFlat = get("custom_styles/bg")
+onready var _initial_bar_color: Color = _bar_custom_fg_handle.bg_color
+onready var _initial_bar_bg_border_color : Color = _bar_custom_bg_handle.border_color
 onready var _label_size : Vector2 = sc_label.rect_size
 
 
@@ -113,8 +115,8 @@ func grow_progress_local(new_progress: int) -> void:
 		animator.play("bar_rise_flicker")
 	yield(tween, "tween_all_completed")
 	animator.stop(true)
-	_bar_custom_fg_handle.bg_color = _original_bar_color
-
+	_bar_custom_fg_handle.bg_color = _initial_bar_color
+	_bar_custom_bg_handle.border_color = _initial_bar_bg_border_color
 
 """
 Perform progress bar growth across bar threshold. This involves looping
@@ -129,7 +131,7 @@ func grow_progress_next_level(new_progress: int,
 ) -> void:
 	var prev_progress_max := max_value
 	#grow current progress to end
-	grow_progress_local(prev_progress_max)
+	yield(grow_progress_local(prev_progress_max), "completed")
 	#create a happy label thing
 	var level_up_node : Control = LevelUpText.instance()
 	var level_up_node_label_node : Label = level_up_node.get_node("LevelText")

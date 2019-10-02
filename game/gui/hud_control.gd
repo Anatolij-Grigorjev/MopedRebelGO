@@ -14,10 +14,16 @@ onready var Utils : Helpers = get_node("/root/F")
 onready var LOG : Logger = Logger.new(self)
 onready var sc_progress : StreetCredProgressBar = $StreetCredProgressBar
 onready var stage_progress : ProgressBar = $StageProgress
+onready var current_sc_label : Label = $CurrentSCLabel
 
 
 func _ready():
+	_update_sc_label()
 	pass # Replace with function body.
+	
+	
+func _update_sc_label() -> void:
+	current_sc_label.text = str(State.current_street_scred)
 	
 	
 func set_stage_size(stage_length: float, current_pos: float) -> void:
@@ -49,9 +55,8 @@ func add_sc_points(amount: int) -> void:
 			)
 	else:
 		sc_progress.grow_progress_local(new_total)
-		
 	State.current_street_scred = new_total
-	
+	_update_sc_label()
 
 func set_stage_progress(distance_covered: float) -> void:
 	stage_progress.value = distance_covered
