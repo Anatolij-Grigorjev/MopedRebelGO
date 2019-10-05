@@ -33,20 +33,19 @@ func _ready() -> void:
 	
 func _on_body_entered(body: PhysicsBody2D) -> void:
 	var moped_rebel := body as MopedRebel
-	if (moped_rebel):
+	if (moped_rebel and not moped_rebel._is_crashing):
 		_moped_enter_position = moped_rebel.global_position
 		_change_track_lights_to(track_moped_shine)
 
 
 func _on_body_exited(body: PhysicsBody2D) -> void:
 	var moped_rebel := body as MopedRebel
-	if (moped_rebel):
-		if (_moped_enter_position):
-			var travel_distance : float = moped_rebel.global_position.x - _moped_enter_position.x
-			emit_signal("moped_traveled", travel_distance)
-			LOG.info("moped traveled {}px on this track", [travel_distance])
-			_change_track_lights_to(track_regular_shine)
-			_moped_enter_position = Vector2.ZERO
+	if (moped_rebel and _moped_enter_position):
+		var travel_distance : float = moped_rebel.global_position.x - _moped_enter_position.x
+		emit_signal("moped_traveled", travel_distance)
+		LOG.info("moped traveled {}px on this track", [travel_distance])
+		_change_track_lights_to(track_regular_shine)
+		_moped_enter_position = Vector2.ZERO
 	
 	
 func _change_track_lights_to(new_lights_color: Color) -> void:
