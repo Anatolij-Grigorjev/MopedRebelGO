@@ -11,7 +11,6 @@ var Logger : Resource = preload("res://utils/logger.gd")
 onready var moped_rebel: MopedRebel = $MopedRebel
 onready var LOG: Logger = Logger.new(self)
 onready var State : GameState = get_node("/root/G")
-onready var F : Helpers = get_node("/root/F")
 onready var HUD: HUDController = $CanvasLayer/HUD
 
 
@@ -24,7 +23,7 @@ var _upper_tracks_pos : Vector2
 
 func _ready() -> void:
 	moped_rebel.connect('swerve_direction_pressed', self, '_on_MopedRebel_swerve_direction_pressed')
-	var tracks_bounds := F.get_tilemap_global_bounds($Road)
+	var tracks_bounds := Helpers.get_tilemap_global_bounds($Road)
 	LOG.info("Tilemap bounds: {}", [tracks_bounds])
 	var moped_tracks_offset : int = ($Road.get_cell_size().y) * current_moped_track
 	moped_rebel.global_position.y = tracks_bounds.position.y + moped_tracks_offset

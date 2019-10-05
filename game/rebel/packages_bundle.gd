@@ -16,7 +16,6 @@ signal delivery_package_thrown(remaining_packages)
 
 
 onready var LOG: Logger = Logger.new(self)
-onready var F : Helpers = get_node("/root/F")
 onready var remaining_packages : int = get_child_count()
 
 

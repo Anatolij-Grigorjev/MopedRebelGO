@@ -26,6 +26,14 @@ const GROUP_OBSTACLES : String = "obstacle"
 Group for moped rebel himself
 """
 const GROUP_MR : String = "moped_rebel"
+"""
+Types of obstacles present on the road 
+(the kinds HUD makes warnings about)
+"""
+enum ObstacleTypes {
+	ROADBLOCK,
+	CITIZEN
+}
 
 """
 *****************************

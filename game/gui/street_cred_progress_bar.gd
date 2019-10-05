@@ -15,7 +15,6 @@ const PROGRESS_ALTER_VELOCITY_SEC = 0.5
 
 
 onready var State : GameState = get_node("/root/G")
-onready var Utils : Helpers = get_node("/root/F") 
 onready var LOG: Logger = Logger.new(self)
 onready var sc_label : Label = $SCLabel
 onready var tween : Tween = $BarGrower 

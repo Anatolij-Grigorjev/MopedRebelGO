@@ -29,7 +29,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://gui/hud_control.gd"
 }, {
-"base": "Node",
+"base": "Reference",
 "class": "Helpers",
 "language": "GDScript",
 "path": "res://utils/static_helpers.gd"
@@ -105,7 +105,6 @@ config/quit_on_go_back=false
 
 [autoload]
 
-F="*res://utils/static_helpers.gd"
 G="*res://utils/game_state.gd"
 
 [debug]

@@ -1,4 +1,3 @@
-extends Node
 class_name Helpers
 """
 Library of static helper functions for system-wide calculations and logic
@@ -10,7 +9,7 @@ that doesnt belong in dedicated scene controllers.
 Calculate the global bounding rectangle for the given tilemap.
 If supplied null/empty map returns empty Rect
 """
-func get_tilemap_global_bounds(tilemap: TileMap) -> Rect2:
+static func get_tilemap_global_bounds(tilemap: TileMap) -> Rect2:
 	if (not tilemap):
 		return Rect2()
 	
@@ -57,7 +56,7 @@ Try assign new parent specified by target_parent as owner for
 node child.
 If no parent specified or no child specified method is NOOP
 """
-func reparent_node(child: Node2D, target_parent: Node2D, keep_global_pos: bool = true) -> Node:
+static func reparent_node(child: Node2D, target_parent: Node2D, keep_global_pos: bool = true) -> Node:
 	if (not child or not target_parent):
 		return child
 	
@@ -78,7 +77,7 @@ Returns a vector with coordinates swapped with respect to input vector
 So for a given passed Vector2(x,y) will return Vector2(y,x)
 Returns null for null input
 """
-func swap_vector(input: Vector2) -> Vector2:
+static func swap_vector(input: Vector2) -> Vector2:
 	#if null or zero then return same
 	if (not input):
 		return input

@@ -5,8 +5,8 @@
 [ext_resource path="res://stages/non_regulation_track1.tscn" type="PackedScene" id=3]
 [ext_resource path="res://stages/non_regulation_track2.tscn" type="PackedScene" id=4]
 [ext_resource path="res://stages/non_regulation_track3.tscn" type="PackedScene" id=5]
-[ext_resource path="res://rebel/moped_rebel.tscn" type="PackedScene" id=6]
-[ext_resource path="res://obstacles/roadblocks/tall/tall_roadblock.tscn" type="PackedScene" id=7]
+[ext_resource path="res://obstacles/roadblocks/tall/tall_roadblock.tscn" type="PackedScene" id=6]
+[ext_resource path="res://rebel/moped_rebel.tscn" type="PackedScene" id=7]
 [ext_resource path="res://gui/HUD.tscn" type="PackedScene" id=8]
 
 [node name="TestStage" type="Node2D"]
@@ -39,12 +39,14 @@ position = Vector2( 3136.05, -51.9134 )
 [node name="NonRegulationTrack6" parent="NRT" instance=ExtResource( 5 )]
 position = Vector2( 3949.36, 50.6773 )
 
-[node name="MopedRebel" parent="." instance=ExtResource( 6 )]
-position = Vector2( 0, 50 )
+[node name="Obstacles" type="Node2D" parent="."]
 
-[node name="TallRoadblock" parent="." instance=ExtResource( 7 )]
+[node name="TallRoadblock" parent="Obstacles" instance=ExtResource( 6 )]
 position = Vector2( 1300, 62 )
 scale = Vector2( 0.5, 0.5 )
+
+[node name="MopedRebel" parent="." instance=ExtResource( 7 )]
+position = Vector2( 0, 50 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 5
