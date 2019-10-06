@@ -37,17 +37,18 @@ var _track_idx_icon_positions := []
 
 func _ready():
 	_update_sc_label()
-	pass # Replace with function body.
+	pass
 	
 	
 func _update_sc_label() -> void:
 	current_sc_label.text = str(State.current_street_scred)
 	
 	
-func set_stage_size(stage_length: float, current_pos: float) -> void:
+func set_stage_metadata(stage_length: float, current_pos: float, track_positions: Array) -> void:
 	stage_progress.min_value = 0
 	stage_progress.max_value = stage_length
 	stage_progress.value = current_pos
+	_track_idx_icon_positions = Array(track_positions)
 
 
 func add_sc_points(amount: int) -> void:

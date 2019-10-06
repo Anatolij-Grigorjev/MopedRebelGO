@@ -18,23 +18,61 @@ export(int) var num_stage_tracks := 5
 export(int) var current_moped_track := 3
 
 
-var _upper_tracks_pos : Vector2
+var _sorted_obstacle_positions_by_track := []
+onready var _tile_height: int = $Road.get_cell_size().y
+onready var _tracks_bounds := Helpers.get_tilemap_global_bounds($Road)
+onready var _track0_position := _tracks_bounds.position.y
 
 
 func _ready() -> void:
+	#setup moped position
 	moped_rebel.connect('swerve_direction_pressed', self, '_on_MopedRebel_swerve_direction_pressed')
-	var tracks_bounds := Helpers.get_tilemap_global_bounds($Road)
-	LOG.info("Tilemap bounds: {}", [tracks_bounds])
-	var moped_tracks_offset : int = ($Road.get_cell_size().y) * current_moped_track
-	moped_rebel.global_position.y = tracks_bounds.position.y + moped_tracks_offset
+	var moped_tracks_offset : int = _tile_height * current_moped_track
+	moped_rebel.global_position.y = _track0_position + moped_tracks_offset
+	
+	#setup track positions for HUD warnings
+	_ready_bounds_indices_for_HUD()
+	
+	#setup NRT signals
+	_ready_NRT_for_moped()
+	
+	#setup obstacle positions lines
+	_ready_sorted_obstacle_positions()
+			
+	#logging
+	LOG.info("Tilemap bounds: {}", [_tracks_bounds])
 	LOG.info("Moped tracks position: {}", [moped_rebel.global_position])
-	HUD.set_stage_size(tracks_bounds.size.x, moped_rebel.global_position.x)
+	for idx in _sorted_obstacle_positions_by_track:
+		LOG.info("For track {} got {} obstacles!", [idx, _sorted_obstacle_positions_by_track[idx].size()])
+
+
+func _ready_bounds_indices_for_HUD() -> void:
+	var track_positions : Array = []
+	for track_idx in range(num_stage_tracks):
+		track_positions.append(_track0_position + track_idx * _tile_height)
+	HUD.set_stage_metadata(_tracks_bounds.size.x, moped_rebel.global_position.x, track_positions)
+
+
+func _ready_NRT_for_moped() -> void:
 	for nrt_segment in $NRT.get_children():
-		nrt_segment.connect("moped_traveled", self, "_on_NRT_moped_traveled")
+		nrt_segment.connect("moped_traveled", self, "_on_NRT_moped_traveled")		
+
+
+func _ready_sorted_obstacle_positions() -> void:
+	for idx in range(num_stage_tracks):
+		_sorted_obstacle_positions_by_track[idx] = []
+	for elem in $Obstacles.get_children():
+		var obstacle_track_idx : int = (elem.global_position.y - _track0_position) / num_stage_tracks
+		_sorted_obstacle_positions_by_track[obstacle_track_idx].append(elem.global_position)
+	for idx in range(_sorted_obstacle_positions_by_track.size()):
+		var positions_list : Array = _sorted_obstacle_positions_by_track[idx]
+		positions_list.sort_custom(Helpers, "sort_positions_x")
 
 
 func _process(delta: float) -> void:
 	HUD.set_stage_progress(moped_rebel.global_position.x)
+	#TODO: build map of upcoming obstacle on each track idx for moped based
+	#on currentle covered distance
 	pass
 	
 	

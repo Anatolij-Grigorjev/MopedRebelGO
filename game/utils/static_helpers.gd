@@ -82,3 +82,11 @@ static func swap_vector(input: Vector2) -> Vector2:
 	if (not input):
 		return input
 	return Vector2(input.y, input.x)
+	
+
+"""
+Custom sorter to sort vectors by first coordinate. Used to determine
+proximate moped obstacles
+"""
+static func sort_positions_x(pos1: Vector2, pos2: Vector2) -> bool:
+	return pos1.x < pos2.x
