@@ -13,6 +13,8 @@ Range in which moped should see warning icons about upcoming obstacles
 const MIN_WARNING_ICON_DISTANCE = 1000.0
 const MAX_WARNING_ICON_DISTANCE = 3000.0
 
+const MAX_SC_POINTS = 9999
+
 
 #imports
 onready var State : GameState = get_node("/root/G")
@@ -52,6 +54,8 @@ func set_stage_metadata(stage_length: float, current_pos: float, track_positions
 
 
 func add_sc_points(amount: int) -> void:
+	if (State.current_street_scred == MAX_SC_POINTS):
+		return
 	var new_total := State.current_street_scred + amount
 	var next_sc_level_info : Dictionary = C.MR_STREET_CRED_LEVELS[State.next_street_cred_level_idx]
 	if (next_sc_level_info.req_sc < new_total):
@@ -65,11 +69,12 @@ func add_sc_points(amount: int) -> void:
 				next_sc_level_info.name
 			)
 		else:
+			new_total = MAX_SC_POINTS
 			#final level reached
 			sc_progress.grow_progress_next_level(
-				9999,
+				MAX_SC_POINTS,
 				0,
-				9999,
+				MAX_SC_POINTS,
 				next_sc_level_info.name
 			)
 	else:
