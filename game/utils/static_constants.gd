@@ -18,6 +18,10 @@ Leves range from 0 to 3 for DEBUG, INFO, WARN, ERROR respectively
 """
 const GAME_LOGGING_LEVEL : int = 1
 """
+Screen resolution of game
+"""
+const GAME_RESOLUTION: Vector2 = Vector2(1280, 720)
+"""
 Group name denoting anything in-game that acts as an obstacle on the road
 An obstacle makes moped rebel crash and lose package
 """

@@ -51,6 +51,8 @@ func set_stage_metadata(stage_length: float, current_pos: float, track_positions
 	stage_progress.max_value = stage_length
 	stage_progress.value = current_pos
 	_track_idx_icon_positions = Array(track_positions)
+	for idx in range(_track_idx_icon_positions.size()):
+		_current_track_warnings.append(null)
 
 
 func add_sc_points(amount: int) -> void:
@@ -102,30 +104,53 @@ creates those and adds them to scene
 func update_next_obstacle_warning_icons(next_obstacles_typed_pos: Array) -> void:
 	for elem in next_obstacles_typed_pos:
 		var typed_pos : Dictionary = elem as Dictionary
-		if (
-			_current_track_warnings[typed_pos.track_idx]
+		
+		if (_current_track_warnings[typed_pos.track_idx]
 			and not _moped_in_warning_icon_range(typed_pos.moped_distance)
 		):
-			var icon: Control = _current_track_warnings[typed_pos.track_idx]
-			icon.queue_free()
-			_current_track_warnings[typed_pos.track_idx] = null
+			_remove_current_icon(typed_pos)
 		elif (not _current_track_warnings[typed_pos.track_idx]
 			and _moped_in_warning_icon_range(typed_pos.moped_distance)
 		):
-			var warning_icon : Control
-			match typed_pos.obstacle_type:
-				C.ObstacleTypes.ROADBLOCK:
-					warning_icon = WarningObstacle.instance()
-				C.ObstacleTypes.CITIZEN:
-					pass
-				_:
-					#log problem but dont break here
-					LOG.error("Cant make warning icon for unrecognized obstacle type {}!", [typed_pos.obstacle_type], false)
-			if (warning_icon):
-				warning_icon.rect_position = _track_idx_icon_positions[typed_pos.track_idx]
-				add_child(warning_icon)
-				_current_track_warnings[typed_pos.track_idx] = warning_icon
-	
+			_add_new_icon(typed_pos)
+			_update_warning_distance_on_track(typed_pos.track_idx, typed_pos.moped_distance)
+		elif (_current_track_warnings[typed_pos.track_idx]
+			and _moped_in_warning_icon_range(typed_pos.moped_distance)
+		):
+			_update_warning_distance_on_track(typed_pos.track_idx, typed_pos.moped_distance)
+
+
+func _remove_current_icon(typed_pos: Dictionary) -> void:
+	var icon: Control = _current_track_warnings[typed_pos.track_idx]
+	icon.queue_free()
+	_current_track_warnings[typed_pos.track_idx] = null
+
+
+func _add_new_icon(typed_pos: Dictionary) -> void:
+	var warning_icon : Control
+	match typed_pos.obstacle_type:
+		C.ObstacleTypes.ROADBLOCK:
+			warning_icon = WarningObstacle.instance()
+		C.ObstacleTypes.CITIZEN:
+			pass
+		_:
+			#log problem but dont break here
+			LOG.error("Cant make warning icon for unrecognized obstacle type {}!", [typed_pos.obstacle_type], false)
+	if (warning_icon):
+		var icon_position_x : float = C.GAME_RESOLUTION.x - warning_icon.rect_size.x
+		var icon_position_y : float = _track_idx_icon_positions[typed_pos.track_idx] + C.GAME_RESOLUTION.y / 2
+		warning_icon.rect_position = Vector2(icon_position_x, icon_position_y)
+		add_child(warning_icon)
+		_current_track_warnings[typed_pos.track_idx] = warning_icon
+
+
+func _update_warning_distance_on_track(track_idx: int, new_distance: float) -> void:
+	if (not _current_track_warnings[track_idx]):
+		return
+		
+	var icon : WarningIcon = _current_track_warnings[track_idx]
+	icon.set_distance(new_distance)
+
 
 func _moped_in_warning_icon_range(distance_to_obstacle: float) -> bool:
-	return not (distance_to_obstacle < MIN_WARNING_ICON_DISTANCE or distance_to_obstacle > MAX_WARNING_ICON_DISTANCE)
+	return distance_to_obstacle in range(MIN_WARNING_ICON_DISTANCE, MAX_WARNING_ICON_DISTANCE)

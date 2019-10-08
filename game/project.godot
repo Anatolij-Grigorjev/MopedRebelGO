@@ -78,6 +78,11 @@ _global_script_classes=[ {
 "class": "StreetCredProgressBar",
 "language": "GDScript",
 "path": "res://gui/street_cred_progress_bar.gd"
+}, {
+"base": "Control",
+"class": "WarningIcon",
+"language": "GDScript",
+"path": "res://gui/warning_icon.gd"
 } ]
 _global_script_class_icons={
 "C": "",
@@ -93,7 +98,8 @@ _global_script_class_icons={
 "PackagesBundle": "",
 "RoadBlock": "",
 "StageControl": "",
-"StreetCredProgressBar": ""
+"StreetCredProgressBar": "",
+"WarningIcon": ""
 }
 
 [application]
