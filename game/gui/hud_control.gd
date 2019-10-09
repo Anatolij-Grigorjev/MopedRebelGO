@@ -11,7 +11,7 @@ var WarningObstacle : Resource = preload("res://gui/WarningIconObstacle.tscn")
 Range in which moped should see warning icons about upcoming obstacles
 """
 const MIN_WARNING_ICON_DISTANCE = 1000.0
-const MAX_WARNING_ICON_DISTANCE = 3000.0
+const MAX_WARNING_ICON_DISTANCE = 4500.0
 
 const MAX_SC_POINTS = 9999
 
@@ -104,19 +104,13 @@ creates those and adds them to scene
 func update_next_obstacle_warning_icons(next_obstacles_typed_pos: Array) -> void:
 	for elem in next_obstacles_typed_pos:
 		var typed_pos : Dictionary = elem as Dictionary
-		
-		if (_current_track_warnings[typed_pos.track_idx]
-			and not _moped_in_warning_icon_range(typed_pos.moped_distance)
-		):
+		var warning_exists_at_track : bool = _current_track_warnings[typed_pos.track_idx] != null
+		if (warning_exists_at_track and not _moped_in_warning_icon_range(typed_pos.moped_distance)):
 			_remove_current_icon(typed_pos)
-		elif (not _current_track_warnings[typed_pos.track_idx]
-			and _moped_in_warning_icon_range(typed_pos.moped_distance)
-		):
+		elif (not warning_exists_at_track and _moped_in_warning_icon_range(typed_pos.moped_distance)):
 			_add_new_icon(typed_pos)
 			_update_warning_distance_on_track(typed_pos.track_idx, typed_pos.moped_distance)
-		elif (_current_track_warnings[typed_pos.track_idx]
-			and _moped_in_warning_icon_range(typed_pos.moped_distance)
-		):
+		elif (warning_exists_at_track and _moped_in_warning_icon_range(typed_pos.moped_distance)):
 			_update_warning_distance_on_track(typed_pos.track_idx, typed_pos.moped_distance)
 
 
@@ -137,10 +131,13 @@ func _add_new_icon(typed_pos: Dictionary) -> void:
 			#log problem but dont break here
 			LOG.error("Cant make warning icon for unrecognized obstacle type {}!", [typed_pos.obstacle_type], false)
 	if (warning_icon):
-		var icon_position_x : float = C.GAME_RESOLUTION.x - warning_icon.rect_size.x
-		var icon_position_y : float = _track_idx_icon_positions[typed_pos.track_idx] + C.GAME_RESOLUTION.y / 2
-		warning_icon.rect_position = Vector2(icon_position_x, icon_position_y)
 		add_child(warning_icon)
+		var icon_position_x : float = C.GAME_RESOLUTION.x - warning_icon.rect_size.x
+		#hardocing stage offset into warnings for now
+		#permanent solution would either communicate positions from stage or resolve
+		#smartly via canvas laye matrix transform
+		var icon_position_y : float = _track_idx_icon_positions[typed_pos.track_idx] + C.GAME_RESOLUTION.y / 2 + 250
+		warning_icon.rect_position = Vector2(icon_position_x, icon_position_y)
 		_current_track_warnings[typed_pos.track_idx] = warning_icon
 
 
@@ -153,4 +150,4 @@ func _update_warning_distance_on_track(track_idx: int, new_distance: float) -> v
 
 
 func _moped_in_warning_icon_range(distance_to_obstacle: float) -> bool:
-	return distance_to_obstacle in range(MIN_WARNING_ICON_DISTANCE, MAX_WARNING_ICON_DISTANCE)
+	return MIN_WARNING_ICON_DISTANCE <= distance_to_obstacle and distance_to_obstacle <= MAX_WARNING_ICON_DISTANCE
