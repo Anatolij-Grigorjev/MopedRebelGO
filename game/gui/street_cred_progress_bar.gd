@@ -8,7 +8,9 @@ Street bar growth happens alongside SC label slide upwards. SC label should alwa
 remain just inside prgress bar progress section, (unless at bar bottom)
 """
 var Logger : Resource = preload("res://utils/logger.gd")
-var LevelUpText : Resource = preload("res://gui/level_up_text.tscn")
+
+
+signal progress_bar_filled
 
 
 const PROGRESS_ALTER_VELOCITY_SEC = 0.5
@@ -35,10 +37,9 @@ func _process(delta: float) -> void:
 		LOG.debug("set new bar value {}", [new_value])
 		grow_progress_local(new_value)
 	if (Input.is_action_just_pressed("debug2")):
-		var new_text : String = C.MR_STREET_CRED_LEVELS[randi() % 6].name
 		var new_value : int = max_value + randf() * max_value
 		LOG.debug("set new bar value {}", [new_value])
-		grow_progress_next_level(new_value, max_value, max_value * 2, new_text)
+		grow_progress_next_level(new_value, max_value, max_value * 2)
 
 
 func _ready():
@@ -125,19 +126,13 @@ generates text based on levelup
 """
 func grow_progress_next_level(new_progress: int, 
 								new_min: int, 
-								new_max: int, 
-								level_up_text: String
+								new_max: int
 ) -> void:
 	var prev_progress_max := max_value
 	#grow current progress to end
 	yield(grow_progress_local(prev_progress_max), "completed")
-	#create a happy label thing
-	var level_up_node : Control = LevelUpText.instance()
-	var level_up_node_label_node : Label = level_up_node.get_node("LevelText")
-	level_up_node_label_node.text = level_up_text
-	level_up_node.rect_rotation = 90
-	level_up_node.rect_position = rect_size
-	add_child(level_up_node)
+	#inform about full progress bar
+	emit_signal("progress_bar_filled")
 	#change current bar
 	_set_current_progress_ranges(prev_progress_max, new_min, new_max)
 	#do rest of growth

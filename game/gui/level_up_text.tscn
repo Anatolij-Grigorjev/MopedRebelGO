@@ -1,7 +1,24 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
-[sub_resource type="Animation" id=1]
-resource_name = "text_flicker"
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 0.0
+content_margin_right = 0.0
+content_margin_top = 0.0
+content_margin_bottom = 0.0
+bg_color = Color( 0, 0, 0, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.921569, 0.94902, 0.0627451, 1 )
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 5
+
+[sub_resource type="Animation" id=2]
 length = 0.4
 loop = true
 step = 0.05
@@ -18,9 +35,7 @@ tracks/0/keys = {
 "values": [ Color( 0.901961, 0.701961, 0.223529, 1 ), Color( 1, 1, 0.196078, 1 ), Color( 0.901961, 0.701961, 0.223529, 1 ) ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "text_travel"
-length = 1.5
+[sub_resource type="Animation" id=3]
 tracks/0/type = "value"
 tracks/0/path = NodePath("LevelText:rect_position")
 tracks/0/interp = 1
@@ -28,10 +43,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1.5 ),
+"times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 10, -25 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 0, -25 ) ]
 }
 tracks/1/type = "animation"
 tracks/1/path = NodePath("LevelText/AnimationPlayer")
@@ -50,7 +65,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 1.5 ),
+"times": PoolRealArray( 1 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
@@ -61,9 +76,11 @@ tracks/2/keys = {
 [node name="LevelUpText" type="Control"]
 
 [node name="LevelText" type="Label" parent="."]
+margin_top = -25.0
 margin_right = 100.0
-margin_bottom = 50.0
-custom_colors/font_color = Color( 0.901961, 0.701961, 0.223529, 1 )
+margin_bottom = 25.0
+custom_styles/normal = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 0.196078, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "NEW MOPED!"
 align = 1
@@ -72,8 +89,9 @@ uppercase = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="LevelText"]
 autoplay = "text_flicker"
-anims/text_flicker = SubResource( 1 )
+anims/text_flicker = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "text_travel"
-anims/text_travel = SubResource( 2 )
+playback_speed = 2.0
+anims/text_travel = SubResource( 3 )

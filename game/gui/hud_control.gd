@@ -6,6 +6,8 @@ for them reach them from this single point of entry
 """
 var Logger : Resource = preload("res://utils/logger.gd")
 var WarningObstacle : Resource = preload("res://gui/WarningIconObstacle.tscn")
+var LevelUpText : Resource = preload("res://gui/level_up_text.tscn")
+
 
 """
 Range in which moped should see warning icons about upcoming obstacles
@@ -64,11 +66,11 @@ func add_sc_points(amount: int) -> void:
 		#level up!
 		State.next_street_cred_level_idx += 1
 		if (next_sc_level_info.has("level_sc")):
+			_add_level_up_label(next_sc_level_info.name)
 			sc_progress.grow_progress_next_level(
 				new_total,
 				next_sc_level_info.req_sc,
-				next_sc_level_info.level_sc,
-				next_sc_level_info.name
+				next_sc_level_info.level_sc
 			)
 		else:
 			new_total = MAX_SC_POINTS
@@ -76,13 +78,29 @@ func add_sc_points(amount: int) -> void:
 			sc_progress.grow_progress_next_level(
 				MAX_SC_POINTS,
 				0,
-				MAX_SC_POINTS,
-				next_sc_level_info.name
+				MAX_SC_POINTS
 			)
 	else:
 		sc_progress.grow_progress_local(new_total)
 	State.current_street_scred = new_total
 	_update_sc_label()
+	
+	
+func _add_level_up_label(level_up_text : String) -> void:
+	#wait until levelup condition submitted
+	yield(sc_progress, "progress_bar_filled")
+	#create a happy label thing
+	var level_up_node : Control = LevelUpText.instance()
+	var level_up_node_label_node : Label = level_up_node.get_node("LevelText")
+	level_up_node_label_node.text = level_up_text
+	level_up_node.rect_rotation = 0
+	level_up_node.rect_scale = Vector2(2.0, 2.0)
+	level_up_node.rect_position = get_viewport_rect().size / 2 - level_up_node.rect_size / 2
+	add_child(level_up_node)
+	
+	Engine.time_scale = 0.5
+	yield(level_up_node, "tree_exiting")
+	Engine.time_scale = 1.0
 
 
 func set_stage_progress(distance_covered: float) -> void:
