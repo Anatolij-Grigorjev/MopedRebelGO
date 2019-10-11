@@ -27,6 +27,7 @@ onready var LOG : Logger = Logger.new(self)
 onready var sc_progress : StreetCredProgressBar = $StreetCredProgressBar
 onready var stage_progress : ProgressBar = $StageProgress
 onready var current_sc_label : Label = $CurrentSCLabel
+onready var dark_overlay : TextureRect = $DarkOverlay
 
 
 """
@@ -40,6 +41,7 @@ var _track_idx_icon_positions := []
 
 
 func _ready():
+	dark_overlay.visible = false
 	_update_sc_label()
 	pass
 	
@@ -89,6 +91,7 @@ func add_sc_points(amount: int) -> void:
 func _add_level_up_label(level_up_text : String) -> void:
 	#wait until levelup condition submitted
 	yield(sc_progress, "progress_bar_filled")
+	dark_overlay.visible = true
 	#create a happy label thing
 	var level_up_node : Control = LevelUpText.instance()
 	var level_up_node_label_node : Label = level_up_node.get_node("LevelText")
@@ -100,6 +103,7 @@ func _add_level_up_label(level_up_text : String) -> void:
 	
 	Engine.time_scale = 0.5
 	yield(level_up_node, "tree_exiting")
+	dark_overlay.visible = false
 	Engine.time_scale = 1.0
 
 

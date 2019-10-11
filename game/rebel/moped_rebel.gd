@@ -10,13 +10,11 @@ Main Controller class for Moped Rebel Playable Character.
 var Logger : Resource = preload("res://utils/logger.gd")
 
 
-const CRUISE_SPEED = C.MR_CRUISE_SPEED
-
-
 signal swerve_direction_pressed(swerve_direction)
 
 
-export(Vector2) var velocity := Vector2(CRUISE_SPEED, 0)
+var cruise_speed : float = C.MR_CRUISE_SPEED
+export(Vector2) var velocity := Vector2(cruise_speed, 0)
 
 
 onready var animator := $AnimationPlayer

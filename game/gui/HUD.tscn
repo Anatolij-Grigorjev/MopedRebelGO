@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://gui/hud_control.gd" type="Script" id=1]
 [ext_resource path="res://gui/street_cred_progress_bar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gui/stage_progress.tscn" type="PackedScene" id=3]
+[ext_resource path="res://stages/tile_light_texture.png" type="Texture" id=4]
 
 [node name="HUD" type="Control"]
 anchor_right = 1.0
@@ -25,3 +26,13 @@ text = "78566"
 align = 1
 valign = 1
 uppercase = true
+
+[node name="DarkOverlay" type="TextureRect" parent="."]
+modulate = Color( 0.00392157, 0, 0, 0.392157 )
+show_behind_parent = true
+margin_left = -2500.0
+margin_top = -500.0
+margin_right = 3500.0
+margin_bottom = 1500.0
+texture = ExtResource( 4 )
+stretch_mode = 1
