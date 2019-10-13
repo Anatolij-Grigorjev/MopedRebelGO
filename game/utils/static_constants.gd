@@ -31,6 +31,10 @@ Group for moped rebel himself
 """
 const GROUP_MR : String = "moped_rebel"
 """
+Group for diss words thrown by moped rebel
+"""
+const GROUP_DISS_WORK : String = "diss_words"
+"""
 Types of obstacles present on the road 
 (the kinds HUD makes warnings about)
 """

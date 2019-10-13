@@ -1,10 +1,39 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://obstacles/citizens/citizen.gd" type="Script" id=1]
 [ext_resource path="res://obstacles/citizens/citizen_worker.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 60, 35 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "be_dissed"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Hearing/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 8.0, 0.0, -8.0, 0.0 ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "hit_by_moped"
@@ -59,6 +88,9 @@ tracks/3/keys = {
 } ]
 }
 
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 450, 35 )
+
 [node name="WhiteWorker" type="Area2D"]
 collision_layer = 2
 collision_mask = 2
@@ -72,4 +104,14 @@ texture = ExtResource( 2 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/be_dissed = SubResource( 4 )
 anims/hit_by_moped = SubResource( 2 )
+
+[node name="Hearing" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hearing"]
+shape = SubResource( 3 )
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_entered" from="Hearing" to="." method="_on_Hearing_area_entered"]

@@ -21,3 +21,12 @@ func _on_area_entered(area: Area2D):
 		animator.play("hit_by_moped")
 
 
+func _on_Hearing_area_entered(area: Area2D):
+	if (_disses_heard >= disses_required or 
+		not area.is_in_group(C.GROUP_DISS_WORK)):
+		return
+		
+	_disses_heard += 1
+	if (_disses_heard >= disses_required):
+		animator.play("be_dissed")
+		G.sc_multiplier *= sc_multiplier
