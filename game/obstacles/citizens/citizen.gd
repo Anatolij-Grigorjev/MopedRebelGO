@@ -9,10 +9,15 @@ export(int) var disses_required: int = 2
 
 
 onready var animator: AnimationPlayer = $AnimationPlayer
+onready var dissed_progress : ProgressBar = $ProgressBar
 
 
-var _disses_heard : int = 0
+var _disses_heard : int = 0 
 
+func _ready() -> void:
+	self._ready()
+	_update_diss_progress()
+	
 
 func _on_area_entered(area: Area2D):
 	._on_area_entered(area)
@@ -27,6 +32,14 @@ func _on_Hearing_area_entered(area: Area2D):
 		return
 		
 	_disses_heard += 1
+	_update_diss_progress()
 	if (_disses_heard >= disses_required):
 		animator.play("be_dissed")
 		G.sc_multiplier *= sc_multiplier
+		
+		
+func _update_diss_progress() -> void:
+	dissed_progress.value = _disses_heard
+	if (dissed_progress.value <= 0
+		or dissed_progress.value >= disses_required):
+		dissed_progress.visible = false

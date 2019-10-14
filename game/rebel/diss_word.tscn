@@ -1,5 +1,74 @@
-[gd_scene format=2]
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 200, 75 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.0392157, 0.0352941, 0.0352941, 1 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color( 1, 1, 0.196078, 1 )
+border_blend = true
+
+[sub_resource type="Animation" id=3]
+resource_name = "diss_thrown"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextureRect:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 2.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -20, -20 ), Vector2( -20, -65 ), Vector2( -20, -70 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 2.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
 
 [node name="DissWord" type="Node2D" groups=[
 "diss_words",
 ]]
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 1 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="TextureRect"]
+margin_left = -50.0
+margin_right = 100.0
+margin_bottom = 25.0
+custom_styles/normal = SubResource( 2 )
+custom_colors/font_color = Color( 1, 1, 0.196078, 1 )
+text = "Poopy heads!"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/diss_thrown = SubResource( 3 )

@@ -8,9 +8,11 @@ Main Controller class for Moped Rebel Playable Character.
 	* Perform swerve animation and tween
 """
 var Logger : Resource = preload("res://utils/logger.gd")
+var DissWord: Resource = preload("res://rebel/diss_word.tscn")
 
 
 signal swerve_direction_pressed(swerve_direction)
+signal diss_said(diss_word)
 
 
 var cruise_speed : float = C.MR_CRUISE_SPEED
@@ -43,6 +45,10 @@ func _process(delta: float) -> void:
 		var desired_swerve_direction : int = input.process_swerve_input()
 		if desired_swerve_direction != 0:
 			emit_signal("swerve_direction_pressed", desired_swerve_direction)
+		var desire_say_diss : bool = input.process_say_diss()
+		if (desire_say_diss):
+			var new_diss := _build_diss_word()
+			emit_signal("diss_said", new_diss)
 	move_and_slide(velocity)
 
 	
@@ -143,3 +149,7 @@ func _on_PackagesBundle_delivery_package_thrown(remaining_packages: int) -> void
 	if (not remaining_packages):
 		LOG.error("!!!GAME OVER!!!")
 	pass
+	
+	
+func _build_diss_word() -> Node2D:
+	return null
