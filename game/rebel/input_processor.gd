@@ -4,8 +4,11 @@ class_name InputProcessor
 Controller for collecting player input during main processing loop.
 Internally manages cooldown state for action presses
 """
+var Logger : Resource = preload("res://utils/logger.gd")
 
-var max_diss_colldown : float = 3.0
+
+onready var LOG: Logger = Logger.new(self)
+var max_diss_colldown : float = 1.5
 
 
 var _say_diss_cooldown : float = 0
@@ -16,7 +19,8 @@ func _ready() -> void:
 	
 	
 func _process(delta: float) -> void:
-	_cooldown_timeout(_say_diss_cooldown, delta)
+	if (_say_diss_cooldown):
+		_say_diss_cooldown = max(0.0, _say_diss_cooldown - delta)
 
 
 """
@@ -27,7 +31,10 @@ func process_swerve_input() -> int:
 	
 	
 func process_say_diss() -> bool:
-	return _process_press_action_cooldown("say_diss", _say_diss_cooldown, max_diss_colldown)
+	if (_process_press_action_cooldown("say_diss", _say_diss_cooldown)):
+		_say_diss_cooldown = max_diss_colldown
+		return true
+	return false
 	
 
 func _process_axis_inputs(axis_plus_action: String, axis_minus_action: String) -> int:
@@ -40,16 +47,7 @@ func _process_axis_inputs(axis_plus_action: String, axis_minus_action: String) -
 	return result_input
 	
 	
-func _process_press_action_cooldown(action_name: String, current_cooldown: float, reset_cooldown: float) -> bool:
+func _process_press_action_cooldown(action_name: String, current_cooldown: float) -> bool:
 	if (current_cooldown > 0):
 		return false
-	if Input.is_action_pressed(action_name):
-		current_cooldown = reset_cooldown
-		return true
-	else:
-		return false
-		
-
-func _cooldown_timeout(timeout: float, reduce_delta: float) -> void:
-	if (timeout > 0):
-		timeout = max(0.0, timeout - reduce_delta)
+	return Input.is_action_pressed(action_name)

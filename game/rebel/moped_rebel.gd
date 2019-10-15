@@ -25,6 +25,7 @@ onready var LOG : Logger = Logger.new(self)
 onready var swerve_tween := $SwerveTween
 onready var pushback_tween := $PushbackTween
 onready var input := $InputProcessor
+onready var diss_position := $DissPosition
 
 
 var _is_swerving: bool = false 
@@ -151,5 +152,10 @@ func _on_PackagesBundle_delivery_package_thrown(remaining_packages: int) -> void
 	pass
 	
 	
+"""
+Construct new diss word instance without attaching to any parent
+"""
 func _build_diss_word() -> Node2D:
-	return null
+	var new_diss_word := DissWord.instance() as Node2D
+	#TODO: custom random diss phrase logic
+	return new_diss_word

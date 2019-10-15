@@ -30,6 +30,7 @@ func _ready() -> void:
 	_tracks_bounds.position.y += _tile_height / 2
 	#setup moped position
 	moped_rebel.connect('swerve_direction_pressed', self, '_on_MopedRebel_swerve_direction_pressed')
+	moped_rebel.connect('diss_said', self, '_on_MopedRebel_diss_said')
 	var moped_tracks_offset : int = _tile_height * current_moped_track
 	moped_rebel.global_position.y = _track0_position + moped_tracks_offset
 	
@@ -115,6 +116,12 @@ func _on_MopedRebel_swerve_direction_pressed(intended_direction: int) -> void:
 	current_moped_track += intended_direction
 	LOG.debug("Swerved moped to track {}!", [current_moped_track])
 	
+	
+func _on_MopedRebel_diss_said(diss_word: Node2D) -> void:
+	add_child(diss_word)
+	diss_word.global_position = moped_rebel.diss_position.global_position
+	pass
+
 	
 func _on_NRT_moped_traveled(distance: float) -> void:
 	var raw_points : float = distance * C.MR_SC_PER_TRACK_UNIT
