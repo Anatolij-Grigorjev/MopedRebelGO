@@ -33,7 +33,7 @@ const GROUP_MR : String = "moped_rebel"
 """
 Group for diss words thrown by moped rebel
 """
-const GROUP_DISS_WORK : String = "diss_words"
+const GROUP_DISS_WORD : String = "diss_word"
 """
 Types of obstacles present on the road 
 (the kinds HUD makes warnings about)

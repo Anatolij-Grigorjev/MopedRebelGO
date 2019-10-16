@@ -34,6 +34,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [ 0.0, 8.0, 0.0, -8.0, 0.0 ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -120 ), Vector2( 0, -150 ), Vector2( 0, -120 ), Vector2( 0, -150 ), Vector2( 0, -120 ) ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "hit_by_moped"
@@ -109,7 +121,7 @@ collision_mask = 2
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 3, -120 )
+position = Vector2( 0, -120 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -120,7 +132,6 @@ anims/be_dissed = SubResource( 4 )
 anims/hit_by_moped = SubResource( 2 )
 
 [node name="Hearing" type="Area2D" parent="."]
-editor/display_folded = true
 collision_layer = 4
 collision_mask = 4
 

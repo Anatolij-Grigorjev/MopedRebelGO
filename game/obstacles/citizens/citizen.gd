@@ -15,7 +15,6 @@ onready var dissed_progress : ProgressBar = $ProgressBar
 var _disses_heard : int = 0 
 
 func _ready() -> void:
-	self._ready()
 	_update_diss_progress()
 	
 
@@ -28,7 +27,7 @@ func _on_area_entered(area: Area2D):
 
 func _on_Hearing_area_entered(area: Area2D):
 	if (_disses_heard >= disses_required or 
-		not area.is_in_group(C.GROUP_DISS_WORK)):
+		not area.is_in_group(C.GROUP_DISS_WORD)):
 		return
 		
 	_disses_heard += 1
@@ -40,6 +39,4 @@ func _on_Hearing_area_entered(area: Area2D):
 		
 func _update_diss_progress() -> void:
 	dissed_progress.value = _disses_heard
-	if (dissed_progress.value <= 0
-		or dissed_progress.value >= disses_required):
-		dissed_progress.visible = false
+	dissed_progress.visible = _disses_heard > 0 and _disses_heard < disses_required

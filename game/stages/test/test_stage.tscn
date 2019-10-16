@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://stages/stage_control.gd" type="Script" id=1]
 [ext_resource path="res://stages/tiles/diag_brown_white_metal.tres" type="TileSet" id=2]
@@ -6,8 +6,9 @@
 [ext_resource path="res://stages/non_regulation_track2.tscn" type="PackedScene" id=4]
 [ext_resource path="res://stages/non_regulation_track3.tscn" type="PackedScene" id=5]
 [ext_resource path="res://obstacles/roadblocks/tall/tall_roadblock.tscn" type="PackedScene" id=6]
-[ext_resource path="res://rebel/moped_rebel.tscn" type="PackedScene" id=7]
-[ext_resource path="res://gui/HUD.tscn" type="PackedScene" id=8]
+[ext_resource path="res://obstacles/citizens/white_worker.tscn" type="PackedScene" id=7]
+[ext_resource path="res://rebel/moped_rebel.tscn" type="PackedScene" id=8]
+[ext_resource path="res://gui/HUD.tscn" type="PackedScene" id=9]
 
 [node name="TestStage" type="Node2D"]
 script = ExtResource( 1 )
@@ -40,6 +41,7 @@ position = Vector2( 3136.05, -51.9134 )
 position = Vector2( 3949.36, 50.6773 )
 
 [node name="Obstacles" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="TallRoadblock" parent="Obstacles" instance=ExtResource( 6 )]
 position = Vector2( 1300, 62 )
@@ -53,10 +55,28 @@ scale = Vector2( 0.5, 0.5 )
 position = Vector2( 5349.11, 251.889 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="MopedRebel" parent="." instance=ExtResource( 7 )]
+[node name="Citizens" type="Node2D" parent="."]
+
+[node name="WhiteWorker" parent="Citizens" instance=ExtResource( 7 )]
+position = Vector2( 596.142, -69.6646 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="WhiteWorker2" parent="Citizens" instance=ExtResource( 7 )]
+position = Vector2( 1515.82, 63.7946 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="WhiteWorker3" parent="Citizens" instance=ExtResource( 7 )]
+position = Vector2( 2569.26, -47.4462 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="WhiteWorker4" parent="Citizens" instance=ExtResource( 7 )]
+position = Vector2( 3338.92, 62.8936 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="MopedRebel" parent="." instance=ExtResource( 8 )]
 position = Vector2( 63.2963, 48.1383 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 5
 
-[node name="HUD" parent="CanvasLayer" instance=ExtResource( 8 )]
+[node name="HUD" parent="CanvasLayer" instance=ExtResource( 9 )]

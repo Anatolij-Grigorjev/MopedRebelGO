@@ -64,12 +64,19 @@ func add_sc_points(amount: int) -> void:
 		return
 	var new_total := State.current_street_scred + amount
 	var next_sc_level_info : Dictionary = C.MR_STREET_CRED_LEVELS[State.next_street_cred_level_idx]
-	State.current_street_scred = new_total
+	#skip leves if required by total
+	while(
+		next_sc_level_info.has('level_sc') 
+		and next_sc_level_info.level_sc < new_total
+	):
+		State.next_street_cred_level_idx += 1 
+		next_sc_level_info = C.MR_STREET_CRED_LEVELS[State.next_street_cred_level_idx]
+	
 	if (next_sc_level_info.req_sc < new_total):
 		#level up!
 		State.next_street_cred_level_idx += 1
+		_add_level_up_label(next_sc_level_info.name)
 		if (next_sc_level_info.has("level_sc")):
-			_add_level_up_label(next_sc_level_info.name)
 			sc_progress.grow_progress_next_level(
 				new_total,
 				next_sc_level_info.req_sc,
@@ -85,6 +92,7 @@ func add_sc_points(amount: int) -> void:
 			)
 	else:
 		sc_progress.grow_progress_local(new_total)
+	State.current_street_scred = new_total
 	_update_sc_label()
 	
 	
