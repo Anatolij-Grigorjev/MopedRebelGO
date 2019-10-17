@@ -1,5 +1,5 @@
-extends Node2D
 class_name StageControl
+extends Node2D
 """
 A general script for controlling stage aspects like 
 
@@ -19,7 +19,8 @@ export(int) var current_moped_track := 3
 
 
 var _sorted_obstacle_positions_by_track := []
-onready var _tile_height: int = $Road.get_cell_size().y
+onready var _tile_size: Vector2 = $Road.get_cell_size()
+onready var _tile_height: int = _tile_size.y
 
 onready var _tracks_bounds := Helpers.get_tilemap_global_bounds($Road)
 onready var _track0_position := _tracks_bounds.position.y
@@ -59,7 +60,7 @@ func _ready_bounds_indices_for_HUD() -> void:
 
 func _ready_NRT_for_moped() -> void:
 	for nrt_segment in $NRT.get_children():
-		nrt_segment.connect("moped_traveled", self, "_on_NRT_moped_traveled")		
+		nrt_segment.connect("moped_traveled_nrt", self, "_on_NRT_moped_traveled")
 
 
 func _ready_sorted_obstacle_positions() -> void:
@@ -123,8 +124,14 @@ func _on_MopedRebel_diss_said(diss_word: Node2D) -> void:
 	pass
 
 	
-func _on_NRT_moped_traveled(distance: float) -> void:
-	var raw_points : float = distance * C.MR_SC_PER_TRACK_UNIT
+func _on_NRT_moped_traveled(
+	nrt_num_tiles: int, 
+	nrt_travel_points: float, 
+	travel_distance: float
+) -> void:
+	#actual tile size is about half a tile longer than advertised
+	var total_nrt_length : float = nrt_num_tiles * (_tile_size.x * 1.5)
+	var raw_points : float = travel_distance/total_nrt_length * nrt_travel_points
 	var sc_with_bonus : float = State.sc_multiplier * raw_points
-	LOG.info("MR gets {} SC points for travelling {} NRT!", [sc_with_bonus, distance])
+	LOG.info("MR gets {}*{} SC points for travelling {}/{} NRT!", [State.sc_multiplier, raw_points, travel_distance, total_nrt_length])
 	HUD.add_sc_points(sc_with_bonus)

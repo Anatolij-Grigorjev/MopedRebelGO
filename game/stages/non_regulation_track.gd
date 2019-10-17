@@ -10,13 +10,15 @@ based on moped presence on that part of track
 var Logger : Resource = preload("res://utils/logger.gd")
 
 
-signal moped_traveled(distance)
+signal moped_traveled_nrt(num_tiles, travel_points, distance_traveled)
 
 
 
-var nrt_cruise_speed : float = 677
 export(Color) var track_regular_shine : Color = Color.blue
 export(Color) var track_moped_shine : Color = Color.green
+#how many SC points for travelling entire length of this NRT
+export(float) var travel_nrt_points : float = 100.0
+export(float) var nrt_cruise_speed : float = 450.57
 
 
 onready var LOG: Logger = Logger.new(self)
@@ -45,7 +47,7 @@ func _on_body_exited(body: PhysicsBody2D) -> void:
 	var moped_rebel := body as MopedRebel
 	if (moped_rebel and _moped_enter_position):
 		var travel_distance : float = moped_rebel.global_position.x - _moped_enter_position.x
-		emit_signal("moped_traveled", travel_distance)
+		emit_signal("moped_traveled_nrt", lights_nodes.size(), travel_nrt_points, travel_distance)
 		LOG.info("moped traveled {}px on this track", [travel_distance])
 		_change_track_lights_to(track_regular_shine)
 		_moped_enter_position = Vector2.ZERO

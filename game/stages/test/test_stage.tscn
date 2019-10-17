@@ -30,18 +30,32 @@ position = Vector2( 1145.8, -49.4413 )
 
 [node name="NonRegulationTrack3" parent="NRT" instance=ExtResource( 4 )]
 position = Vector2( 1747.87, 46.9692 )
+track_regular_shine = Color( 0, 0, 1, 0.501961 )
+track_moped_shine = Color( 0.635294, 0.0862745, 0.227451, 0.501961 )
+travel_nrt_points = 300.0
+nrt_cruise_speed = 500.0
 
 [node name="NonRegulationTrack4" parent="NRT" instance=ExtResource( 4 )]
 position = Vector2( 2351.05, 48.2052 )
+track_moped_shine = Color( 0.635294, 0.0862745, 0.227451, 0.501961 )
+travel_nrt_points = 300.0
+nrt_cruise_speed = 500.0
 
 [node name="NonRegulationTrack5" parent="NRT" instance=ExtResource( 5 )]
 position = Vector2( 3136.05, -51.9134 )
+track_regular_shine = Color( 0.0352941, 0.0352941, 0.901961, 0.501961 )
+track_moped_shine = Color( 0.388235, 0.0235294, 0.117647, 0.501961 )
+travel_nrt_points = 500.0
+nrt_cruise_speed = 600.0
 
 [node name="NonRegulationTrack6" parent="NRT" instance=ExtResource( 5 )]
 position = Vector2( 3949.36, 50.6773 )
+track_regular_shine = Color( 0.054902, 0.054902, 0.803922, 0.501961 )
+track_moped_shine = Color( 0.4, 0.0235294, 0.117647, 0.501961 )
+travel_nrt_points = 500.0
+nrt_cruise_speed = 600.0
 
 [node name="Obstacles" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="TallRoadblock" parent="Obstacles" instance=ExtResource( 6 )]
 position = Vector2( 1300, 62 )
@@ -56,6 +70,7 @@ position = Vector2( 5349.11, 251.889 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="Citizens" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="WhiteWorker" parent="Citizens" instance=ExtResource( 7 )]
 position = Vector2( 596.142, -69.6646 )
@@ -77,6 +92,9 @@ scale = Vector2( 0.5, 0.5 )
 position = Vector2( 63.2963, 48.1383 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+editor/display_folded = true
 layer = 5
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 9 )]
+
+[node name="YSort" type="YSort" parent="."]

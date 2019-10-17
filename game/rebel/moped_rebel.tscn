@@ -170,6 +170,7 @@ script = ExtResource( 1 )
 editor/display_folded = true
 position = Vector2( 0, -210 )
 frames = SubResource( 1 )
+frame = 2
 playing = true
 
 [node name="PackagesBundle" parent="AnimatedSprite" instance=ExtResource( 6 )]
