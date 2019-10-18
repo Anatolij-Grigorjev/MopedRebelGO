@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://gui/earned_points.gd" type="Script" id=1]
+
+[node name="EarnedPoints" type="Control"]
+script = ExtResource( 1 )
+
+[node name="PointsText" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+rect_scale = Vector2( 5, 5 )
+custom_colors/font_color = Color( 1, 1, 0.196078, 1 )
+text = "8677.54"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="MoveToPoints" type="Tween" parent="."]

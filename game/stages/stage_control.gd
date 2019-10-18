@@ -134,4 +134,8 @@ func _on_NRT_moped_traveled(
 	var raw_points : float = travel_distance/total_nrt_length * nrt_travel_points
 	var sc_with_bonus : float = State.sc_multiplier * raw_points
 	LOG.info("MR gets {}*{} SC points for travelling {}/{} NRT!", [State.sc_multiplier, raw_points, travel_distance, total_nrt_length])
+	yield(
+		HUD.add_rebel_earned_nrt_points(moped_rebel.get_global_transform_with_canvas().get_origin(), sc_with_bonus), 
+		'completed'
+	)
 	HUD.add_sc_points(sc_with_bonus)

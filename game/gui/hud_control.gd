@@ -7,6 +7,7 @@ for them reach them from this single point of entry
 var Logger : Resource = preload("res://utils/logger.gd")
 var WarningObstacle : Resource = preload("res://gui/WarningIconObstacle.tscn")
 var LevelUpText : Resource = preload("res://gui/level_up_text.tscn")
+var EarnedPoints : Resource = preload("res://gui/earned_points.tscn")
 
 
 """
@@ -181,3 +182,11 @@ func _update_warning_distance_on_track(track_idx: int, new_distance: float) -> v
 
 func _moped_in_warning_icon_range(distance_to_obstacle: float) -> bool:
 	return MIN_WARNING_ICON_DISTANCE <= distance_to_obstacle and distance_to_obstacle <= MAX_WARNING_ICON_DISTANCE
+
+
+func add_rebel_earned_nrt_points(moped_canvas_position: Vector2, earned_points: float) -> void:
+	var earned_node : EarnedPoints = EarnedPoints.instance()
+	earned_node.set_num_points(earned_points)
+	earned_node.rect_position = moped_canvas_position
+	earned_node.start_reduce_to_point(current_sc_label.rect_position)
+	yield(earned_node.tween, 'tween_all_completed')
