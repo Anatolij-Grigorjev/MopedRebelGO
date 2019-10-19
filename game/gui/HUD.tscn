@@ -16,10 +16,11 @@ script = ExtResource( 1 )
 margin_left = 300.0
 
 [node name="CurrentSCLabel" type="Label" parent="."]
-margin_left = 10.0
-margin_top = 15.0
-margin_right = 110.0
-margin_bottom = 90.0
+margin_left = -40.0
+margin_top = -23.0
+margin_right = 60.0
+margin_bottom = 52.0
+rect_scale = Vector2( 2, 2 )
 custom_colors/font_color = Color( 1, 1, 0.196078, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "78566"

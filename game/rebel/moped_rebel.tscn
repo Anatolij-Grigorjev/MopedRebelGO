@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://rebel/moped_rebel.gd" type="Script" id=1]
 [ext_resource path="res://rebel/input_processor.tscn" type="PackedScene" id=2]
@@ -160,6 +160,23 @@ tracks/1/keys = {
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 50, 50 )
 
+[sub_resource type="ParticlesMaterial" id=7]
+emission_shape = 1
+emission_sphere_radius = 50.0
+flag_disable_z = true
+spread = 30.0
+flatness = 0.6
+gravity = Vector3( -98, -150, 0 )
+initial_velocity = -100.0
+initial_velocity_random = 0.2
+angular_velocity = 0.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 5.0
+scale_random = 1.0
+color = Color( 1, 1, 0.196078, 1 )
+hue_variation = 0.5
+
 [node name="MopedRebel" type="KinematicBody2D"]
 scale = Vector2( 0.36, 0.36 )
 script = ExtResource( 1 )
@@ -170,7 +187,7 @@ script = ExtResource( 1 )
 editor/display_folded = true
 position = Vector2( 0, -210 )
 frames = SubResource( 1 )
-frame = 2
+frame = 3
 playing = true
 
 [node name="PackagesBundle" parent="AnimatedSprite" instance=ExtResource( 6 )]
@@ -213,3 +230,10 @@ script = ExtResource( 7 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ObstacleDetect"]
 position = Vector2( 220, 0 )
 shape = SubResource( 6 )
+
+[node name="NRTParticles" type="Particles2D" parent="."]
+position = Vector2( 165.332, 1.37705 )
+scale = Vector2( 2, 1 )
+emitting = false
+amount = 100
+process_material = SubResource( 7 )

@@ -186,7 +186,9 @@ func _moped_in_warning_icon_range(distance_to_obstacle: float) -> bool:
 
 func add_rebel_earned_nrt_points(moped_canvas_position: Vector2, earned_points: float) -> void:
 	var earned_node : EarnedPoints = EarnedPoints.instance()
+	add_child(earned_node)
 	earned_node.set_num_points(earned_points)
 	earned_node.rect_position = moped_canvas_position
 	earned_node.start_reduce_to_point(current_sc_label.rect_position)
 	yield(earned_node.tween, 'tween_all_completed')
+	earned_node.queue_free()

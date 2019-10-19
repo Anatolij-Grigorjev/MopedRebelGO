@@ -19,13 +19,14 @@ var cruise_speed : float = C.MR_CRUISE_SPEED
 export(Vector2) var velocity := Vector2(cruise_speed, 0)
 
 
-onready var animator := $AnimationPlayer
-onready var sprite := $AnimatedSprite
+onready var animator : AnimationPlayer = $AnimationPlayer
+onready var sprite : AnimatedSprite = $AnimatedSprite
 onready var LOG : Logger = Logger.new(self)
-onready var swerve_tween := $SwerveTween
-onready var pushback_tween := $PushbackTween
-onready var input := $InputProcessor
-onready var diss_position := $DissPosition
+onready var swerve_tween : Tween = $SwerveTween
+onready var pushback_tween : Tween = $PushbackTween
+onready var input : InputProcessor = $InputProcessor
+onready var diss_position : Position2D = $DissPosition
+onready var nrt_travel_emitter : Particles2D = $NRTParticles
 
 
 var _is_swerving: bool = false 
