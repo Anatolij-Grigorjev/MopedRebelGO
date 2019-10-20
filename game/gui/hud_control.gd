@@ -27,7 +27,7 @@ onready var State : GameState = get_node("/root/G")
 onready var LOG : Logger = Logger.new(self)
 onready var sc_progress : StreetCredProgressBar = $StreetCredProgressBar
 onready var stage_progress : ProgressBar = $StageProgress
-onready var current_sc_label : Label = $CurrentSCLabel
+onready var current_sc_label : PointsLabel = $CurrentSCLabel
 onready var dark_overlay : TextureRect = $DarkOverlay
 
 
@@ -48,8 +48,8 @@ func _ready():
 	
 	
 func _update_sc_label() -> void:
-	current_sc_label.text = str(State.current_street_scred)
-	
+	current_sc_label.update_current_points(State.current_street_scred)
+
 	
 func set_stage_metadata(stage_length: float, current_pos: float, track_positions: Array) -> void:
 	stage_progress.min_value = 0
@@ -184,11 +184,15 @@ func _moped_in_warning_icon_range(distance_to_obstacle: float) -> bool:
 	return MIN_WARNING_ICON_DISTANCE <= distance_to_obstacle and distance_to_obstacle <= MAX_WARNING_ICON_DISTANCE
 
 
+"""
+Create earned points marker at base of rebel wheels and send that marker 
+to main current points label on HUD
+"""
 func add_rebel_earned_nrt_points(moped_canvas_position: Vector2, earned_points: float) -> void:
 	var earned_node : EarnedPoints = EarnedPoints.instance()
 	add_child(earned_node)
 	earned_node.set_num_points(earned_points)
 	earned_node.rect_position = moped_canvas_position
-	earned_node.start_reduce_to_point(current_sc_label.rect_position)
+	earned_node.start_reduce_to_point(current_sc_label.merge_points_position)
 	yield(earned_node.tween, 'tween_all_completed')
 	earned_node.queue_free()

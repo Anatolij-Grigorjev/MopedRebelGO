@@ -5,7 +5,7 @@ extents = Vector2( 200, 140 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "diss_thrown"
-length = 2.5
+length = 1.2
 tracks/0/type = "method"
 tracks/0/path = NodePath(".")
 tracks/0/interp = 1
@@ -13,12 +13,48 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 2.5 ),
+"times": PoolRealArray( 1.2 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
 "method": "queue_free"
 } ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("NinePatchRect/MarginContainer/CenterContainer/Text:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 13 ), Vector2( 13, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("NinePatchRect/MarginContainer/CenterContainer/Text:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AnimationPlayer:playback_speed")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 2.0, 1.0 ]
 }
 
 [node name="DissWord" type="Node2D"]
@@ -35,9 +71,11 @@ shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "diss_thrown"
+playback_speed = 2.0
 anims/diss_thrown = SubResource( 3 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
+editor/display_folded = true
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -50,9 +88,13 @@ margin_right = 96.0
 margin_bottom = 40.0
 
 [node name="Text" type="Label" parent="NinePatchRect/MarginContainer/CenterContainer"]
+modulate = Color( 1, 1, 1, 0 )
 margin_top = 13.0
 margin_right = 96.0
 margin_bottom = 27.0
+rect_scale = Vector2( 1.5, 1.5 )
+custom_colors/font_color = Color( 0.901961, 0.0666667, 0.0666667, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "Poopy heads!"
 align = 1
 valign = 1

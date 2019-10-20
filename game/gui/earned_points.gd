@@ -27,17 +27,18 @@ func set_num_points(earned_points: float) -> void:
 func start_reduce_to_point(end_point: Vector2) -> void:
 	tween.interpolate_property(
 		self, 'rect_position', 
-		rect_position, end_point, 
+		null, end_point, 
 		REDUCE_TIME, 
-		Tween.TRANS_LINEAR, Tween.EASE_OUT
+		Tween.TRANS_LINEAR, Tween.EASE_OUT_IN
 	)
+	
+	#only start reducing size in last 40% of thing
+	var time_portion_wait_reduce : float = REDUCE_TIME * 0.6
 	tween.interpolate_property(
 		self, 'points_text:rect_scale',
-		points_text.rect_scale, Vector2(0.1, 0.1),
-		REDUCE_TIME,
-		Tween.TRANS_EXPO,
-		Tween.EASE_OUT,
-		#only start reducing size in last 35% of thing
-		REDUCE_TIME * 0.65
+		null, Vector2(0.1, 0.1),
+		REDUCE_TIME - time_portion_wait_reduce,
+		Tween.TRANS_LINEAR, Tween.EASE_OUT_IN,
+		time_portion_wait_reduce
 	)
 	tween.start()
