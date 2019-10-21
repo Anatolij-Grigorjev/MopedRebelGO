@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "AngerPulse",
+"language": "GDScript",
+"path": "res://obstacles/citizens/anger_pulse.gd"
+}, {
 "base": "Reference",
 "class": "C",
 "language": "GDScript",
@@ -100,6 +105,7 @@ _global_script_classes=[ {
 "path": "res://gui/warning_icon.gd"
 } ]
 _global_script_class_icons={
+"AngerPulse": "",
 "C": "",
 "CitizenRoadBlock": "",
 "DeliveryPackage": "",
@@ -185,6 +191,7 @@ say_diss={
 2d_physics/layer_1="physical"
 2d_physics/layer_2="obstacles"
 2d_physics/layer_3="disses"
+2d_physics/layer_4="angers"
 
 [rendering]
 

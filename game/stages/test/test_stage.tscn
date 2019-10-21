@@ -30,7 +30,6 @@ position = Vector2( 1145.8, -49.4413 )
 
 [node name="NonRegulationTrack3" parent="NRT" instance=ExtResource( 4 )]
 position = Vector2( 1747.87, 46.9692 )
-track_regular_shine = Color( 0, 0, 1, 0.501961 )
 track_moped_shine = Color( 0.635294, 0.0862745, 0.227451, 0.501961 )
 travel_nrt_points = 300.0
 nrt_cruise_speed = 500.0
