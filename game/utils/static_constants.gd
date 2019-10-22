@@ -35,6 +35,10 @@ Group for diss words thrown by moped rebel
 """
 const GROUP_DISS_WORD : String = "diss_word"
 """
+Group for anger pulse areas that are in the middle of node hierarchy
+"""
+const GROUP_ANGER_PULSE : String = "anger_pulse"
+"""
 Types of obstacles present on the road 
 (the kinds HUD makes warnings about)
 """
@@ -42,13 +46,20 @@ enum ObstacleTypes {
 	ROADBLOCK,
 	CITIZEN
 }
+"""
+Directions within a single X dimension
+"""
+enum DIRECTION {
+	LEFT = -1,
+	RIGHT = 1
+}
 
 """
 *****************************
 *		MOPED REBEL			*
 *****************************
 """
-const MR_CRUISE_SPEED : float = 334.56
+const MR_CRUISE_SPEED : float = 250.56
 const MR_SWERVE_DURATION_SEC : float = 0.2
 const MR_OBSTACLE_PUSHBACK_DURATION_SEC : float = 0.3
 const MR_OBSTACLE_PUSHBACK_AMOUNT : float = 700.7

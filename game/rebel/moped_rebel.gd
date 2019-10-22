@@ -160,3 +160,12 @@ func _build_diss_word() -> Node2D:
 	var new_diss_word := DissWord.instance() as Node2D
 	#TODO: custom random diss phrase logic
 	return new_diss_word
+
+
+func _on_AngerDetector_area_entered(area: Area2D) -> void:
+	if (area.is_in_group(C.GROUP_ANGER_PULSE)):
+		var anger_pulse_node: AngerPulse = area.get_owner() as AngerPulse
+		G.sc_multiplier += anger_pulse_node.pulse_sc_mult_add
+		animator.play("consume_anger")
+		anger_pulse_node.queue_free()
+	

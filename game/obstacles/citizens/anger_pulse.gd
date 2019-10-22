@@ -7,21 +7,25 @@ to travel exponentially, dissolve via transpearancy and dissapear
 
 export(float) var pulse_travel_distance : float = 400.0
 export(float) var pulse_ttl : float = 1.5
+export(float) var pulse_sc_mult_add : float = 0.05
 
 
 onready var tween: Tween = $Tween
 onready var sprite: Sprite = $Sprite
-onready var collider : CollisionShape2D = $Area2D/CollisionShape2D
+onready var collider : CollisionShape2D = $Sprite/Area2D/CollisionShape2D
+onready var intensity_light: Light2D = $Sprite/Light2D
 
 
 var _dissapear_time : float = 0.5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	#energy level at 0.25 for increment of 0.05
+	intensity_light.energy = pulse_sc_mult_add * 5
 	#carry pulse forward
 	tween.interpolate_property(
 		self, 'position',
-		null, position + Vector2(pulse_travel_distance, 0),
+		null, position + Vector2(pulse_travel_distance * scale.x, 0),
 		pulse_ttl,
 		Tween.TRANS_EXPO, Tween.EASE_OUT
 	)
@@ -38,3 +42,8 @@ func _ready():
 	tween.start()
 	yield(tween, "tween_all_completed")
 	queue_free()
+
+
+func set_sc_mult_add(multiplier_add: float) -> void:
+	pulse_sc_mult_add = multiplier_add
+	

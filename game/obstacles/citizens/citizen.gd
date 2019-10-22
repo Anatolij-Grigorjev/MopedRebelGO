@@ -4,8 +4,11 @@ class_name CitizenRoadBlock
 Controller for road blocking citizen. Stops moped rebel just like roadblocks but also
 gets knocked over and responds to disses beng thrown around
 """
-export(float) var sc_multiplier : float = 1.4
+var AngerPulse: Resource = preload("res://obstacles/citizens/anger_pulse.tscn")
+
+
 export(int) var disses_required: int = 2
+export(float) var diss_mult_add_pulse: float = 0.3
 
 
 onready var animator: AnimationPlayer = $AnimationPlayer
@@ -34,9 +37,21 @@ func _on_Hearing_area_entered(area: Area2D):
 	_update_diss_progress()
 	if (_disses_heard >= disses_required):
 		animator.play("be_dissed")
-		G.sc_multiplier *= sc_multiplier
+		
 		
 		
 func _update_diss_progress() -> void:
 	dissed_progress.value = _disses_heard
 	dissed_progress.visible = _disses_heard > 0 and _disses_heard < disses_required
+	
+
+func _build_anger_pulse_direction(direction: int) -> void:
+	var anger_pulse_node = AngerPulse.instance()
+	anger_pulse_node.scale = Vector2(direction, 1)
+	anger_pulse_node.set_sc_mult_add(diss_mult_add_pulse)
+	add_child(anger_pulse_node)
+	
+	
+func _build_anger_pulses() -> void:
+	_build_anger_pulse_direction(C.DIRECTION.LEFT)
+	_build_anger_pulse_direction(C.DIRECTION.RIGHT)

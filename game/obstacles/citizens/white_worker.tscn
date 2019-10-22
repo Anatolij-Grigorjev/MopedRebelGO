@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 60, 35 )
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=2]
 resource_name = "be_dissed"
 length = 2.0
 loop = true
@@ -46,9 +46,25 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Vector2( 0, -120 ), Vector2( 0, -150 ), Vector2( 0, -120 ), Vector2( 0, -150 ), Vector2( 0, -120 ) ]
 }
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.5, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "_build_anger_pulses"
+}, {
+"args": [  ],
+"method": "_build_anger_pulses"
+} ]
+}
 
-[sub_resource type="Animation" id=2]
-resource_name = "hit_by_moped"
+[sub_resource type="Animation" id=3]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:rotation_degrees")
 tracks/0/interp = 1
@@ -100,7 +116,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 450, 35 )
 
 [sub_resource type="StyleBoxFlat" id=5]
@@ -128,15 +144,15 @@ texture = ExtResource( 2 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/be_dissed = SubResource( 4 )
-anims/hit_by_moped = SubResource( 2 )
+anims/be_dissed = SubResource( 2 )
+anims/hit_by_moped = SubResource( 3 )
 
 [node name="Hearing" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hearing"]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 margin_left = -100.0
