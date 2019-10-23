@@ -19,7 +19,8 @@ var cruise_speed : float = C.MR_CRUISE_SPEED
 export(Vector2) var velocity := Vector2(cruise_speed, 0)
 
 
-onready var animator : AnimationPlayer = $AnimationPlayer
+onready var animator_main : AnimationPlayer = $AnimationPlayer
+onready var animator_anger : AnimationPlayer = $AngerAnimationPlayer
 onready var sprite : AnimatedSprite = $AnimatedSprite
 onready var LOG : Logger = Logger.new(self)
 onready var swerve_tween : Tween = $SwerveTween
@@ -70,7 +71,7 @@ func perform_swerve(swerve_direction: int, swerve_amount: int) -> void:
 			correct_anim_name = "swerve_down"
 		_:
 			LOG.error("Cant parse swerve direction from {}!", [swerve_direction])	
-	animator.play(correct_anim_name)
+	animator_main.play(correct_anim_name)
 	_prep_tween_swerve(swerve_direction, swerve_amount)
 	swerve_tween.start()
 	yield(swerve_tween, 'tween_all_completed')
@@ -117,8 +118,8 @@ Reset the rotation and scale of the rebel sprite to its original values
 """
 func _reset_sprite_transform() -> void:
 	#stop animations, if playing
-	if (animator.is_playing()):
-		animator.stop()
+	if (animator_main.is_playing()):
+		animator_main.stop()
 		
 	LOG.debug("Got sprite rot/scale: {}/{}, reseting...", 
 		[sprite.rotation_degrees, sprite.scale]
@@ -135,8 +136,8 @@ play crash animation and restore speed after crash over
 func _on_ObstacleDetector_hit_obstacle(obstacle: Area2D) -> void:
 	_is_crashing = true
 	velocity = Vector2()
-	animator.play("crash_obstacle")
-	yield(animator, "animation_finished")
+	animator_main.play("crash_obstacle")
+	yield(animator_main, "animation_finished")
 	velocity = Vector2(C.MR_CRUISE_SPEED, 0)
 	_is_crashing = false
 	_reset_sprite_transform()
@@ -166,6 +167,6 @@ func _on_AngerDetector_area_entered(area: Area2D) -> void:
 	if (area.is_in_group(C.GROUP_ANGER_PULSE)):
 		var anger_pulse_node: AngerPulse = area.get_owner() as AngerPulse
 		G.sc_multiplier += anger_pulse_node.pulse_sc_mult_add
-		animator.play("consume_anger")
+		animator_anger.play("consume_anger")
 		anger_pulse_node.queue_free()
 	
