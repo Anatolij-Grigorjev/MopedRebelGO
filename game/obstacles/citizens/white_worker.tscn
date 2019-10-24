@@ -117,7 +117,7 @@ tracks/3/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 450, 35 )
+extents = Vector2( 50, 35 )
 
 [sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 1, 1, 0.196078, 1 )
@@ -142,17 +142,24 @@ texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/be_dissed = SubResource( 2 )
 anims/hit_by_moped = SubResource( 3 )
 
 [node name="Hearing" type="Area2D" parent="."]
+position = Vector2( -1.95996, -194.061 )
 collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hearing"]
 shape = SubResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 margin_left = -100.0
