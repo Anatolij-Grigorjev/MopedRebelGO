@@ -77,6 +77,7 @@ autoplay = "diss_thrown"
 anims/diss_thrown = SubResource( 2 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
+editor/display_folded = true
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -89,9 +90,9 @@ margin_right = 96.0
 margin_bottom = 40.0
 
 [node name="Text" type="Label" parent="NinePatchRect/MarginContainer/CenterContainer"]
-margin_left = 13.0
-margin_right = 109.0
-margin_bottom = 14.0
+margin_top = 13.0
+margin_right = 96.0
+margin_bottom = 27.0
 custom_colors/font_color = Color( 0.901961, 0.0666667, 0.0666667, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "Poopy heads!"
