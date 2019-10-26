@@ -2,5 +2,5 @@
 
 [ext_resource path="res://rebel/diss_aim.gd" type="Script" id=1]
 
-[node name="DissAim" type="Node2D"]
+[node name="DissChannel" type="Node2D"]
 script = ExtResource( 1 )

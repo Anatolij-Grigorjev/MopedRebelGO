@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://rebel/moped_rebel.gd" type="Script" id=1]
 [ext_resource path="res://rebel/input_processor.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://rebel/rebel_on_moped_high.png" type="Texture" id=5]
 [ext_resource path="res://rebel/packages_bundle.tscn" type="PackedScene" id=6]
 [ext_resource path="res://rebel/obstacle_detector.gd" type="Script" id=7]
+[ext_resource path="res://rebel/cooldown_bar.tscn" type="PackedScene" id=8]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -260,4 +261,7 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AngerDetector"]
 shape = SubResource( 8 )
+
+[node name="CooldownBar" parent="." instance=ExtResource( 8 )]
+position = Vector2( -100, -500 )
 [connection signal="area_entered" from="AngerDetector" to="." method="_on_AngerDetector_area_entered"]

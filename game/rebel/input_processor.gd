@@ -8,7 +8,7 @@ var Logger : Resource = preload("res://utils/logger.gd")
 
 
 onready var LOG: Logger = Logger.new(self)
-var max_diss_colldown : float = 0.3
+var max_diss_colldown : float = 0.5
 
 
 var _say_diss_cooldown : float = 0

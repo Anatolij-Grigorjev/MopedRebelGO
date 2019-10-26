@@ -27,6 +27,7 @@ onready var swerve_tween : Tween = $SwerveTween
 onready var pushback_tween : Tween = $PushbackTween
 onready var input : InputProcessor = $InputProcessor
 onready var diss_position : Position2D = $DissPosition
+onready var diss_cooldown_bar: CooldownBar = $CooldownBar
 onready var nrt_travel_emitter : Particles2D = $NRTParticles
 
 
@@ -50,6 +51,7 @@ func _process(delta: float) -> void:
 			emit_signal("swerve_direction_pressed", desired_swerve_direction)
 		var desire_say_diss : bool = input.process_say_diss()
 		if (desire_say_diss):
+			diss_cooldown_bar.start_cooldown(input.max_diss_colldown)
 			var new_diss := _build_diss_word()
 			emit_signal("diss_said", new_diss)
 	move_and_slide(velocity)
