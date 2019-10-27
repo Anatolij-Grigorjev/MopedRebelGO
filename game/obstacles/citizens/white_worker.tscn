@@ -131,7 +131,9 @@ corner_detail = 5
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.219608, 0.211765, 0.227451, 1 )
 
-[node name="WhiteWorker" type="Area2D"]
+[node name="WhiteWorker" type="Area2D" groups=[
+"dissable",
+]]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 1 )
@@ -171,5 +173,7 @@ custom_styles/bg = SubResource( 6 )
 max_value = 3.0
 step = 1.0
 percent_visible = false
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_entered" from="Hearing" to="." method="_on_Hearing_area_entered"]

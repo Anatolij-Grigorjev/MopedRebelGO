@@ -27,6 +27,10 @@ An obstacle makes moped rebel crash and lose package
 """
 const GROUP_OBSTACLES : String = "obstacle"
 """
+Group name for any citizen to which a diss can be directed by moped rebel
+"""
+const GROUP_DISSABLES: String = "dissable"
+"""
 Group for moped rebel himself
 """
 const GROUP_MR : String = "moped_rebel"

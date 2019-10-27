@@ -34,7 +34,7 @@ func _draw() -> void:
 	
 	var end_distance: float = end.x - start.x
 	if (end_distance <= channel_width):
-		_stop_channel()
+		stop_channel()
 		return
 	
 	#create channel points
@@ -53,7 +53,7 @@ func _draw() -> void:
 	draw_colored_polygon(points_array, channel_modulate, [], _channel_body)
 
 
-func _stop_channel() -> void:
+func stop_channel() -> void:
 	_channel_present = false
 	_channel_start_node = null
 	_channel_end_node = null
@@ -75,3 +75,11 @@ func start_channel_between(start: Node2D, end: Node2D) -> void:
 	
 func is_channel_active() -> bool:
 	return _channel_present
+	
+	
+func channel_origin() -> Node2D:
+	return _channel_start_node
+	
+	
+func channel_target() -> Node2D:
+	return _channel_end_node

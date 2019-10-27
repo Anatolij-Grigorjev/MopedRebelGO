@@ -85,8 +85,18 @@ static func swap_vector(input: Vector2) -> Vector2:
 	
 
 """
-Custom sorter to sort vectors by first coordinate. Used to determine
-proximate moped obstacles
+Custom sorter to sort vectors by first coordinate, lower indices meaning
+positions more to the left (smaller position x). 
+Used to determine proximate moped obstacles
 """
 static func sort_positions_x(pos1: Vector2, pos2: Vector2) -> bool:
 	return pos1.x < pos2.x
+	
+
+"""
+Custom sorter to sort nodes by elevation, lower indices meaning 
+higher nodes (smaller global y)
+Used to determine dissable citizens queue for aiming
+"""
+static func sort_nodes_global_y(node1: Node2D, node2: Node2D) -> bool:
+	return node1.global_position.y < node2.global_position.y

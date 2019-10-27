@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://rebel/moped_rebel.gd" type="Script" id=1]
 [ext_resource path="res://rebel/input_processor.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://rebel/packages_bundle.tscn" type="PackedScene" id=6]
 [ext_resource path="res://rebel/obstacle_detector.gd" type="Script" id=7]
 [ext_resource path="res://rebel/cooldown_bar.tscn" type="PackedScene" id=8]
+[ext_resource path="res://rebel/diss_aim.tscn" type="PackedScene" id=9]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -158,7 +159,7 @@ tracks/1/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 0.85, 1 ) ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=6]
 resource_name = "consume_anger"
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:modulate")
@@ -173,10 +174,10 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.937255, 0.478431, 0.478431, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 50, 50 )
 
-[sub_resource type="ParticlesMaterial" id=7]
+[sub_resource type="ParticlesMaterial" id=8]
 emission_shape = 1
 emission_sphere_radius = 50.0
 flag_disable_z = true
@@ -192,7 +193,7 @@ scale_random = 1.0
 color = Color( 1, 1, 0.196078, 1 )
 hue_variation = 0.5
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 250, 30 )
 
 [node name="MopedRebel" type="KinematicBody2D"]
@@ -228,7 +229,7 @@ anims/swerve_down = SubResource( 4 )
 anims/swerve_up = SubResource( 5 )
 
 [node name="AngerAnimationPlayer" type="AnimationPlayer" parent="."]
-anims/consume_anger = SubResource( 10 )
+anims/consume_anger = SubResource( 6 )
 
 [node name="SwerveTween" type="Tween" parent="."]
 
@@ -246,22 +247,25 @@ script = ExtResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ObstacleDetect"]
 position = Vector2( 220, 0 )
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="NRTParticles" type="Particles2D" parent="."]
 position = Vector2( 165.332, 1.37705 )
 scale = Vector2( 2, 1 )
 emitting = false
 amount = 100
-process_material = SubResource( 7 )
+process_material = SubResource( 8 )
 
 [node name="AngerDetector" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AngerDetector"]
-shape = SubResource( 8 )
+shape = SubResource( 9 )
 
 [node name="CooldownBar" parent="." instance=ExtResource( 8 )]
 position = Vector2( -100, -500 )
+
+[node name="DissChannel" parent="." instance=ExtResource( 9 )]
+channel_modulate = Color( 0.501961, 0.501961, 0.501961, 0.501961 )
 [connection signal="area_entered" from="AngerDetector" to="." method="_on_AngerDetector_area_entered"]

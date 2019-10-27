@@ -118,9 +118,12 @@ func _on_MopedRebel_swerve_direction_pressed(intended_direction: int) -> void:
 	LOG.debug("Swerved moped to track {}!", [current_moped_track])
 	
 	
-func _on_MopedRebel_diss_said(diss_word: Node2D) -> void:
+func _on_MopedRebel_diss_said(diss_word: DissWord, diss_receiver: Node2D) -> void:
 	add_child(diss_word)
 	diss_word.global_position = moped_rebel.diss_position.global_position
+	#there is an actual diss receiver
+	if (diss_receiver != moped_rebel):
+		diss_word.set_target(diss_receiver)
 	pass
 
 	
