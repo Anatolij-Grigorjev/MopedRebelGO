@@ -21,6 +21,10 @@ var _disses_heard : int = 0
 func _ready() -> void:
 	_update_diss_progress()
 	
+	
+func _draw() -> void:
+	draw_circle(global_position, 50.0, Color.green)
+	
 
 func _on_area_entered(area: Area2D):
 	._on_area_entered(area)

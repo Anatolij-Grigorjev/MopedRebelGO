@@ -41,8 +41,13 @@ func _ready() -> void:
 	$AnimatedSprite/PackagesBundle.connect("delivery_package_thrown", self, "_on_PackagesBundle_delivery_package_thrown")
 	pass
 
+func _draw() -> void:
+	#draw circle at global pos
+	draw_circle(global_position, diss_channel.channel_width, Color.red)
+
 
 func _process(delta: float) -> void:
+	
 	_process_diss_channel()
 	if (not _is_swerving
 		and not _is_crashing):
@@ -92,9 +97,15 @@ func _process_diss_channel_change_diss_target(change: int, visible_dissable_citi
 	
 func _get_onscreen_dissable_citizens() -> Array:
 	var onscreen_dissables : Array = []
+	var channel_end_x := global_position.x + diss_channel.channel_width
 	for dissable in get_tree().get_nodes_in_group(C.GROUP_DISSABLES):
 		var citizen : CitizenRoadBlock = dissable as CitizenRoadBlock
-		if (citizen.visibility_controller.is_on_screen()):
+		if (
+			#citizen not so far to be ofscreen
+			citizen.visibility_controller.is_on_screen()
+			#citizen still far enough away to diss
+			and citizen.global_position.x > channel_end_x
+		):
 			onscreen_dissables.append(citizen)
 		
 	return onscreen_dissables

@@ -221,6 +221,12 @@ diss_target_below={
 2d_physics/layer_3="disses"
 2d_physics/layer_4="angers"
 
+[network]
+
+limits/debugger_stdout/max_chars_per_second=1000000
+limits/debugger_stdout/max_messages_per_frame=1000
+limits/debugger_stdout/max_errors_per_frame=1000
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

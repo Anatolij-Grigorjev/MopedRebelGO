@@ -267,5 +267,4 @@ shape = SubResource( 9 )
 position = Vector2( -100, -500 )
 
 [node name="DissChannel" parent="." instance=ExtResource( 9 )]
-channel_modulate = Color( 0.501961, 0.501961, 0.501961, 0.501961 )
 [connection signal="area_entered" from="AngerDetector" to="." method="_on_AngerDetector_area_entered"]

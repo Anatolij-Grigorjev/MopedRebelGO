@@ -11,6 +11,10 @@ var Logger : Resource = preload("res://utils/logger.gd")
 onready var LOG: Logger = Logger.new(self)
 
 
+func _draw() -> void:
+	draw_circle(global_position, 50.0, Color.blue)
+
+
 func _on_area_entered(area: Area2D):
 	LOG.debug("obstacle caught area {}", [area])
 	if (area.is_in_group(C.GROUP_MR)):

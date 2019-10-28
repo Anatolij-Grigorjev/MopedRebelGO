@@ -5,7 +5,7 @@ Visual indicator for aiming at a specific civilian. Texture is custom drawn,
 runs along the ground from civilian to moped
 """
 
-export(Color) var channel_modulate: Color = Color(0.5, 0.5, 0.5, 0.5)
+export(Color) var channel_modulate: Color = Color(0.5, 0.5, 0.5, 1.0)
 export(float) var channel_width: float = 100
 
 
@@ -27,6 +27,12 @@ func _process(delta: float) -> void:
 	
 func _draw() -> void:
 	if (not _channel_present):
+		return
+	#guard agains freed instances
+	if (not (
+		is_instance_valid(_channel_start_node) 
+		and is_instance_valid(_channel_end_node)
+	)):
 		return
 	
 	var start := _channel_start_node.global_position

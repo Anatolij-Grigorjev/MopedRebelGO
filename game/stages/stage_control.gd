@@ -43,12 +43,32 @@ func _ready() -> void:
 	
 	#setup obstacle positions lines
 	_ready_sorted_obstacle_positions()
+	
+	_put_all_nodes_under_ysort()
 
 	#logging
 	LOG.info("Tilemap bounds: {}", [_tracks_bounds])
 	LOG.info("Moped tracks position: {}", [moped_rebel.global_position])
 	for idx in range(_sorted_obstacle_positions_by_track.size()):
 		LOG.info("For track {} got {} obstacles!", [idx, _sorted_obstacle_positions_by_track[idx].size()])
+		
+
+"""
+Inserts all relevant ontrack nodes under the YSort node on the stage
+All relevant nodes are Obstacles children, Citizens children and moped rebel
+"""
+func _put_all_nodes_under_ysort() -> void:
+	var parent := $YSort
+	#reparent rebel node itself
+	Helpers.reparent_node(moped_rebel, parent)
+	
+	#reparent all static obstacles
+	for obstacle in $Obstacles.get_children():
+		Helpers.reparent_node(obstacle, parent)
+		
+	#reparent all citizens
+	for citizen in $Citizens.get_children():
+		Helpers.reparent_node(citizen, parent)
 
 
 func _ready_bounds_indices_for_HUD() -> void:
@@ -66,10 +86,12 @@ func _ready_NRT_for_moped() -> void:
 func _ready_sorted_obstacle_positions() -> void:
 	for idx in range(num_stage_tracks):
 		_sorted_obstacle_positions_by_track.append([])
+		
 	for elem in $Obstacles.get_children():
 		var obstacle_track_idx : int = floor((elem.global_position.y - _track0_position) / _tile_height) - 1
 		LOG.info("obstacle {} -> idx {}", [elem.global_position.y, obstacle_track_idx])
 		_sorted_obstacle_positions_by_track[obstacle_track_idx].append(elem.global_position)
+		
 	for idx in range(_sorted_obstacle_positions_by_track.size()):
 		var positions_list : Array = _sorted_obstacle_positions_by_track[idx]
 		positions_list.sort_custom(Helpers, "sort_positions_x")
