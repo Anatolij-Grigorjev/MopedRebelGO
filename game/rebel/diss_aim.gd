@@ -10,7 +10,7 @@ export(float) var channel_width: float = 100
 
 
 var _channel_body: Texture = preload("res://stages/tile_light_texture.png")
-var _channel_start_node: Node2D
+var _channel_start_offset: Vector2 = Vector2.ZERO
 var _channel_end_node: Node2D
 var _channel_present: bool = false
 
@@ -29,13 +29,10 @@ func _draw() -> void:
 	if (not _channel_present):
 		return
 	#guard agains freed instances
-	if (not (
-		is_instance_valid(_channel_start_node) 
-		and is_instance_valid(_channel_end_node)
-	)):
+	if (not (is_instance_valid(_channel_end_node))):
 		return
 	
-	var start := _channel_start_node.global_position
+	var start := _channel_start_offset
 	var end := _channel_end_node.global_position
 	
 	var end_distance: float = end.x - start.x
@@ -61,7 +58,7 @@ func _draw() -> void:
 
 func stop_channel() -> void:
 	_channel_present = false
-	_channel_start_node = null
+	_channel_start_offset = Vector2.ZERO
 	_channel_end_node = null
 	#perform last redraw to clear screen
 	update()
@@ -73,8 +70,8 @@ This initialized channel with current positions of the nodes and a desire
 to draw itself. Once the positions converge and the channel can no longer be drawn 
 it will disable itself
 """
-func start_channel_between(start: Node2D, end: Node2D) -> void:
-	_channel_start_node = start
+func start_channel_to(end: Node2D, offset: Vector2 = Vector2.ZERO) -> void:
+	_channel_start_offset = offset
 	_channel_end_node = end
 	_channel_present = true
 	
@@ -83,8 +80,8 @@ func is_channel_active() -> bool:
 	return _channel_present
 	
 	
-func channel_origin() -> Node2D:
-	return _channel_start_node
+func channel_origin() -> Vector2:
+	return _channel_start_offset
 	
 	
 func channel_target() -> Node2D:
