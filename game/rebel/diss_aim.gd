@@ -1,67 +1,54 @@
-extends Node2D
+extends ColorRect
 class_name DissAim
 """
-Visual indicator for aiming at a specific civilian. Texture is custom drawn,
-runs along the ground from civilian to moped
+Visual indicator for aiming at a specific civilian.
 """
-
-export(Color) var channel_modulate: Color = Color(0.5, 0.5, 0.5, 1.0)
-export(float) var channel_width: float = 100
+var Logger : Resource = preload("res://utils/logger.gd")
 
 
-var _channel_body: Texture = preload("res://stages/tile_light_texture.png")
-var _channel_start_offset: Vector2 = Vector2.ZERO
+export(float) var channel_width: float = 40
+
+
+onready var LOG: Logger = Logger.new(self)
+
+
+var _channel_start_node: Node2D
 var _channel_end_node: Node2D
 var _channel_present: bool = false
 
 
 func _ready() -> void:
-
+	
 	pass # Replace with function body.
 	
 	
 func _process(delta: float) -> void:
 	if (_channel_present):
-		update()
+		#guard agains freed instances
+		if (not (is_instance_valid(_channel_end_node))):
+			return
 		
-	
-func _draw() -> void:
-	if (not _channel_present):
-		return
-	#guard agains freed instances
-	if (not (is_instance_valid(_channel_end_node))):
-		return
-	
-	var start := _channel_start_offset
-	var end := _channel_end_node.global_position
-	
-	var end_distance: float = end.x - start.x
-	if (end_distance <= channel_width):
-		stop_channel()
-		return
-	
-	#create channel points
-	var extents := channel_width / 2
-	var channel_top_left := Vector2(start.x, start.y - extents)
-	var channel_top_right := Vector2(end.x, end.y - extents)
-	var channel_bottom_right := Vector2(end.x, end.y + extents)
-	var channel_bottom_left := Vector2(start.x, start.y + extents)
-	
-	#draw poly
-	var points_array : PoolVector2Array = [
-		channel_top_left, channel_top_right,
-		channel_bottom_right, channel_bottom_left
-	]
-#	draw_polyline(points_array, channel_modulate, channel_width)
-	draw_colored_polygon(points_array, channel_modulate, [], _channel_body)
+		var start := Vector2.ZERO
+		var global_pos := _channel_start_node.get_global_transform_with_canvas().get_origin()
+		var end := _channel_end_node.get_global_transform_with_canvas().get_origin()
+		
+		var end_distance: float = end.x - global_pos.x
+		if (end_distance <= channel_width):
+			stop_channel()
+			return
+		
+		rect_position = start
+		rect_size = Vector2(end.x - start.x, channel_width)
+		rect_rotation = rad2deg(end.angle_to(global_pos))
+		pass
 
 
 func stop_channel() -> void:
+	LOG.info("stop channel to {}!", [_channel_end_node.global_position])
 	_channel_present = false
-	_channel_start_offset = Vector2.ZERO
+	_channel_start_node = null
 	_channel_end_node = null
-	#perform last redraw to clear screen
-	update()
+	rect_size = Vector2.ZERO
 	
 	
 """
@@ -70,8 +57,8 @@ This initialized channel with current positions of the nodes and a desire
 to draw itself. Once the positions converge and the channel can no longer be drawn 
 it will disable itself
 """
-func start_channel_to(end: Node2D, offset: Vector2 = Vector2.ZERO) -> void:
-	_channel_start_offset = offset
+func start_channel_to(start: Node2D, end: Node2D) -> void:
+	_channel_start_node = start
 	_channel_end_node = end
 	_channel_present = true
 	
@@ -80,8 +67,8 @@ func is_channel_active() -> bool:
 	return _channel_present
 	
 	
-func channel_origin() -> Vector2:
-	return _channel_start_offset
+func channel_origin() -> Node2D:
+	return _channel_start_node
 	
 	
 func channel_target() -> Node2D:

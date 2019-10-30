@@ -2,5 +2,7 @@
 
 [ext_resource path="res://rebel/diss_aim.gd" type="Script" id=1]
 
-[node name="DissChannel" type="Node2D"]
+[node name="DissChannel" type="ColorRect"]
+margin_right = 140.0
+margin_bottom = 25.0
 script = ExtResource( 1 )

@@ -75,7 +75,7 @@ func _process_diss_channel() -> void:
 	if (not diss_channel.is_channel_active()):
 		visible_dissable_citizens = _get_onscreen_dissable_citizens()
 		if (visible_dissable_citizens):
-			diss_channel.start_channel_to(visible_dissable_citizens[0])
+			diss_channel.start_channel_to(self, visible_dissable_citizens[0])
 	#at this point channel is active if there were citizens
 	if (diss_channel.is_channel_active()):
 		var change_target := input.process_change_diss_target()
@@ -92,7 +92,7 @@ func _process_diss_channel_change_diss_target(change: int, visible_dissable_citi
 	visible_dissable_citizens.sort_custom(Helpers, "sort_nodes_global_y")
 	var current_idx := visible_dissable_citizens.find(diss_channel.channel_target())
 	var changed_idx := wrapi(current_idx + change, 0, visible_dissable_citizens.size())
-	diss_channel.start_channel_to(visible_dissable_citizens[changed_idx])		
+	diss_channel.start_channel_to(self, visible_dissable_citizens[changed_idx])		
 	
 	
 func _get_onscreen_dissable_citizens() -> Array:

@@ -11,7 +11,6 @@ var Logger : Resource = preload("res://utils/logger.gd")
 const REDUCE_TIME : float = 1.0
 
 
-onready var LOG: Logger = Logger.new(self)
 onready var points_text: Label = $PointsText
 onready var tween : Tween = $MoveToPoints
 
