@@ -34,7 +34,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://rebel/delivery_package.gd"
 }, {
-"base": "ColorRect",
+"base": "Sprite",
 "class": "DissAim",
 "language": "GDScript",
 "path": "res://rebel/diss_aim.gd"

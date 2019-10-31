@@ -84,7 +84,11 @@ position = Vector2( 2569.26, -47.4462 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="WhiteWorker4" parent="Citizens" instance=ExtResource( 7 )]
-position = Vector2( 3338.92, 62.8936 )
+position = Vector2( 3338.92, 141.904 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="WhiteWorker5" parent="Citizens" instance=ExtResource( 7 )]
+position = Vector2( 4350.25, 252.518 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="MopedRebel" parent="." instance=ExtResource( 8 )]

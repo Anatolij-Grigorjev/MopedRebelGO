@@ -28,7 +28,6 @@ onready var pushback_tween : Tween = $PushbackTween
 onready var input : InputProcessor = $InputProcessor
 onready var diss_position : Position2D = $DissPosition
 onready var diss_cooldown_bar: CooldownBar = $CooldownBar
-onready var diss_channel: DissAim = $DissChannel
 onready var nrt_travel_emitter : Particles2D = $NRTParticles
 
 
@@ -41,14 +40,9 @@ func _ready() -> void:
 	$AnimatedSprite/PackagesBundle.connect("delivery_package_thrown", self, "_on_PackagesBundle_delivery_package_thrown")
 	pass
 
-func _draw() -> void:
-	#draw circle at global pos
-	draw_circle(global_position, diss_channel.channel_width, Color.red)
-
 
 func _process(delta: float) -> void:
 	
-	_process_diss_channel()
 	if (not _is_swerving
 		and not _is_crashing):
 		#get desired swerve direction 
@@ -61,50 +55,18 @@ func _process(delta: float) -> void:
 			diss_cooldown_bar.start_cooldown(input.max_diss_colldown)
 			var new_diss := _build_diss_word()
 			#if no receiver present just curse at self
-			var diss_receiver := (
-				diss_channel.channel_target() if diss_channel.is_channel_active() 
-				else self
-			)
+			var diss_receiver := self
 			emit_signal("diss_said", new_diss, diss_receiver)
 	move_and_slide(velocity)
-
-
-func _process_diss_channel() -> void:
-	var visible_dissable_citizens := []
-	
-	if (not diss_channel.is_channel_active()):
-		visible_dissable_citizens = _get_onscreen_dissable_citizens()
-		if (visible_dissable_citizens):
-			diss_channel.start_channel_to(self, visible_dissable_citizens[0])
-	#at this point channel is active if there were citizens
-	if (diss_channel.is_channel_active()):
-		var change_target := input.process_change_diss_target()
-		if (change_target):
-			#if channel was active up to now we need to fetch citizens
-			if (not visible_dissable_citizens):
-				visible_dissable_citizens = _get_onscreen_dissable_citizens()
-			#skip processing change if only one dissable onscreen
-			if (visible_dissable_citizens.size() > 1):
-				_process_diss_channel_change_diss_target(change_target, visible_dissable_citizens)
-
-
-func _process_diss_channel_change_diss_target(change: int, visible_dissable_citizens: Array) -> void:
-	visible_dissable_citizens.sort_custom(Helpers, "sort_nodes_global_y")
-	var current_idx := visible_dissable_citizens.find(diss_channel.channel_target())
-	var changed_idx := wrapi(current_idx + change, 0, visible_dissable_citizens.size())
-	diss_channel.start_channel_to(self, visible_dissable_citizens[changed_idx])		
 	
 	
 func _get_onscreen_dissable_citizens() -> Array:
 	var onscreen_dissables : Array = []
-	var channel_end_x := global_position.x + diss_channel.channel_width
 	for dissable in get_tree().get_nodes_in_group(C.GROUP_DISSABLES):
 		var citizen : CitizenRoadBlock = dissable as CitizenRoadBlock
 		if (
 			#citizen not so far to be ofscreen
 			citizen.visibility_controller.is_on_screen()
-			#citizen still far enough away to diss
-			and citizen.global_position.x > channel_end_x
 		):
 			onscreen_dissables.append(citizen)
 		
