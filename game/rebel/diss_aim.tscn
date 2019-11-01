@@ -3,6 +3,6 @@
 [ext_resource path="res://gui/target_crosshair.png" type="Texture" id=1]
 [ext_resource path="res://rebel/diss_aim.gd" type="Script" id=2]
 
-[node name="DissChannel" type="Sprite"]
+[node name="DissAim" type="Sprite"]
 texture = ExtResource( 1 )
 script = ExtResource( 2 )

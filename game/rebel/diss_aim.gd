@@ -9,10 +9,24 @@ var Logger : Resource = preload("res://utils/logger.gd")
 onready var LOG: Logger = Logger.new(self)
 
 
+var _target_citizen: CitizenRoadBlock
+
+
 func _ready() -> void:
-	
-	pass # Replace with function body.
+	_target_citizen = get_parent()
+	var visibility = _target_citizen.visibility_controller  as VisibilityNotifier2D
+	visibility.connect("screen_exited", self, "_on_Citizen_screen_exited")
+	pass
 	
 	
 func _process(delta: float) -> void:
-	pass
+	
+	pass 
+	
+
+func get_target_citizen() -> CitizenRoadBlock:
+	return _target_citizen
+	
+	
+func _on_Citizen_screen_exited() -> void:
+	queue_free()

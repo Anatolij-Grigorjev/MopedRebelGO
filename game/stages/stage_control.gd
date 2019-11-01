@@ -6,6 +6,7 @@ A general script for controlling stage aspects like
 - moving moped across tracks
 """
 var Logger : Resource = preload("res://utils/logger.gd")
+var DissAim: Resource = preload("res://rebel/diss_aim.tscn")
 
 
 onready var moped_rebel: MopedRebel = $MopedRebel
@@ -24,6 +25,8 @@ onready var _tile_height: int = _tile_size.y
 
 onready var _tracks_bounds := Helpers.get_tilemap_global_bounds($Road)
 onready var _track0_position := _tracks_bounds.position.y
+
+var _current_diss_aim: DissAim
 
 
 func _ready() -> void:
@@ -55,7 +58,10 @@ func _ready() -> void:
 
 """
 Inserts all relevant ontrack nodes under the YSort node on the stage
-All relevant nodes are Obstacles children, Citizens children and moped rebel
+All relevant nodes are:
+* Obstacles children
+* Citizens children
+* Moped Rebel
 """
 func _put_all_nodes_under_ysort() -> void:
 	var parent := $YSort
@@ -102,7 +108,26 @@ func _process(delta: float) -> void:
 	var nearest_tracks_obstacles := _build_nearest_track_obstacles_list()
 	if (nearest_tracks_obstacles):
 		HUD.update_next_obstacle_warning_icons(nearest_tracks_obstacles)
+	_process_diss_aim()
 	
+	
+func _process_diss_aim() -> void:
+	#diss reticule manages lifecycle internally
+	if (is_instance_valid(_current_diss_aim)):
+		return 
+		
+	var available_citizens := _get_onscreen_dissable_citizens()
+	if (available_citizens):
+		#sort citizens desc
+		available_citizens.sort_custom(Helpers, "sort_nodes_global_y")
+		#use first from top
+		_start_aim_citizen(available_citizens[0])
+		
+		
+func _start_aim_citizen(citizen: CitizenRoadBlock) -> void:
+	_current_diss_aim = DissAim.instance()
+	citizen.add_child(_current_diss_aim)
+
 	
 func _build_nearest_track_obstacles_list() -> Array:
 	var next_obstacle_distances := []
@@ -164,3 +189,13 @@ func _on_NRT_moped_traveled(
 		'completed'
 	)
 	HUD.add_sc_points(sc_with_bonus)
+	
+	
+func _get_onscreen_dissable_citizens() -> Array:
+	var onscreen_dissables : Array = []
+	for dissable in get_tree().get_nodes_in_group(C.GROUP_DISSABLES):
+		var citizen : CitizenRoadBlock = dissable as CitizenRoadBlock
+		if (citizen.visibility_controller.is_on_screen()):
+			onscreen_dissables.append(citizen)
+		
+	return onscreen_dissables

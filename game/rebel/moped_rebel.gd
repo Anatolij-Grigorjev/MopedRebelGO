@@ -60,18 +60,6 @@ func _process(delta: float) -> void:
 	move_and_slide(velocity)
 	
 	
-func _get_onscreen_dissable_citizens() -> Array:
-	var onscreen_dissables : Array = []
-	for dissable in get_tree().get_nodes_in_group(C.GROUP_DISSABLES):
-		var citizen : CitizenRoadBlock = dissable as CitizenRoadBlock
-		if (
-			#citizen not so far to be ofscreen
-			citizen.visibility_controller.is_on_screen()
-		):
-			onscreen_dissables.append(citizen)
-		
-	return onscreen_dissables
-	
 """
 Perform moped swerve operations, including animation, position tween
 and swerve state reset. 
