@@ -112,9 +112,14 @@ func _process(delta: float) -> void:
 	
 	
 func _process_diss_aim() -> void:
-	#diss reticule manages lifecycle internally
+	#check if reticule citizen is passed moped rebel to free it
 	if (is_instance_valid(_current_diss_aim)):
-		return 
+		var target_citizen := _current_diss_aim.get_target_citizen()
+		if (target_citizen.global_position.x <= moped_rebel.global_position.x):
+			_current_diss_aim.queue_free() 
+		else:
+			#if aim is active and citizen still onscreen then all good
+			return
 		
 	var available_citizens := _get_onscreen_dissable_citizens()
 	if (available_citizens):
@@ -195,7 +200,8 @@ func _get_onscreen_dissable_citizens() -> Array:
 	var onscreen_dissables : Array = []
 	for dissable in get_tree().get_nodes_in_group(C.GROUP_DISSABLES):
 		var citizen : CitizenRoadBlock = dissable as CitizenRoadBlock
-		if (citizen.visibility_controller.is_on_screen()):
+		if (citizen.visibility_controller.is_on_screen()
+			and citizen.global_position.x > moped_rebel.global_position.x):
 			onscreen_dissables.append(citizen)
 		
 	return onscreen_dissables

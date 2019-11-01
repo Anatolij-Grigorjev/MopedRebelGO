@@ -30,6 +30,9 @@ func _on_area_entered(area: Area2D):
 	._on_area_entered(area)
 	LOG.debug("citizen caught area {}", [area])
 	if (area.is_in_group(C.GROUP_MR)):
+		if ($DissAim):
+			$DissAim.visible = false
+			$DissAim.queue_free()
 		animator.play("hit_by_moped")
 
 
