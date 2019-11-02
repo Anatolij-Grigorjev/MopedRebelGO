@@ -6,13 +6,19 @@ Main Controller class for Moped Rebel Playable Character.
 * Performs constant movement
 * Collects user input to:
 	* Perform swerve animation and tween
+	* say diss
+
+* Receives signal callbacks to:
+	* Substract lost package
+	* consume citizen anger pulse
+	* get non-regulation track bonus
 """
 var Logger : Resource = preload("res://utils/logger.gd")
 var DissWord: Resource = preload("res://rebel/diss_word.tscn")
 
 
 signal swerve_direction_pressed(swerve_direction)
-signal diss_said(diss_word, diss_recipient)
+signal diss_said(diss_word)
 
 
 var cruise_speed : float = C.MR_CRUISE_SPEED
@@ -54,9 +60,7 @@ func _process(delta: float) -> void:
 		if (desire_say_diss):
 			diss_cooldown_bar.start_cooldown(input.max_diss_colldown)
 			var new_diss := _build_diss_word()
-			#if no receiver present just curse at self
-			var diss_receiver := self
-			emit_signal("diss_said", new_diss, diss_receiver)
+			emit_signal("diss_said", new_diss)
 	move_and_slide(velocity)
 	
 	

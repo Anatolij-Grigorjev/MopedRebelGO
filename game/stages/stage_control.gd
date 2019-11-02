@@ -132,6 +132,8 @@ func _process_diss_aim() -> void:
 func _start_aim_citizen(citizen: CitizenRoadBlock) -> void:
 	_current_diss_aim = DissAim.instance()
 	citizen.add_child(_current_diss_aim)
+	#add citizen height to target head
+	_current_diss_aim.position = citizen.hearing_area.position
 
 	
 func _build_nearest_track_obstacles_list() -> Array:
@@ -170,13 +172,18 @@ func _on_MopedRebel_swerve_direction_pressed(intended_direction: int) -> void:
 	LOG.debug("Swerved moped to track {}!", [current_moped_track])
 	
 	
-func _on_MopedRebel_diss_said(diss_word: DissWord, diss_receiver: Node2D) -> void:
+func _on_MopedRebel_diss_said(diss_word: DissWord) -> void:
 	add_child(diss_word)
 	diss_word.global_position = moped_rebel.diss_position.global_position
+	
+	diss_word.set_target(moped_rebel)
 	#there is an actual diss receiver
-	if (diss_receiver != moped_rebel):
-		diss_word.set_target(diss_receiver)
-	pass
+	if (is_instance_valid(_current_diss_aim)):
+		diss_word.set_target(_current_diss_aim)
+	#start diss
+	diss_word.send_diss()
+	#substract diss cost
+	HUD.add_sc_points(-C.MR_DISS_SC_COST)
 
 	
 func _on_NRT_moped_traveled(
@@ -190,7 +197,7 @@ func _on_NRT_moped_traveled(
 	var sc_with_bonus : float = State.sc_multiplier * raw_points
 	LOG.info("MR gets {}*{} SC points for travelling {}/{} NRT!", [State.sc_multiplier, raw_points, travel_distance, total_nrt_length])
 	yield(
-		HUD.add_rebel_earned_nrt_points(moped_rebel.get_global_transform_with_canvas().get_origin(), sc_with_bonus), 
+		HUD.add_earned_nrt_points_label(moped_rebel.get_global_transform_with_canvas().get_origin(), sc_with_bonus), 
 		'completed'
 	)
 	HUD.add_sc_points(sc_with_bonus)

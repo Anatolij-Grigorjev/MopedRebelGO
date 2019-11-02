@@ -102,3 +102,5 @@ text = "Poopy heads!"
 align = 1
 valign = 1
 uppercase = true
+
+[node name="Tween" type="Tween" parent="."]

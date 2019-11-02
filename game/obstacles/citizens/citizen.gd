@@ -14,6 +14,7 @@ export(float) var diss_mult_add_pulse: float = 0.3
 onready var animator: AnimationPlayer = $AnimationPlayer
 onready var dissed_progress : ProgressBar = $ProgressBar
 onready var visibility_controller: VisibilityNotifier2D = $VisibilityNotifier2D
+onready var hearing_area: Area2D = $Hearing
 
 
 var _disses_heard : int = 0 

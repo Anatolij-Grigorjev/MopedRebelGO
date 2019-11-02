@@ -3,31 +3,43 @@ class_name DissWord
 """
 Controller for diss word to approach inteded target if set
 """
-const DISS_SPEED = 300
-const DISTANCE_TOLERANCE_SQR = 5.0 * 5.0
+var Logger : Resource = preload("res://utils/logger.gd")
 
+const DISS_SPEED = 500
 
 signal hit_citizen
 
 
-var _target_citizen: Node2D
-var _diss_arrived: bool = false
+onready var LOG: Logger = Logger.new(self)
+onready var tween: Tween = $Tween
+
+
+var _target_reticule: Node2D
 
 
 func _ready() -> void:
 	pass # Replace with function body.
-	
-	
-func _process(delta: float) -> void:
-	if (_target_citizen and not _diss_arrived):
-		var citizen_position := _target_citizen.global_position
-		var advance := (global_position - citizen_position) * DISS_SPEED * delta
-		global_position += advance
-		if (global_position.distance_squared_to(citizen_position) < DISTANCE_TOLERANCE_SQR):
-			_diss_arrived = true
-			emit_signal("hit_citizen")
-	pass
 
 
-func set_target(target_citizen: Node2D) -> void:
-	_target_citizen = target_citizen
+func set_target(target_reticule: Node2D) -> void:
+	_target_reticule = target_reticule
+	
+
+"""
+Make diss move towards target
+"""
+func send_diss() -> void:
+	var target_position := _target_reticule.global_position
+	var distance := global_position.distance_to(target_position)
+	var time_to_reach := distance / DISS_SPEED
+	
+	tween.interpolate_property(
+		self, 'global_position', 
+		null, target_position, 
+		time_to_reach, 
+		Tween.TRANS_LINEAR, Tween.EASE_OUT_IN
+	)
+	tween.start()
+	
+	yield(tween, "tween_all_completed")
+	emit_signal("hit_citizen")
