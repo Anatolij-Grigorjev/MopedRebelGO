@@ -183,7 +183,7 @@ func _on_MopedRebel_diss_said(diss_word: DissWord) -> void:
 	#start diss
 	diss_word.send_diss()
 	#substract diss cost
-	HUD.add_sc_points(-C.MR_DISS_SC_COST)
+	HUD.queue_change_points(-C.MR_DISS_SC_COST)
 
 	
 func _on_NRT_moped_traveled(
@@ -200,7 +200,7 @@ func _on_NRT_moped_traveled(
 		HUD.add_earned_nrt_points_label(moped_rebel.get_global_transform_with_canvas().get_origin(), sc_with_bonus), 
 		'completed'
 	)
-	HUD.add_sc_points(sc_with_bonus)
+	HUD.queue_change_points(sc_with_bonus)
 	
 	
 func _get_onscreen_dissable_citizens() -> Array:

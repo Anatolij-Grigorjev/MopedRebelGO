@@ -39,7 +39,7 @@ var _current_track_warnings := []
 internal list of HUD-relative positions for tracks to put warnings on them
 """
 var _track_idx_icon_positions := []
-
+var _adding_points_handle: GDScriptFunctionState
 
 func _ready():
 	dark_overlay.visible = false
@@ -58,11 +58,20 @@ func set_stage_metadata(stage_length: float, current_pos: float, track_positions
 	_track_idx_icon_positions = Array(track_positions)
 	for idx in range(_track_idx_icon_positions.size()):
 		_current_track_warnings.append(null)
+		
+		
+func queue_change_points(amount: int) -> void:
+	#wait for previos queued change to finish
+	if (_adding_points_handle and _adding_points_handle.is_valid()):
+		yield(_adding_points_handle, "completed")
+	
+	_adding_points_handle = _add_sc_points(amount)
 
 
-func add_sc_points(amount: int) -> void:
+func _add_sc_points(amount: int) -> void:
 	if (State.current_street_scred == MAX_SC_POINTS):
 		return
+		
 	var new_total := State.current_street_scred + amount
 	var next_sc_level_info : Dictionary = C.MR_STREET_CRED_LEVELS[State.next_street_cred_level_idx]
 	#skip leves if required by total
