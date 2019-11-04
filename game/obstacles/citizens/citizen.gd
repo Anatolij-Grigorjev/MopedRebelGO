@@ -23,18 +23,22 @@ func _ready() -> void:
 	_update_diss_progress()
 	
 	
-func _draw() -> void:
-	draw_circle(global_position, 50.0, Color.green)
+func is_dissed() -> bool:
+	return disses_required <= _disses_heard
 	
 
 func _on_area_entered(area: Area2D):
 	._on_area_entered(area)
 	LOG.debug("citizen caught area {}", [area])
 	if (area.is_in_group(C.GROUP_MR)):
-		if ($DissAim):
-			$DissAim.visible = false
-			$DissAim.queue_free()
+		_remove_target()
 		animator.play("hit_by_moped")
+		
+		
+func _remove_target() -> void:
+	if ($DissAim):
+		$DissAim.visible = false
+		$DissAim.queue_free()
 
 
 func _on_Hearing_area_entered(area: Area2D):
@@ -45,6 +49,7 @@ func _on_Hearing_area_entered(area: Area2D):
 	_disses_heard += 1
 	_update_diss_progress()
 	if (_disses_heard >= disses_required):
+		_remove_target()
 		animator.play("be_dissed")
 		
 		

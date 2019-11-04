@@ -83,6 +83,18 @@ scale = Vector2( 0.5, 0.5 )
 position = Vector2( 2569.26, -47.4462 )
 scale = Vector2( 0.5, 0.5 )
 
+[node name="WhiteWorker6" parent="Citizens" instance=ExtResource( 7 )]
+position = Vector2( 2616.67, 171.525 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="WhiteWorker7" parent="Citizens" instance=ExtResource( 7 )]
+position = Vector2( 3000.43, -20.3569 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="WhiteWorker8" parent="Citizens" instance=ExtResource( 7 )]
+position = Vector2( 3140.39, 236.991 )
+scale = Vector2( 0.5, 0.5 )
+
 [node name="WhiteWorker4" parent="Citizens" instance=ExtResource( 7 )]
 position = Vector2( 3338.92, 141.904 )
 scale = Vector2( 0.5, 0.5 )
@@ -92,10 +104,9 @@ position = Vector2( 4350.25, 252.518 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="MopedRebel" parent="." instance=ExtResource( 8 )]
-position = Vector2( 63.2963, 48.1383 )
+position = Vector2( 1727.03, -55.7039 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-editor/display_folded = true
 layer = 5
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 9 )]

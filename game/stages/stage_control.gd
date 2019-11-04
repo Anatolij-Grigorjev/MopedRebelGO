@@ -34,6 +34,7 @@ func _ready() -> void:
 	_tracks_bounds.position.y += _tile_height / 2
 	#setup moped position
 	moped_rebel.connect('swerve_direction_pressed', self, '_on_MopedRebel_swerve_direction_pressed')
+	moped_rebel.connect('diss_target_change_pressed', self, '_on_MopedRebel_diss_target_change_pressed')
 	moped_rebel.connect('diss_said', self, '_on_MopedRebel_diss_said')
 	var moped_tracks_offset : int = _tile_height * current_moped_track
 	moped_rebel.global_position.y = _track0_position + moped_tracks_offset
@@ -113,7 +114,10 @@ func _process(delta: float) -> void:
 	
 func _process_diss_aim() -> void:
 	#check if reticule citizen is passed moped rebel to free it
-	if (is_instance_valid(_current_diss_aim)):
+	if (
+			is_instance_valid(_current_diss_aim) 
+			and _current_diss_aim.has_method('get_target_citizen')
+	):
 		var target_citizen := _current_diss_aim.get_target_citizen()
 		if (target_citizen.global_position.x <= moped_rebel.global_position.x):
 			_current_diss_aim.queue_free() 
@@ -134,6 +138,15 @@ func _start_aim_citizen(citizen: CitizenRoadBlock) -> void:
 	citizen.add_child(_current_diss_aim)
 	#add citizen height to target head
 	_current_diss_aim.position = citizen.hearing_area.position
+	
+
+func _stop_aim_citizen(citizen: CitizenRoadBlock) -> void:
+	if (not is_instance_valid(citizen) or not is_instance_valid(_current_diss_aim)):
+		return
+	if (_current_diss_aim.get_target_citizen() != citizen):
+		return
+	_current_diss_aim.queue_free()
+	_current_diss_aim = null
 
 	
 func _build_nearest_track_obstacles_list() -> Array:
@@ -172,6 +185,31 @@ func _on_MopedRebel_swerve_direction_pressed(intended_direction: int) -> void:
 	LOG.debug("Swerved moped to track {}!", [current_moped_track])
 	
 	
+func _on_MopedRebel_diss_target_change_pressed(change_direction: int) -> void:
+	var available_citizens := _get_onscreen_dissable_citizens()
+	if (not available_citizens):
+		return
+
+	#sort citizens desc
+	available_citizens.sort_custom(Helpers, "sort_nodes_global_y")
+	if (not is_instance_valid(_current_diss_aim)):
+		_start_aim_citizen(available_citizens[0])
+	else:
+		#if citizen not found just aim at first one
+		var target_citizen := _current_diss_aim.get_target_citizen()
+		var idx := available_citizens.find(target_citizen)
+		if (idx < 0):
+			_start_aim_citizen(available_citizens[0])
+		else:
+			_stop_aim_citizen(available_citizens[idx])
+			var new_citizen_idx := wrapi(
+				idx + change_direction, 
+				0, 
+				available_citizens.size()
+			)
+			_start_aim_citizen(available_citizens[new_citizen_idx])
+	
+	
 func _on_MopedRebel_diss_said(diss_word: DissWord) -> void:
 	add_child(diss_word)
 	diss_word.global_position = moped_rebel.diss_position.global_position
@@ -207,8 +245,10 @@ func _get_onscreen_dissable_citizens() -> Array:
 	var onscreen_dissables : Array = []
 	for dissable in get_tree().get_nodes_in_group(C.GROUP_DISSABLES):
 		var citizen : CitizenRoadBlock = dissable as CitizenRoadBlock
-		if (citizen.visibility_controller.is_on_screen()
-			and citizen.global_position.x > moped_rebel.global_position.x):
+		var citizen_visibility: VisibilityNotifier2D = citizen.visibility_controller
+		if (citizen_visibility.is_on_screen()
+			and not citizen.is_dissed()
+			and citizen_visibility.global_position.x > moped_rebel.global_position.x):
 			onscreen_dissables.append(citizen)
 		
 	return onscreen_dissables

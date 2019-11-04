@@ -19,6 +19,7 @@ var DissWord: Resource = preload("res://rebel/diss_word.tscn")
 
 signal swerve_direction_pressed(swerve_direction)
 signal diss_said(diss_word)
+signal diss_target_change_pressed(change_direction)
 
 
 var cruise_speed : float = C.MR_CRUISE_SPEED
@@ -56,6 +57,11 @@ func _process(delta: float) -> void:
 		var desired_swerve_direction : int = input.process_swerve_input()
 		if desired_swerve_direction != 0:
 			emit_signal("swerve_direction_pressed", desired_swerve_direction)
+		#get desired diss selection change
+		var desired_selection_change : int = input.process_change_diss_target()
+		if desired_selection_change != 0:
+			emit_signal("diss_target_change_pressed", desired_selection_change)
+		#get desire to press diss saying
 		var desire_say_diss : bool = input.process_say_diss()
 		if (desire_say_diss):
 			diss_cooldown_bar.start_cooldown(input.max_diss_colldown)

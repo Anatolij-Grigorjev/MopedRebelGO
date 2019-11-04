@@ -54,7 +54,7 @@ func _process_axis_inputs(axis_plus_action: String, axis_minus_action: String) -
 	var result_input : int = 0
 	if Input.is_action_just_pressed(axis_plus_action):
 		result_input += 1
-	if Input.is_action_pressed(axis_minus_action):
+	if Input.is_action_just_pressed(axis_minus_action):
 		result_input -= 1
 	
 	return result_input
