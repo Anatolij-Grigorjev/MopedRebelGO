@@ -20,7 +20,11 @@ func _ready() -> void:
 
 
 func set_num_points(earned_points: float) -> void:
-	points_text.text = "+%02.2f" % earned_points
+	if (earned_points > 0):
+		points_text.text = "+%02.2f" % earned_points
+	else:
+		points_text.text = "%02.2f" % earned_points
+		points_text.set("custom_colors/font_color", Color.red)
 
 
 func start_reduce_to_point(end_point: Vector2) -> void:

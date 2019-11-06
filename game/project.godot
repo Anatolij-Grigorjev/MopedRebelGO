@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "PointsLabel",
+"class": "AdditivePointsLabel",
+"language": "GDScript",
+"path": "res://gui/additive_sc_label.gd"
+}, {
 "base": "Node2D",
 "class": "AngerPulse",
 "language": "GDScript",
@@ -120,6 +125,7 @@ _global_script_classes=[ {
 "path": "res://gui/warning_icon.gd"
 } ]
 _global_script_class_icons={
+"AdditivePointsLabel": "",
 "AngerPulse": "",
 "C": "",
 "CitizenRoadBlock": "",

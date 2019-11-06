@@ -27,8 +27,12 @@ onready var State : GameState = get_node("/root/G")
 onready var LOG : Logger = Logger.new(self)
 onready var sc_progress : StreetCredProgressBar = $StreetCredProgressBar
 onready var stage_progress : ProgressBar = $StageProgress
-onready var current_sc_label : PointsLabel = $CurrentSCLabel
+onready var current_sc_label : PointsLabel = $CurrentSCLabel/CurrentSCLabel
+onready var additive_sc_label : PointsLabel = $AdditiveSCLabel/AdditiveSCLabel
+onready var transfer_sc_label: PointsLabel = $TransferSCLabel/AdditiveSCLabel
 onready var dark_overlay : TextureRect = $DarkOverlay
+onready var transfer_points_debounce : Timer = $TransferPointsDebounce
+onready var transfer_sc_tween: Tween = $TransferSCTween
 
 
 """
@@ -39,16 +43,28 @@ var _current_track_warnings := []
 internal list of HUD-relative positions for tracks to put warnings on them
 """
 var _track_idx_icon_positions := []
-var _adding_points_handle: GDScriptFunctionState
+
+var _current_points_change_accum: float = 0.0
 
 func _ready():
+	transfer_points_debounce.connect("timeout", self, "_transfer_points_debounce_timeout")
 	dark_overlay.visible = false
 	_update_sc_label()
+	_update_accum_sc_label()
 	pass
+	
+
+func _process(delta: float) -> void:
+	if (Input.is_action_just_pressed("debug1")):
+		queue_change_points(randi() % 100 - 50)
 	
 	
 func _update_sc_label() -> void:
 	current_sc_label.update_current_points(State.current_street_scred)
+	
+
+func _update_accum_sc_label() -> void:
+	additive_sc_label.update_current_points(_current_points_change_accum)
 
 	
 func set_stage_metadata(stage_length: float, current_pos: float, track_positions: Array) -> void:
@@ -61,11 +77,12 @@ func set_stage_metadata(stage_length: float, current_pos: float, track_positions
 		
 		
 func queue_change_points(amount: int) -> void:
-	#wait for previos queued change to finish
-	if (_adding_points_handle and _adding_points_handle.is_valid()):
-		yield(_adding_points_handle, "completed")
-	
-	_adding_points_handle = _add_sc_points(amount)
+	#reset timer if no points or its running
+	if (_current_points_change_accum == 0.0
+	or not transfer_points_debounce.is_stopped()):
+		transfer_points_debounce.start()
+	_current_points_change_accum += amount
+	_update_accum_sc_label()
 
 
 func _add_sc_points(amount: int) -> void:
@@ -205,3 +222,29 @@ func add_earned_nrt_points_label(moped_canvas_position: Vector2, earned_points: 
 	earned_node.start_reduce_to_point(current_sc_label.merge_points_position)
 	yield(earned_node.tween, 'tween_all_completed')
 	earned_node.queue_free()
+	
+	
+func _transfer_points_debounce_timeout() -> void:
+	if (_current_points_change_accum == 0.0):
+		return
+	var points_to_transfer := _current_points_change_accum
+	#wait for previous transfer to finish
+	if (transfer_sc_tween.is_active()):
+		yield(transfer_sc_tween, "tween_all_completed")
+	
+	transfer_sc_label.update_current_points(points_to_transfer)
+	$TransferSCLabel.visible = true
+	$TransferSCLabel.rect_position = $AdditiveSCLabel.rect_position
+	transfer_sc_tween.interpolate_property($TransferSCLabel, 'rect_position',
+		null, $CurrentSCLabel.rect_position, 0.5, 
+		Tween.TRANS_LINEAR, Tween.EASE_OUT_IN
+	)
+	transfer_sc_tween.start()
+	_current_points_change_accum -= points_to_transfer
+	_update_accum_sc_label()
+	#wait for tween to finish
+	yield(transfer_sc_tween, "tween_all_completed")
+	#flush the update
+	_add_sc_points(points_to_transfer)
+	$TransferSCLabel.visible = false
+	

@@ -221,6 +221,10 @@ func _on_MopedRebel_diss_said(diss_word: DissWord) -> void:
 	#start diss
 	diss_word.send_diss()
 	#substract diss cost
+	yield(
+		HUD.add_earned_nrt_points_label(moped_rebel.get_global_transform_with_canvas().get_origin(), -C.MR_DISS_SC_COST), 
+		'completed'
+	)
 	HUD.queue_change_points(-C.MR_DISS_SC_COST)
 
 	

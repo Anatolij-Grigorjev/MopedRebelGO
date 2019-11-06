@@ -104,7 +104,7 @@ position = Vector2( 4350.25, 252.518 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="MopedRebel" parent="." instance=ExtResource( 8 )]
-position = Vector2( 1727.03, -55.7039 )
+position = Vector2( -8.34802, 63.5074 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 5

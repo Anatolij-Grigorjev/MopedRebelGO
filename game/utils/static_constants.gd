@@ -64,7 +64,7 @@ enum DIRECTION {
 *****************************
 """
 const MR_DISS_SC_COST: float = 15.5
-const MR_CRUISE_SPEED : float = 25.56
+const MR_CRUISE_SPEED : float = 255.56
 const MR_SWERVE_DURATION_SEC : float = 0.2
 const MR_OBSTACLE_PUSHBACK_DURATION_SEC : float = 0.3
 const MR_OBSTACLE_PUSHBACK_AMOUNT : float = 700.7

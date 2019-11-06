@@ -23,4 +23,4 @@ func update_current_points(current_pts: float) -> void:
 	text = label_display_format % current_pts
 	if (animator.is_playing()):
 		animator.stop(true)
-	animator.play("points_changed")	
+	animator.play("points_changed")
