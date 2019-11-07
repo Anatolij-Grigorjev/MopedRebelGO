@@ -23,6 +23,7 @@ signal diss_target_change_pressed(change_direction)
 
 
 var cruise_speed : float = C.MR_CRUISE_SPEED
+var cutscene_speed : float = C.MR_CUTSCENE_SPEED
 export(Vector2) var velocity := Vector2(cruise_speed, 0)
 
 
@@ -40,6 +41,7 @@ onready var nrt_travel_emitter : Particles2D = $NRTParticles
 
 var _is_swerving: bool = false 
 var _is_crashing: bool = false
+var _can_control_moped: bool = true
 
 
 func _ready() -> void:
@@ -48,25 +50,37 @@ func _ready() -> void:
 	pass
 
 
-func _process(delta: float) -> void:
+func _disable_player_control() -> void:
+	$Camera2D.current = false
+	_can_control_moped = false
+	velocity = Vector2(cutscene_speed, 0)
 	
-	if (not _is_swerving
-		and not _is_crashing):
-		#get desired swerve direction 
-		#-1 for going up +1 for going down
-		var desired_swerve_direction : int = input.process_swerve_input()
-		if desired_swerve_direction != 0:
-			emit_signal("swerve_direction_pressed", desired_swerve_direction)
-		#get desired diss selection change
-		var desired_selection_change : int = input.process_change_diss_target()
-		if desired_selection_change != 0:
-			emit_signal("diss_target_change_pressed", desired_selection_change)
-		#get desire to press diss saying
-		var desire_say_diss : bool = input.process_say_diss()
-		if (desire_say_diss):
-			diss_cooldown_bar.start_cooldown(input.max_diss_colldown)
-			var new_diss := _build_diss_word()
-			emit_signal("diss_said", new_diss)
+	
+func _enable_player_control() -> void:
+	$Camera2D.current = true
+	_can_control_moped = true
+	velocity = Vector2(cruise_speed, 0)
+	
+
+func _process(delta: float) -> void:
+	if (_can_control_moped):
+		if (not _is_swerving
+			and not _is_crashing):
+			#get desired swerve direction 
+			#-1 for going up +1 for going down
+			var desired_swerve_direction : int = input.process_swerve_input()
+			if desired_swerve_direction != 0:
+				emit_signal("swerve_direction_pressed", desired_swerve_direction)
+			#get desired diss selection change
+			var desired_selection_change : int = input.process_change_diss_target()
+			if desired_selection_change != 0:
+				emit_signal("diss_target_change_pressed", desired_selection_change)
+			#get desire to press diss saying
+			var desire_say_diss : bool = input.process_say_diss()
+			if (desire_say_diss):
+				diss_cooldown_bar.start_cooldown(input.max_diss_colldown)
+				var new_diss := _build_diss_word()
+				emit_signal("diss_said", new_diss)
 	move_and_slide(velocity)
 	
 	
