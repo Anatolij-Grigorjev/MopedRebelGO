@@ -70,6 +70,17 @@ static func reparent_node(child: Node2D, target_parent: Node2D, keep_global_pos:
 		child.global_position = old_position
 	
 	return child
+
+
+"""
+Check if a string is blank (nil, empty, whitespace, etc)
+"""
+static func is_blank(text: String) -> bool:
+	if (text == null):
+		return true
+	if (text.empty()):
+		return true
+	return not text.strip_edges().empty()
 	
 	
 """

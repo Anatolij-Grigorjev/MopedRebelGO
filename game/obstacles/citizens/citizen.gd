@@ -19,6 +19,7 @@ onready var hearing_area: Area2D = $Hearing
 
 var _disses_heard : int = 0 
 
+
 func _ready() -> void:
 	_update_diss_progress()
 	

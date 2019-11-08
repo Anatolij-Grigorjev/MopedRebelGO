@@ -50,13 +50,13 @@ func _ready() -> void:
 	pass
 
 
-func _disable_player_control() -> void:
+func disable_player_control() -> void:
 	$Camera2D.current = false
 	_can_control_moped = false
 	velocity = Vector2(cutscene_speed, 0)
 	
 	
-func _enable_player_control() -> void:
+func enable_player_control() -> void:
 	$Camera2D.current = true
 	_can_control_moped = true
 	velocity = Vector2(cruise_speed, 0)
