@@ -19,7 +19,7 @@ onready var LOG: Logger = Logger.new(self)
 
 
 export(CutsceneTrigger) var start_cutscene_on := CutsceneTrigger.ENTRY
-export(NodePath) var cutscene_routine_owner 
+export(NodePath) var cutscene_routine_owner_path 
 """
 This routine gets fired for cutscenes and should support 1 argument:
 	- area captive position (entry or exit)
@@ -36,6 +36,7 @@ func _ready():
 
 
 func _on_Area2D_area_entered(area: Area2D) -> void:
+	LOG.info("Got area {} to enter cutscene area {}", [area.name, name])
 	_process_cutscene_for_trigger(area, CutsceneTrigger.ENTRY)
 
 
@@ -45,15 +46,19 @@ func _on_Area2D_area_exited(area: Area2D) -> void:
 	
 func _process_cutscene_for_trigger(area: Area2D, trigger: int) -> void:
 	if (not _can_use_trigger(trigger)):
+		LOG.info("cutscene {} skipped because trigger {} not set!", [name, trigger])
 		return
 	if (_cutscene_provider_missing()):
+		LOG.info("cutscene {} skipped because cutscene method and node not set!", [name])
 		return
 	if (not area.is_in_group(C.GROUP_MR)):
+		LOG.info("cutscene {} skipped since area {} is not part of moped rebel!", [name, area.name])
 		return
-		
+	LOG.info("trigger cutscene on {} for area {}", [trigger, area])
 	var moped_rebel := area.owner as MopedRebel
 	moped_rebel.disable_player_control()
 	$Camera2D.current = true
+	var cutscene_routine_owner : Node = get_node(cutscene_routine_owner_path)
 	yield(
 		cutscene_routine_owner.call(cutscene_routine_name, trigger),
 		"completed"
@@ -71,5 +76,5 @@ func _can_use_trigger(current_phase:int) -> bool:
 			
 			
 func _cutscene_provider_missing() -> bool:
-	return (not is_instance_valid(cutscene_routine_owner)
+	return (not is_instance_valid(get_node(cutscene_routine_owner_path))
 			or Helpers.is_blank(cutscene_routine_name))

@@ -80,7 +80,7 @@ static func is_blank(text: String) -> bool:
 		return true
 	if (text.empty()):
 		return true
-	return not text.strip_edges().empty()
+	return text.strip_edges().empty()
 	
 	
 """

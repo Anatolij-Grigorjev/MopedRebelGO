@@ -13,6 +13,7 @@ onready var moped_rebel: MopedRebel = $MopedRebel
 onready var LOG: Logger = Logger.new(self)
 onready var State : GameState = get_node("/root/G")
 onready var HUD: HUDController = $CanvasLayer/HUD
+onready var start_position: Position2D = $StartPosition
 
 
 export(int) var num_stage_tracks := 5
@@ -256,3 +257,15 @@ func _get_onscreen_dissable_citizens() -> Array:
 			onscreen_dissables.append(citizen)
 		
 	return onscreen_dissables
+
+
+func _start_moped_stage_intro(cutscene_trigger: int) -> void:
+	var stage_position := start_position.global_position
+	var mover_tween : Tween = $Tween
+	
+	mover_tween.interpolate_property(moped_rebel, 'global_position',
+		null, stage_position, 2.0, 
+		Tween.TRANS_LINEAR, Tween.EASE_OUT_IN
+	)
+	mover_tween.start()
+	yield(mover_tween, "tween_all_completed")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://stages/stage_control.gd" type="Script" id=1]
 [ext_resource path="res://stages/tiles/diag_brown_white_metal.tres" type="TileSet" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://obstacles/citizens/white_worker.tscn" type="PackedScene" id=7]
 [ext_resource path="res://rebel/moped_rebel.tscn" type="PackedScene" id=8]
 [ext_resource path="res://gui/HUD.tscn" type="PackedScene" id=9]
+[ext_resource path="res://stages/stage_cutscene_area.tscn" type="PackedScene" id=10]
 
 [node name="TestStage" type="Node2D"]
 script = ExtResource( 1 )
@@ -22,6 +23,7 @@ tile_data = PoolIntArray( -65540, 3, 0, -65539, 3, 0, -65538, 3, 0, -65537, 3, 0
 [node name="YSort" type="YSort" parent="."]
 
 [node name="NRT" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="NonRegulationTrack1" parent="NRT" instance=ExtResource( 3 )]
 position = Vector2( 753.979, 45.7332 )
@@ -56,6 +58,7 @@ travel_nrt_points = 500.0
 nrt_cruise_speed = 600.0
 
 [node name="Obstacles" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="TallRoadblock" parent="Obstacles" instance=ExtResource( 6 )]
 position = Vector2( 1300, 62 )
@@ -70,6 +73,7 @@ position = Vector2( 5349.11, 251.889 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="Citizens" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="WhiteWorker" parent="Citizens" instance=ExtResource( 7 )]
 position = Vector2( 596.142, -69.6646 )
@@ -104,9 +108,29 @@ position = Vector2( 4350.25, 252.518 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="MopedRebel" parent="." instance=ExtResource( 8 )]
-position = Vector2( -8.34802, 63.5074 )
+editor/display_folded = true
+position = Vector2( -930, 50 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 5
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 9 )]
+
+[node name="StageCutsceneArea" parent="." instance=ExtResource( 10 )]
+position = Vector2( -500, -100 )
+cutscene_routine_owner_path = NodePath("..")
+cutscene_routine_name = "_start_moped_stage_intro"
+
+[node name="Camera2D" parent="StageCutsceneArea" index="1"]
+offset = Vector2( 250, -50 )
+limit_top = -600
+limit_bottom = 120
+limit_smoothed = true
+drag_margin_h_enabled = true
+
+[node name="StartPosition" type="Position2D" parent="."]
+position = Vector2( -186.806, 43.4126 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[editable path="StageCutsceneArea"]

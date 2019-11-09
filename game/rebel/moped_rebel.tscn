@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://rebel/moped_rebel.gd" type="Script" id=1]
 [ext_resource path="res://rebel/input_processor.tscn" type="PackedScene" id=2]
@@ -196,6 +196,9 @@ hue_variation = 0.5
 [sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 250, 30 )
 
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 50, 50 )
+
 [node name="MopedRebel" type="KinematicBody2D"]
 scale = Vector2( 0.36, 0.36 )
 script = ExtResource( 1 )
@@ -241,9 +244,13 @@ position = Vector2( 24.4433, -368.776 )
 [node name="ObstacleDetect" type="Area2D" parent="." groups=[
 "moped_rebel",
 ]]
+editor/display_folded = true
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 7 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ObstacleDetect"]
 position = Vector2( 220, 0 )
@@ -257,12 +264,30 @@ amount = 100
 process_material = SubResource( 8 )
 
 [node name="AngerDetector" type="Area2D" parent="."]
+editor/display_folded = true
 collision_layer = 8
 collision_mask = 8
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AngerDetector"]
 shape = SubResource( 9 )
 
 [node name="CooldownBar" parent="." instance=ExtResource( 8 )]
 position = Vector2( -100, -500 )
+
+[node name="CutsceneDetector" type="Area2D" parent="." groups=[
+"moped_rebel",
+]]
+editor/display_folded = true
+position = Vector2( 0, -200 )
+collision_layer = 16
+collision_mask = 16
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CutsceneDetector"]
+shape = SubResource( 10 )
 [connection signal="area_entered" from="AngerDetector" to="." method="_on_AngerDetector_area_entered"]
