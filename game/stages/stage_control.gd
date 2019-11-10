@@ -259,7 +259,14 @@ func _get_onscreen_dissable_citizens() -> Array:
 	return onscreen_dissables
 
 
+func _toggle_ui_elements_visible(visible: bool) -> void:
+	$CanvasLayer/HUD.visible = visible
+	if (is_instance_valid(_current_diss_aim)):
+		_current_diss_aim.visible = visible
+
+
 func _start_moped_stage_intro(cutscene_trigger: int) -> void:
+	_toggle_ui_elements_visible(false)
 	var stage_position := start_position.global_position
 	var mover_tween : Tween = $Tween
 	
@@ -269,3 +276,16 @@ func _start_moped_stage_intro(cutscene_trigger: int) -> void:
 	)
 	mover_tween.start()
 	yield(mover_tween, "tween_all_completed")
+	_toggle_ui_elements_visible(true)
+	
+	
+func _start_moped_stage_outro(cutscene_trigger: int) -> void:
+	if (StageCutsceneArea.CutsceneTrigger.ENTRY == cutscene_trigger):
+		_toggle_ui_elements_visible(false)
+		yield(get_tree().create_timer(10.0), "timeout")
+		#do start of outro stuff
+		pass
+	else:
+		#passed end of outro
+		LOG.info("stage finished! tally up!")
+		breakpoint

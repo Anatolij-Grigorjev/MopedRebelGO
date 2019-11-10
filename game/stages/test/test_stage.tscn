@@ -108,22 +108,38 @@ position = Vector2( 4350.25, 252.518 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="MopedRebel" parent="." instance=ExtResource( 8 )]
-editor/display_folded = true
 position = Vector2( -930, 50 )
+
+[node name="Camera2D" parent="MopedRebel" index="3"]
+limit_right = 7000
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 5
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 9 )]
 
-[node name="StageCutsceneArea" parent="." instance=ExtResource( 10 )]
+[node name="StartStageCutsceneArea" parent="." instance=ExtResource( 10 )]
 position = Vector2( -500, -100 )
 cutscene_routine_owner_path = NodePath("..")
 cutscene_routine_name = "_start_moped_stage_intro"
 
-[node name="Camera2D" parent="StageCutsceneArea" index="1"]
-offset = Vector2( 250, -50 )
+[node name="Camera2D" parent="StartStageCutsceneArea" index="1"]
+offset = Vector2( 600, -50 )
 limit_top = -600
+limit_bottom = 120
+limit_smoothed = true
+drag_margin_h_enabled = true
+
+[node name="EndStageCutsceneArea2" parent="." instance=ExtResource( 10 )]
+position = Vector2( 6600, -100 )
+start_cutscene_on = 2
+cutscene_routine_owner_path = NodePath("..")
+cutscene_routine_name = "_start_moped_stage_outro"
+
+[node name="Camera2D" parent="EndStageCutsceneArea2" index="1"]
+offset = Vector2( 50, -50 )
+limit_top = -600
+limit_right = 7000
 limit_bottom = 120
 limit_smoothed = true
 drag_margin_h_enabled = true
@@ -133,4 +149,8 @@ position = Vector2( -186.806, 43.4126 )
 
 [node name="Tween" type="Tween" parent="."]
 
-[editable path="StageCutsceneArea"]
+[editable path="MopedRebel"]
+
+[editable path="StartStageCutsceneArea"]
+
+[editable path="EndStageCutsceneArea2"]
