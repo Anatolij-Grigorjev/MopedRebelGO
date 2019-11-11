@@ -1,0 +1,265 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 1, 1, 0.196078, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 1, 1, 0.196078, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 1
+shadow_size = 1
+anti_aliasing = false
+
+[node name="TallyScreen" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 50.0
+margin_top = 50.0
+margin_right = -50.0
+margin_bottom = -50.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Sections" type="VBoxContainer" parent="."]
+margin_right = 1180.0
+margin_bottom = 620.0
+size_flags_horizontal = 3
+
+[node name="Header" type="VBoxContainer" parent="Sections"]
+editor/display_folded = true
+margin_right = 1180.0
+margin_bottom = 43.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.33
+custom_constants/separation = 25
+
+[node name="Label" type="Label" parent="Sections/Header"]
+margin_right = 1180.0
+margin_bottom = 14.0
+size_flags_vertical = 3
+custom_colors/font_color = Color( 1, 1, 0.196078, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Stage Summary"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="SectionSeparator" type="HSeparator" parent="Sections/Header"]
+margin_top = 39.0
+margin_right = 1180.0
+margin_bottom = 43.0
+size_flags_vertical = 3
+custom_styles/separator = SubResource( 1 )
+
+[node name="TallyTable" type="VBoxContainer" parent="Sections"]
+margin_top = 47.0
+margin_right = 1180.0
+margin_bottom = 620.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="TallyRowCitizens" type="HBoxContainer" parent="Sections/TallyTable"]
+editor/display_folded = true
+margin_right = 1180.0
+margin_bottom = 188.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TopPadding" type="HSeparator" parent="Sections/TallyTable/TallyRowCitizens"]
+margin_right = 167.0
+margin_bottom = 188.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CitizensDissed" type="HBoxContainer" parent="Sections/TallyTable/TallyRowCitizens"]
+editor/display_folded = true
+margin_left = 171.0
+margin_right = 1008.0
+margin_bottom = 188.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="StartPadding" type="VSeparator" parent="Sections/TallyTable/TallyRowCitizens/CitizensDissed"]
+margin_right = 48.0
+margin_bottom = 188.0
+size_flags_horizontal = 3
+
+[node name="Labels" type="HBoxContainer" parent="Sections/TallyTable/TallyRowCitizens/CitizensDissed"]
+editor/display_folded = true
+margin_left = 52.0
+margin_right = 783.0
+margin_bottom = 188.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 15.0
+
+[node name="Label" type="Label" parent="Sections/TallyTable/TallyRowCitizens/CitizensDissed/Labels"]
+margin_top = 87.0
+margin_right = 103.0
+margin_bottom = 101.0
+text = "Citizens Dissed:"
+valign = 1
+
+[node name="Value" type="Label" parent="Sections/TallyTable/TallyRowCitizens/CitizensDissed/Labels"]
+margin_left = 107.0
+margin_top = 87.0
+margin_right = 731.0
+margin_bottom = 101.0
+size_flags_horizontal = 3
+text = "5/7"
+align = 2
+valign = 1
+
+[node name="EndPadding" type="VSeparator" parent="Sections/TallyTable/TallyRowCitizens/CitizensDissed"]
+margin_left = 787.0
+margin_right = 837.0
+margin_bottom = 188.0
+size_flags_horizontal = 3
+
+[node name="BottomPadding" type="HSeparator" parent="Sections/TallyTable/TallyRowCitizens"]
+margin_left = 1012.0
+margin_right = 1180.0
+margin_bottom = 188.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TallyRowNRTs" type="HBoxContainer" parent="Sections/TallyTable"]
+editor/display_folded = true
+margin_top = 192.0
+margin_right = 1180.0
+margin_bottom = 380.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TopPadding" type="HSeparator" parent="Sections/TallyTable/TallyRowNRTs"]
+margin_right = 167.0
+margin_bottom = 188.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CitizensDissed" type="HBoxContainer" parent="Sections/TallyTable/TallyRowNRTs"]
+editor/display_folded = true
+margin_left = 171.0
+margin_right = 1008.0
+margin_bottom = 188.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="StartPadding" type="VSeparator" parent="Sections/TallyTable/TallyRowNRTs/CitizensDissed"]
+margin_right = 48.0
+margin_bottom = 188.0
+size_flags_horizontal = 3
+
+[node name="Labels" type="HBoxContainer" parent="Sections/TallyTable/TallyRowNRTs/CitizensDissed"]
+editor/display_folded = true
+margin_left = 52.0
+margin_right = 783.0
+margin_bottom = 188.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 15.0
+
+[node name="Label" type="Label" parent="Sections/TallyTable/TallyRowNRTs/CitizensDissed/Labels"]
+margin_top = 87.0
+margin_right = 103.0
+margin_bottom = 101.0
+text = "Citizens Dissed:"
+valign = 1
+
+[node name="Value" type="Label" parent="Sections/TallyTable/TallyRowNRTs/CitizensDissed/Labels"]
+margin_left = 107.0
+margin_top = 87.0
+margin_right = 731.0
+margin_bottom = 101.0
+size_flags_horizontal = 3
+text = "5/7"
+align = 2
+valign = 1
+
+[node name="EndPadding" type="VSeparator" parent="Sections/TallyTable/TallyRowNRTs/CitizensDissed"]
+margin_left = 787.0
+margin_right = 837.0
+margin_bottom = 188.0
+size_flags_horizontal = 3
+
+[node name="BottomPadding" type="HSeparator" parent="Sections/TallyTable/TallyRowNRTs"]
+margin_left = 1012.0
+margin_right = 1180.0
+margin_bottom = 188.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TallyRowOverallRebel" type="HBoxContainer" parent="Sections/TallyTable"]
+editor/display_folded = true
+margin_top = 384.0
+margin_right = 1180.0
+margin_bottom = 573.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TopPadding" type="HSeparator" parent="Sections/TallyTable/TallyRowOverallRebel"]
+margin_right = 167.0
+margin_bottom = 189.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CitizensDissed" type="HBoxContainer" parent="Sections/TallyTable/TallyRowOverallRebel"]
+editor/display_folded = true
+margin_left = 171.0
+margin_right = 1008.0
+margin_bottom = 189.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="StartPadding" type="VSeparator" parent="Sections/TallyTable/TallyRowOverallRebel/CitizensDissed"]
+margin_right = 48.0
+margin_bottom = 189.0
+size_flags_horizontal = 3
+
+[node name="Labels" type="HBoxContainer" parent="Sections/TallyTable/TallyRowOverallRebel/CitizensDissed"]
+editor/display_folded = true
+margin_left = 52.0
+margin_right = 783.0
+margin_bottom = 189.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 15.0
+
+[node name="Label" type="Label" parent="Sections/TallyTable/TallyRowOverallRebel/CitizensDissed/Labels"]
+margin_top = 87.0
+margin_right = 103.0
+margin_bottom = 101.0
+text = "Citizens Dissed:"
+valign = 1
+
+[node name="Value" type="Label" parent="Sections/TallyTable/TallyRowOverallRebel/CitizensDissed/Labels"]
+margin_left = 107.0
+margin_top = 87.0
+margin_right = 731.0
+margin_bottom = 101.0
+size_flags_horizontal = 3
+text = "5/7"
+align = 2
+valign = 1
+
+[node name="EndPadding" type="VSeparator" parent="Sections/TallyTable/TallyRowOverallRebel/CitizensDissed"]
+margin_left = 787.0
+margin_right = 837.0
+margin_bottom = 189.0
+size_flags_horizontal = 3
+
+[node name="BottomPadding" type="HSeparator" parent="Sections/TallyTable/TallyRowOverallRebel"]
+margin_left = 1012.0
+margin_right = 1180.0
+margin_bottom = 189.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
