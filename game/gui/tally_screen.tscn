@@ -1,4 +1,172 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://gui/tally_screen.gd" type="Script" id=1]
+[ext_resource path="res://stages/tile_light_texture.png" type="Texture" id=2]
+
+[sub_resource type="Animation" id=3]
+resource_name = "flashin_button"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("TallyScreen/ScreenBlocks/ButtonContainer/PressDissLabel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "load_screen"
+length = 7.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("TallyScreen/ScreenBlocks/Sections/Header/TitleBox/Label:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -1000, 0 ), Vector2( 110, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TallyScreen/ScreenBlocks/Sections/Header/SectionSeparator:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowCitizens/Content/Labels/Label:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -1000, 51 ), Vector2( -1000, 51 ), Vector2( 0, 51 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowCitizens/Content/Labels/Value:rect_position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1000, 51 ), Vector2( 1000, 51 ), Vector2( 107, 51 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowNRTs/Content/Labels/Label:rect_position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -1000, 51 ), Vector2( -1000, 51 ), Vector2( 0, 51 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowNRTs/Content/Labels/Value:rect_position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1000, 51 ), Vector2( 1000, 51 ), Vector2( 89, 51 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel/Content/Labels/Label:rect_position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 4, 5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -1000, 52 ), Vector2( -1000, 52 ), Vector2( 0, 52 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel/Content/Labels/Value:rect_position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 4, 5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1000, 52 ), Vector2( 1000, 52 ), Vector2( 151, 52 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("TallyScreen/ScreenBlocks/Sections/TallyArea/SectionSeparator:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 5, 6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("TallyScreen/ScreenBlocks/Sections/TallyArea/TallyRow/Content/Labels/Label:rect_position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 6, 7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -1000, 0 ), Vector2( -1000, 0 ), Vector2( 0, 0 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("TallyScreen/ScreenBlocks/Sections/TallyArea/TallyRow/Content/Labels/Value:rect_position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 6, 7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1000, 0 ), Vector2( 1000, 0 ), Vector2( 367, 0 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("TallyScreen/ScreenBlocks/ButtonContainer/PressDissLabel:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 7.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 1, 1, 0.196078, 1 )
@@ -15,172 +183,31 @@ corner_detail = 1
 shadow_size = 1
 anti_aliasing = false
 
-[sub_resource type="Animation" id=3]
-resource_name = "flashin_button"
-length = 4.0
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("ScreenBlocks/ButtonContainer/PressDissLabel:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2, 3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ true, false, true, false ]
-}
+[node name="TallyScreenRoot" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
 
-[sub_resource type="Animation" id=2]
-resource_name = "load_screen"
-length = 7.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("ScreenBlocks/Sections/Header/TitleBox/Label:rect_position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( -1000, 0 ), Vector2( 110, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("ScreenBlocks/Sections/Header/SectionSeparator:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1, 2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("ScreenBlocks/Sections/TallyTable/TallyRowCitizens/Content/Labels/Label:rect_position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 2, 3 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( -1000, 51 ), Vector2( -1000, 51 ), Vector2( 0, 51 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("ScreenBlocks/Sections/TallyTable/TallyRowCitizens/Content/Labels/Value:rect_position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 2, 3 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1000, 51 ), Vector2( 1000, 51 ), Vector2( 107, 51 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("ScreenBlocks/Sections/TallyTable/TallyRowNRTs/Content/Labels/Label:rect_position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 3, 4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( -1000, 51 ), Vector2( -1000, 51 ), Vector2( 0, 51 ) ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("ScreenBlocks/Sections/TallyTable/TallyRowNRTs/Content/Labels/Value:rect_position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 3, 4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1000, 51 ), Vector2( 1000, 51 ), Vector2( 89, 51 ) ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel/Content/Labels/Label:rect_position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0, 4, 5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( -1000, 52 ), Vector2( -1000, 52 ), Vector2( 0, 52 ) ]
-}
-tracks/7/type = "value"
-tracks/7/path = NodePath("ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel/Content/Labels/Value:rect_position")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/keys = {
-"times": PoolRealArray( 0, 4, 5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1000, 52 ), Vector2( 1000, 52 ), Vector2( 151, 52 ) ]
-}
-tracks/8/type = "value"
-tracks/8/path = NodePath("ScreenBlocks/Sections/TallyArea/SectionSeparator:modulate")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/keys = {
-"times": PoolRealArray( 0, 5, 6 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/9/type = "value"
-tracks/9/path = NodePath("ScreenBlocks/Sections/TallyArea/Tally Row/Content/Labels/Label:rect_position")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/keys = {
-"times": PoolRealArray( 0, 6, 7 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( -1000, 0 ), Vector2( -1000, 0 ), Vector2( 0, 0 ) ]
-}
-tracks/10/type = "value"
-tracks/10/path = NodePath("ScreenBlocks/Sections/TallyArea/Tally Row/Content/Labels/Value:rect_position")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/keys = {
-"times": PoolRealArray( 0, 6, 7 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1000, 0 ), Vector2( 1000, 0 ), Vector2( 367, 0 ) ]
-}
-tracks/11/type = "value"
-tracks/11/path = NodePath("ScreenBlocks/ButtonContainer/PressDissLabel:visible")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/keys = {
-"times": PoolRealArray( 0, 7.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
+[node name="DarkOverlay" type="TextureRect" parent="."]
+modulate = Color( 0, 0, 0, 0.392157 )
+margin_left = -2500.0
+margin_top = -500.0
+margin_right = 3500.0
+margin_bottom = 1500.0
+texture = ExtResource( 2 )
+expand = true
 
-[node name="TallyScreen" type="MarginContainer"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "load_screen"
+playback_speed = 1.5
+anims/flashin_button = SubResource( 3 )
+anims/load_screen = SubResource( 2 )
+next/flashin_button = "flashin_button"
+next/load_screen = "flashin_button"
+
+[node name="TallyScreen" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 50.0
@@ -190,35 +217,36 @@ margin_bottom = -50.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ScreenBlocks" type="VBoxContainer" parent="."]
+[node name="ScreenBlocks" type="VBoxContainer" parent="TallyScreen"]
 margin_right = 1180.0
 margin_bottom = 620.0
 
-[node name="Sections" type="VBoxContainer" parent="ScreenBlocks"]
+[node name="Sections" type="VBoxContainer" parent="TallyScreen/ScreenBlocks"]
 margin_right = 1180.0
 margin_bottom = 513.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 5.0
 
-[node name="Header" type="VBoxContainer" parent="ScreenBlocks/Sections"]
+[node name="Header" type="VBoxContainer" parent="TallyScreen/ScreenBlocks/Sections"]
+editor/display_folded = true
 margin_right = 1180.0
 margin_bottom = 72.0
 size_flags_vertical = 3
 custom_constants/separation = 25
 
-[node name="TitleBox" type="HBoxContainer" parent="ScreenBlocks/Sections/Header"]
+[node name="TitleBox" type="HBoxContainer" parent="TallyScreen/ScreenBlocks/Sections/Header"]
 margin_right = 1180.0
 margin_bottom = 31.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="VSeparator" type="VSeparator" parent="ScreenBlocks/Sections/Header/TitleBox"]
+[node name="VSeparator" type="VSeparator" parent="TallyScreen/ScreenBlocks/Sections/Header/TitleBox"]
 margin_right = 106.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="ScreenBlocks/Sections/Header/TitleBox"]
+[node name="Label" type="Label" parent="TallyScreen/ScreenBlocks/Sections/Header/TitleBox"]
 margin_left = 110.0
 margin_right = 1180.0
 margin_bottom = 31.0
@@ -231,14 +259,15 @@ text = "Stage Summary"
 valign = 2
 uppercase = true
 
-[node name="SectionSeparator" type="HSeparator" parent="ScreenBlocks/Sections/Header"]
+[node name="SectionSeparator" type="HSeparator" parent="TallyScreen/ScreenBlocks/Sections/Header"]
 margin_top = 56.0
 margin_right = 1180.0
 margin_bottom = 72.0
 size_flags_vertical = 3
 custom_styles/separator = SubResource( 1 )
 
-[node name="TallyTable" type="VBoxContainer" parent="ScreenBlocks/Sections"]
+[node name="TallyTable" type="VBoxContainer" parent="TallyScreen/ScreenBlocks/Sections"]
+editor/display_folded = true
 margin_top = 76.0
 margin_right = 1180.0
 margin_bottom = 436.0
@@ -246,19 +275,19 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 5.0
 
-[node name="TallyRowCitizens" type="HBoxContainer" parent="ScreenBlocks/Sections/TallyTable"]
+[node name="TallyRowCitizens" type="HBoxContainer" parent="TallyScreen/ScreenBlocks/Sections/TallyTable"]
 margin_right = 1180.0
 margin_bottom = 117.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="LeftPadding" type="HSeparator" parent="ScreenBlocks/Sections/TallyTable/TallyRowCitizens"]
+[node name="LeftPadding" type="HSeparator" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowCitizens"]
 margin_right = 167.0
 margin_bottom = 117.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Content" type="HBoxContainer" parent="ScreenBlocks/Sections/TallyTable/TallyRowCitizens"]
+[node name="Content" type="HBoxContainer" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowCitizens"]
 margin_left = 171.0
 margin_right = 1008.0
 margin_bottom = 117.0
@@ -266,12 +295,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 5.0
 
-[node name="StartPadding" type="VSeparator" parent="ScreenBlocks/Sections/TallyTable/TallyRowCitizens/Content"]
+[node name="StartPadding" type="VSeparator" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowCitizens/Content"]
 margin_right = 48.0
 margin_bottom = 117.0
 size_flags_horizontal = 3
 
-[node name="Labels" type="HBoxContainer" parent="ScreenBlocks/Sections/TallyTable/TallyRowCitizens/Content"]
+[node name="Labels" type="HBoxContainer" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowCitizens/Content"]
 editor/display_folded = true
 margin_left = 52.0
 margin_right = 783.0
@@ -280,14 +309,14 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 15.0
 
-[node name="Label" type="Label" parent="ScreenBlocks/Sections/TallyTable/TallyRowCitizens/Content/Labels"]
+[node name="Label" type="Label" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowCitizens/Content/Labels"]
 margin_top = 51.0
 margin_right = 103.0
 margin_bottom = 65.0
 text = "Citizens Dissed:"
 valign = 1
 
-[node name="Value" type="Label" parent="ScreenBlocks/Sections/TallyTable/TallyRowCitizens/Content/Labels"]
+[node name="Value" type="Label" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowCitizens/Content/Labels"]
 margin_left = 107.0
 margin_top = 51.0
 margin_right = 731.0
@@ -297,33 +326,33 @@ text = "5/7"
 align = 2
 valign = 1
 
-[node name="EndPadding" type="VSeparator" parent="ScreenBlocks/Sections/TallyTable/TallyRowCitizens/Content"]
+[node name="EndPadding" type="VSeparator" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowCitizens/Content"]
 margin_left = 787.0
 margin_right = 837.0
 margin_bottom = 117.0
 size_flags_horizontal = 3
 
-[node name="RightPadding" type="HSeparator" parent="ScreenBlocks/Sections/TallyTable/TallyRowCitizens"]
+[node name="RightPadding" type="HSeparator" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowCitizens"]
 margin_left = 1012.0
 margin_right = 1180.0
 margin_bottom = 117.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TallyRowNRTs" type="HBoxContainer" parent="ScreenBlocks/Sections/TallyTable"]
+[node name="TallyRowNRTs" type="HBoxContainer" parent="TallyScreen/ScreenBlocks/Sections/TallyTable"]
 margin_top = 121.0
 margin_right = 1180.0
 margin_bottom = 238.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TopPadding" type="HSeparator" parent="ScreenBlocks/Sections/TallyTable/TallyRowNRTs"]
+[node name="TopPadding" type="HSeparator" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowNRTs"]
 margin_right = 167.0
 margin_bottom = 117.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Content" type="HBoxContainer" parent="ScreenBlocks/Sections/TallyTable/TallyRowNRTs"]
+[node name="Content" type="HBoxContainer" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowNRTs"]
 margin_left = 171.0
 margin_right = 1008.0
 margin_bottom = 117.0
@@ -331,12 +360,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 5.0
 
-[node name="StartPadding" type="VSeparator" parent="ScreenBlocks/Sections/TallyTable/TallyRowNRTs/Content"]
+[node name="StartPadding" type="VSeparator" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowNRTs/Content"]
 margin_right = 48.0
 margin_bottom = 117.0
 size_flags_horizontal = 3
 
-[node name="Labels" type="HBoxContainer" parent="ScreenBlocks/Sections/TallyTable/TallyRowNRTs/Content"]
+[node name="Labels" type="HBoxContainer" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowNRTs/Content"]
 margin_left = 52.0
 margin_right = 783.0
 margin_bottom = 117.0
@@ -344,14 +373,14 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 15.0
 
-[node name="Label" type="Label" parent="ScreenBlocks/Sections/TallyTable/TallyRowNRTs/Content/Labels"]
+[node name="Label" type="Label" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowNRTs/Content/Labels"]
 margin_top = 51.0
 margin_right = 85.0
 margin_bottom = 65.0
 text = "NRT traveled:"
 valign = 1
 
-[node name="Value" type="Label" parent="ScreenBlocks/Sections/TallyTable/TallyRowNRTs/Content/Labels"]
+[node name="Value" type="Label" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowNRTs/Content/Labels"]
 margin_left = 89.0
 margin_top = 51.0
 margin_right = 731.0
@@ -361,33 +390,34 @@ text = "5/7"
 align = 2
 valign = 1
 
-[node name="EndPadding" type="VSeparator" parent="ScreenBlocks/Sections/TallyTable/TallyRowNRTs/Content"]
+[node name="EndPadding" type="VSeparator" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowNRTs/Content"]
 margin_left = 787.0
 margin_right = 837.0
 margin_bottom = 117.0
 size_flags_horizontal = 3
 
-[node name="BottomPadding" type="HSeparator" parent="ScreenBlocks/Sections/TallyTable/TallyRowNRTs"]
+[node name="BottomPadding" type="HSeparator" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowNRTs"]
 margin_left = 1012.0
 margin_right = 1180.0
 margin_bottom = 117.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TallyRowOverallRebel" type="HBoxContainer" parent="ScreenBlocks/Sections/TallyTable"]
+[node name="TallyRowOverallRebel" type="HBoxContainer" parent="TallyScreen/ScreenBlocks/Sections/TallyTable"]
+editor/display_folded = true
 margin_top = 242.0
 margin_right = 1180.0
 margin_bottom = 360.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TopPadding" type="HSeparator" parent="ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel"]
+[node name="TopPadding" type="HSeparator" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel"]
 margin_right = 167.0
 margin_bottom = 118.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Content" type="HBoxContainer" parent="ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel"]
+[node name="Content" type="HBoxContainer" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel"]
 margin_left = 171.0
 margin_right = 1008.0
 margin_bottom = 118.0
@@ -395,12 +425,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 5.0
 
-[node name="StartPadding" type="VSeparator" parent="ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel/Content"]
+[node name="StartPadding" type="VSeparator" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel/Content"]
 margin_right = 48.0
 margin_bottom = 118.0
 size_flags_horizontal = 3
 
-[node name="Labels" type="HBoxContainer" parent="ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel/Content"]
+[node name="Labels" type="HBoxContainer" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel/Content"]
 margin_left = 52.0
 margin_right = 783.0
 margin_bottom = 118.0
@@ -408,14 +438,14 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 15.0
 
-[node name="Label" type="Label" parent="ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel/Content/Labels"]
+[node name="Label" type="Label" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel/Content/Labels"]
 margin_top = 52.0
 margin_right = 147.0
 margin_bottom = 66.0
 text = "Overall Rebeliousness:"
 valign = 1
 
-[node name="Value" type="Label" parent="ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel/Content/Labels"]
+[node name="Value" type="Label" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel/Content/Labels"]
 margin_left = 151.0
 margin_top = 52.0
 margin_right = 731.0
@@ -425,45 +455,45 @@ text = "5/7"
 align = 2
 valign = 1
 
-[node name="EndPadding" type="VSeparator" parent="ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel/Content"]
+[node name="EndPadding" type="VSeparator" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel/Content"]
 margin_left = 787.0
 margin_right = 837.0
 margin_bottom = 118.0
 size_flags_horizontal = 3
 
-[node name="BottomPadding" type="HSeparator" parent="ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel"]
+[node name="BottomPadding" type="HSeparator" parent="TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel"]
 margin_left = 1012.0
 margin_right = 1180.0
 margin_bottom = 118.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TallyArea" type="VBoxContainer" parent="ScreenBlocks/Sections"]
+[node name="TallyArea" type="VBoxContainer" parent="TallyScreen/ScreenBlocks/Sections"]
 margin_top = 440.0
 margin_right = 1180.0
 margin_bottom = 513.0
 size_flags_vertical = 3
 
-[node name="SectionSeparator" type="HSeparator" parent="ScreenBlocks/Sections/TallyArea"]
+[node name="SectionSeparator" type="HSeparator" parent="TallyScreen/ScreenBlocks/Sections/TallyArea"]
 margin_right = 1180.0
 margin_bottom = 23.0
 size_flags_vertical = 3
 custom_styles/separator = SubResource( 1 )
 
-[node name="Tally Row" type="HBoxContainer" parent="ScreenBlocks/Sections/TallyArea"]
+[node name="TallyRow" type="HBoxContainer" parent="TallyScreen/ScreenBlocks/Sections/TallyArea"]
 margin_top = 27.0
 margin_right = 1180.0
 margin_bottom = 73.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="LeftPadding" type="HSeparator" parent="ScreenBlocks/Sections/TallyArea/Tally Row"]
+[node name="LeftPadding" type="HSeparator" parent="TallyScreen/ScreenBlocks/Sections/TallyArea/TallyRow"]
 margin_right = 167.0
 margin_bottom = 46.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Content" type="HBoxContainer" parent="ScreenBlocks/Sections/TallyArea/Tally Row"]
+[node name="Content" type="HBoxContainer" parent="TallyScreen/ScreenBlocks/Sections/TallyArea/TallyRow"]
 margin_left = 171.0
 margin_right = 1008.0
 margin_bottom = 46.0
@@ -471,12 +501,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 5.0
 
-[node name="StartPadding" type="VSeparator" parent="ScreenBlocks/Sections/TallyArea/Tally Row/Content"]
+[node name="StartPadding" type="VSeparator" parent="TallyScreen/ScreenBlocks/Sections/TallyArea/TallyRow/Content"]
 margin_right = 48.0
 margin_bottom = 46.0
 size_flags_horizontal = 3
 
-[node name="Labels" type="HBoxContainer" parent="ScreenBlocks/Sections/TallyArea/Tally Row/Content"]
+[node name="Labels" type="HBoxContainer" parent="TallyScreen/ScreenBlocks/Sections/TallyArea/TallyRow/Content"]
 margin_left = 52.0
 margin_right = 783.0
 margin_bottom = 46.0
@@ -484,14 +514,14 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 15.0
 
-[node name="Label" type="Label" parent="ScreenBlocks/Sections/TallyArea/Tally Row/Content/Labels"]
+[node name="Label" type="Label" parent="TallyScreen/ScreenBlocks/Sections/TallyArea/TallyRow/Content/Labels"]
 margin_right = 363.0
 margin_bottom = 46.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Total added points:"
 
-[node name="Value" type="Label" parent="ScreenBlocks/Sections/TallyArea/Tally Row/Content/Labels"]
+[node name="Value" type="Label" parent="TallyScreen/ScreenBlocks/Sections/TallyArea/TallyRow/Content/Labels"]
 margin_left = 367.0
 margin_right = 731.0
 margin_bottom = 46.0
@@ -500,27 +530,27 @@ size_flags_vertical = 5
 text = "5/7"
 align = 2
 
-[node name="EndPadding" type="VSeparator" parent="ScreenBlocks/Sections/TallyArea/Tally Row/Content"]
+[node name="EndPadding" type="VSeparator" parent="TallyScreen/ScreenBlocks/Sections/TallyArea/TallyRow/Content"]
 margin_left = 787.0
 margin_right = 837.0
 margin_bottom = 46.0
 size_flags_horizontal = 3
 
-[node name="RightPadding" type="HSeparator" parent="ScreenBlocks/Sections/TallyArea/Tally Row"]
+[node name="RightPadding" type="HSeparator" parent="TallyScreen/ScreenBlocks/Sections/TallyArea/TallyRow"]
 margin_left = 1012.0
 margin_right = 1180.0
 margin_bottom = 46.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ButtonContainer" type="CenterContainer" parent="ScreenBlocks"]
+[node name="ButtonContainer" type="CenterContainer" parent="TallyScreen/ScreenBlocks"]
 margin_top = 517.0
 margin_right = 1180.0
 margin_bottom = 620.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="PressDissLabel" type="Label" parent="ScreenBlocks/ButtonContainer"]
+[node name="PressDissLabel" type="Label" parent="TallyScreen/ScreenBlocks/ButtonContainer"]
 margin_left = 517.0
 margin_top = 44.0
 margin_right = 663.0
@@ -531,11 +561,3 @@ text = "Press 'Diss' Button..."
 align = 1
 valign = 1
 uppercase = true
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "load_screen"
-playback_speed = 1.5
-anims/flashin_button = SubResource( 3 )
-anims/load_screen = SubResource( 2 )
-next/flashin_button = "flashin_button"
-next/load_screen = "flashin_button"

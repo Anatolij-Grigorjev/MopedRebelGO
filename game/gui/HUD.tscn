@@ -31,8 +31,7 @@ margin_left = 110.0
 margin_right = 150.0
 
 [node name="DarkOverlay" type="TextureRect" parent="."]
-visible = false
-modulate = Color( 0.00392157, 0, 0, 0.392157 )
+modulate = Color( 0, 0, 0, 0.392157 )
 show_behind_parent = true
 margin_left = -2500.0
 margin_top = -500.0
