@@ -3,7 +3,7 @@
 [ext_resource path="res://gui/tally_screen.gd" type="Script" id=1]
 [ext_resource path="res://stages/tile_light_texture.png" type="Texture" id=2]
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=1]
 resource_name = "flashin_button"
 length = 4.0
 loop = true
@@ -168,7 +168,7 @@ tracks/11/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 1, 1, 0.196078, 1 )
 border_width_left = 1
 border_width_top = 1
@@ -202,7 +202,7 @@ expand = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "load_screen"
 playback_speed = 1.5
-anims/flashin_button = SubResource( 3 )
+anims/flashin_button = SubResource( 1 )
 anims/load_screen = SubResource( 2 )
 next/flashin_button = "flashin_button"
 next/load_screen = "flashin_button"
@@ -264,7 +264,7 @@ margin_top = 56.0
 margin_right = 1180.0
 margin_bottom = 72.0
 size_flags_vertical = 3
-custom_styles/separator = SubResource( 1 )
+custom_styles/separator = SubResource( 3 )
 
 [node name="TallyTable" type="VBoxContainer" parent="TallyScreen/ScreenBlocks/Sections"]
 editor/display_folded = true
@@ -478,7 +478,7 @@ size_flags_vertical = 3
 margin_right = 1180.0
 margin_bottom = 23.0
 size_flags_vertical = 3
-custom_styles/separator = SubResource( 1 )
+custom_styles/separator = SubResource( 3 )
 
 [node name="TallyRow" type="HBoxContainer" parent="TallyScreen/ScreenBlocks/Sections/TallyArea"]
 margin_top = 27.0

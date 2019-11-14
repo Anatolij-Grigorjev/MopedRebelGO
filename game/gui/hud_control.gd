@@ -18,6 +18,8 @@ const MAX_WARNING_ICON_DISTANCE = 4500.0
 
 const MAX_SC_POINTS = 9999
 
+signal earned_points_merged
+
 
 #imports
 onready var State : GameState = get_node("/root/G")
@@ -121,6 +123,7 @@ func _add_sc_points(amount: int) -> void:
 		sc_progress.grow_progress_local(new_total)
 	State.current_street_scred = new_total
 	_update_sc_label()
+	emit_signal("earned_points_merged")
 	
 	
 func _add_level_up_label(level_up_text : String) -> void:

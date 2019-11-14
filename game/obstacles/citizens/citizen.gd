@@ -37,7 +37,7 @@ func _on_area_entered(area: Area2D):
 		
 		
 func _remove_target() -> void:
-	if ($DissAim):
+	if (is_instance_valid($DissAim)):
 		$DissAim.visible = false
 		$DissAim.queue_free()
 
@@ -51,6 +51,7 @@ func _on_Hearing_area_entered(area: Area2D):
 	_update_diss_progress()
 	if (_disses_heard >= disses_required):
 		_remove_target()
+		G.current_stage_citizens_dissed += 1
 		animator.play("be_dissed")
 		
 		

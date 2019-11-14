@@ -4,23 +4,34 @@ Controller for screen with summary after stage.
 Controls advance to next screen and shows data
 """
 
+signal tally_forward_pressed
+
 
 onready var animator: AnimationPlayer = $AnimationPlayer
+onready var total_earned_position : Vector2 = $TallyScreen/ScreenBlocks/Sections/TallyArea/TallyRow/Content/Labels/Value.rect_global_position
 
+
+var total_earned_points: float = 0.0
+
+
+var _forward_pressed: bool = false
 
 
 func _ready() -> void:
-	set_data(5, 7, 769.55, 900.00, 450)
 	pass # Replace with function body.
 	
 	
 func _process(delta: float) -> void:
+	if (_forward_pressed):
+		return
+	
 	if (Input.is_action_just_pressed("say_diss")):
 		#finish animation quickly when pressed first time
 		if (animator.is_playing() && animator.current_animation == "load_screen"):
 			animator.seek(7.5, true)
 		else:
-			breakpoint
+			emit_signal("tally_forward_pressed")
+			_forward_pressed = true
 	pass
 
 
@@ -51,3 +62,4 @@ func set_data(
 	overall_rebel_row.get_node("Content/Labels/Value").text = overall_rebeliousness_value
 	var tally_row := $TallyScreen/ScreenBlocks/Sections/TallyArea/TallyRow
 	tally_row.get_node("Content/Labels/Value").text = overall_points_value
+	total_earned_points = (overall_rebeliousness_calc + 1.0) * stage_complete_bonus

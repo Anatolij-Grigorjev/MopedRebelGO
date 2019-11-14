@@ -7,6 +7,7 @@ A general script for controlling stage aspects like
 """
 var Logger : Resource = preload("res://utils/logger.gd")
 var DissAim: Resource = preload("res://rebel/diss_aim.tscn")
+var SummaryScene: Resource = preload("res://gui/tally_screen.tscn")
 
 
 onready var moped_rebel: MopedRebel = $MopedRebel
@@ -18,6 +19,7 @@ onready var start_position: Position2D = $StartPosition
 
 export(int) var num_stage_tracks := 5
 export(int) var current_moped_track := 3
+export(String) var stage_name := "test"
 
 
 var _sorted_obstacle_positions_by_track := []
@@ -31,6 +33,7 @@ var _current_diss_aim: DissAim
 
 
 func _ready() -> void:
+	G.reset_stage_stats()
 	#adjust track bounds due to specific tile shape
 	_tracks_bounds.position.y += _tile_height / 2
 	#setup moped position
@@ -43,7 +46,8 @@ func _ready() -> void:
 	#setup track positions for HUD warnings
 	_ready_bounds_indices_for_HUD()
 	
-	#setup NRT signals
+	G.current_stage_citizens = $Citizens.get_child_count()
+	#setup NRT signals and total stage NRT length
 	_ready_NRT_for_moped()
 	
 	#setup obstacle positions lines
@@ -87,8 +91,12 @@ func _ready_bounds_indices_for_HUD() -> void:
 
 
 func _ready_NRT_for_moped() -> void:
-	for nrt_segment in $NRT.get_children():
+	#connect signals and accum NRT distance
+	for nrt_segment_node in $NRT.get_children():
+		var nrt_segment = nrt_segment_node as NonRegulationTrack
 		nrt_segment.connect("moped_traveled_nrt", self, "_on_NRT_moped_traveled")
+		G.current_stage_NRT_length += nrt_segment.lights_nodes.size()
+	G.current_stage_NRT_length *= (_tile_size.x * 1.5)
 
 
 func _ready_sorted_obstacle_positions() -> void:
@@ -239,6 +247,7 @@ func _on_NRT_moped_traveled(
 	var raw_points : float = travel_distance/total_nrt_length * nrt_travel_points
 	var sc_with_bonus : float = State.sc_multiplier * raw_points
 	LOG.info("MR gets {}*{} SC points for travelling {}/{} NRT!", [State.sc_multiplier, raw_points, travel_distance, total_nrt_length])
+	G.current_stage_NRT_traveled += travel_distance
 	yield(
 		HUD.add_earned_nrt_points_label(moped_rebel.get_global_transform_with_canvas().get_origin(), sc_with_bonus), 
 		'completed'
@@ -288,4 +297,32 @@ func _start_moped_stage_outro(cutscene_trigger: int) -> void:
 	else:
 		#passed end of outro
 		LOG.info("stage finished! tally up!")
+		_toggle_ui_elements_visible(false)
+		if (not C.STAGE_COMPLETION_BONUS.has(stage_name)):
+			LOG.error("stage bonus not found for '{}'", [stage_name])
+		var stage_bonus : float = C.STAGE_COMPLETION_BONUS[stage_name]
+		var tally_screen = SummaryScene.instance()
+		tally_screen.set_data(
+			G.current_stage_citizens_dissed,
+			G.current_stage_citizens,
+			G.current_stage_NRT_traveled,
+			G.current_stage_NRT_length,
+			stage_bonus
+		)
+		$CanvasLayer.add_child(tally_screen)
+		yield(tally_screen, "tally_forward_pressed")
+		if (tally_screen.total_earned_points > 0):
+			var earned_points : float = tally_screen.total_earned_points
+			#visible HUD except for progress bar and tally points
+			HUD.visible = true
+			$CanvasLayer/HUD/StageProgress.visible = false
+			$CanvasLayer/HUD/DarkOverlay.visible = false
+			yield(
+				HUD.add_earned_nrt_points_label(tally_screen.total_earned_position, earned_points), 
+				'completed'
+			)
+			HUD.queue_change_points(earned_points)
+			yield(HUD, "earned_points_merged")
+			
+		#TODO: switch to new scene
 		breakpoint
