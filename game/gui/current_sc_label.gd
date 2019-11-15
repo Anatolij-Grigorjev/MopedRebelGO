@@ -6,6 +6,8 @@ animating it and providing points merge position
 """
 var Logger : Resource = preload("res://utils/logger.gd")
 
+signal points_changed
+
 
 export(String) var label_display_format : String = "%02d"
 
@@ -24,3 +26,5 @@ func update_current_points(current_pts: float) -> void:
 	if (animator.is_playing()):
 		animator.stop(true)
 	animator.play("points_changed")
+	yield(animator, "animation_finished")
+	emit_signal("points_changed")

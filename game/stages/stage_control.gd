@@ -309,7 +309,7 @@ func _start_moped_stage_outro(cutscene_trigger: int) -> void:
 			G.current_stage_NRT_length,
 			stage_bonus
 		)
-		$CanvasLayer.add_child(tally_screen)
+		$CanvasLayer.add_child_below_node($CanvasLayer/SummaryTablePosition, tally_screen)
 		yield(tally_screen, "tally_forward_pressed")
 		if (tally_screen.total_earned_points > 0):
 			var earned_points : float = tally_screen.total_earned_points
@@ -323,6 +323,6 @@ func _start_moped_stage_outro(cutscene_trigger: int) -> void:
 			)
 			HUD.queue_change_points(earned_points)
 			yield(HUD, "earned_points_merged")
-			
+			yield(HUD.current_sc_label, "points_changed")
 		#TODO: switch to new scene
 		breakpoint

@@ -108,6 +108,7 @@ position = Vector2( 4350.25, 252.518 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="MopedRebel" parent="." instance=ExtResource( 8 )]
+editor/display_folded = true
 position = Vector2( -930, 50 )
 
 [node name="Camera2D" parent="MopedRebel" index="3"]
@@ -116,9 +117,14 @@ limit_right = 7000
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 5
 
+[node name="SummaryTablePosition" type="Control" parent="CanvasLayer"]
+margin_right = 40.0
+margin_bottom = 40.0
+
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 9 )]
 
 [node name="StartStageCutsceneArea" parent="." instance=ExtResource( 10 )]
+editor/display_folded = true
 position = Vector2( -500, -100 )
 cutscene_routine_owner_path = NodePath("..")
 cutscene_routine_name = "_start_moped_stage_intro"
