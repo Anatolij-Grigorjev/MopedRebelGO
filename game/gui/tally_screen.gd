@@ -9,6 +9,9 @@ signal tally_forward_pressed
 
 onready var animator: AnimationPlayer = $AnimationPlayer
 onready var total_earned_position : Vector2 = $TallyScreen/ScreenBlocks/Sections/TallyArea/TallyRow/Content/Labels/Value.rect_global_position
+onready var row_citizens: TallyTableRow = $TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowCitizens
+onready var row_nrts: TallyTableRow = $TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowNRTs
+onready var row_overall_rebel: TallyTableRow = $TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel
 
 
 var total_earned_points: float = 0.0
@@ -18,6 +21,9 @@ var _forward_pressed: bool = false
 
 
 func _ready() -> void:
+	row_citizens.set_row_label("Citizens dissed:")
+	row_nrts.set_row_label("NRT traveled:")
+	row_overall_rebel.set_row_label("Overall rebeliousness:")
 	pass # Replace with function body.
 	
 	
@@ -54,12 +60,10 @@ func set_data(
 	var overall_points_value := "%04.2f X %d" % [1 + overall_rebeliousness_calc, stage_complete_bonus]
 	
 	#set required label values
-	var citizens_row := $TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowCitizens
-	citizens_row.get_node("Content/Labels/Value").text = citizents_value
-	var nrt_row := $TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowNRTs
-	nrt_row.get_node("Content/Labels/Value").text = nrt_value
-	var overall_rebel_row := $TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel
-	overall_rebel_row.get_node("Content/Labels/Value").text = overall_rebeliousness_value
+	row_citizens.set_row_value(citizents_value)
+	row_nrts.set_row_value(nrt_value)
+	row_overall_rebel.set_row_value(overall_rebeliousness_value)
+	
 	var tally_row := $TallyScreen/ScreenBlocks/Sections/TallyArea/TallyRow
 	tally_row.get_node("Content/Labels/Value").text = overall_points_value
 	total_earned_points = (overall_rebeliousness_calc + 1.0) * stage_complete_bonus
