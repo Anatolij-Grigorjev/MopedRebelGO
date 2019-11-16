@@ -302,7 +302,7 @@ func _start_moped_stage_outro(cutscene_trigger: int) -> void:
 			LOG.error("stage bonus not found for '{}'", [stage_name])
 		var stage_bonus : float = C.STAGE_COMPLETION_BONUS[stage_name]
 		var tally_screen = SummaryScene.instance()
-		tally_screen.set_data(
+		tally_screen.set_stats_data(
 			G.current_stage_citizens_dissed,
 			G.current_stage_citizens,
 			G.current_stage_NRT_traveled,
