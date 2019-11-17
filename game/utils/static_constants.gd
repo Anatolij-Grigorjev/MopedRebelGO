@@ -66,6 +66,7 @@ enum DIRECTION {
 const STAGE_COMPLETION_BONUS = {
 	"test": 450
 }
+const DISS_CITIZEN_BONUS = 120
 
 
 

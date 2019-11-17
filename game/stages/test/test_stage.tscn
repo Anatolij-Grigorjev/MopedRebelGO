@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://stages/stage_control.gd" type="Script" id=1]
 [ext_resource path="res://stages/tiles/diag_brown_white_metal.tres" type="TileSet" id=2]
@@ -9,7 +9,8 @@
 [ext_resource path="res://obstacles/citizens/white_worker.tscn" type="PackedScene" id=7]
 [ext_resource path="res://rebel/moped_rebel.tscn" type="PackedScene" id=8]
 [ext_resource path="res://gui/HUD.tscn" type="PackedScene" id=9]
-[ext_resource path="res://stages/stage_cutscene_area.tscn" type="PackedScene" id=10]
+[ext_resource path="res://stages/bg/sky_poles_bg.tscn" type="PackedScene" id=10]
+[ext_resource path="res://stages/stage_cutscene_area.tscn" type="PackedScene" id=11]
 
 [node name="TestStage" type="Node2D"]
 script = ExtResource( 1 )
@@ -123,7 +124,9 @@ margin_bottom = 40.0
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 9 )]
 
-[node name="StartStageCutsceneArea" parent="." instance=ExtResource( 10 )]
+[node name="SkyPollsBg" parent="CanvasLayer" instance=ExtResource( 10 )]
+
+[node name="StartStageCutsceneArea" parent="." instance=ExtResource( 11 )]
 editor/display_folded = true
 position = Vector2( -500, -100 )
 cutscene_routine_owner_path = NodePath("..")
@@ -136,7 +139,7 @@ limit_bottom = 120
 limit_smoothed = true
 drag_margin_h_enabled = true
 
-[node name="EndStageCutsceneArea2" parent="." instance=ExtResource( 10 )]
+[node name="EndStageCutsceneArea2" parent="." instance=ExtResource( 11 )]
 position = Vector2( 6600, -100 )
 start_cutscene_on = 2
 cutscene_routine_owner_path = NodePath("..")

@@ -217,14 +217,19 @@ func _moped_in_warning_icon_range(distance_to_obstacle: float) -> bool:
 Create earned points marker at base of rebel wheels and send that marker 
 to main current points label on HUD
 """
-func add_earned_nrt_points_label(moped_canvas_position: Vector2, earned_points: float) -> void:
+func _add_earned_points_at_origin_label(from_position: Vector2, earned_points: float) -> void:
 	var earned_node : EarnedPoints = EarnedPoints.instance()
 	add_child(earned_node)
 	earned_node.set_num_points(earned_points)
-	earned_node.rect_position = moped_canvas_position
+	earned_node.rect_position = from_position
 	earned_node.start_reduce_to_point(current_sc_label.merge_points_position)
 	yield(earned_node.tween, 'tween_all_completed')
 	earned_node.queue_free()
+	
+	
+func add_earned_points_score_and_label(from_canvas_position: Vector2, points: float) -> void:
+	yield(_add_earned_points_at_origin_label(from_canvas_position, points), "completed")
+	queue_change_points(points)
 	
 	
 func _transfer_points_debounce_timeout() -> void:

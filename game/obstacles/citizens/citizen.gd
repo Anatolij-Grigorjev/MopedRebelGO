@@ -7,6 +7,9 @@ gets knocked over and responds to disses beng thrown around
 var AngerPulse: Resource = preload("res://obstacles/citizens/anger_pulse.tscn")
 
 
+signal got_dissed(this_node)
+
+
 export(int) var disses_required: int = 2
 export(float) var diss_mult_add_pulse: float = 0.3
 
@@ -51,7 +54,7 @@ func _on_Hearing_area_entered(area: Area2D):
 	_update_diss_progress()
 	if (_disses_heard >= disses_required):
 		_remove_target()
-		G.current_stage_citizens_dissed += 1
+		emit_signal("got_dissed", self)
 		animator.play("be_dissed")
 		
 		

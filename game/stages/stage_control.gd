@@ -47,6 +47,9 @@ func _ready() -> void:
 	_ready_bounds_indices_for_HUD()
 	
 	G.current_stage_citizens = $Citizens.get_child_count()
+	#setup citizen signals for stage
+	_ready_citizens_for_stage()
+	
 	#setup NRT signals and total stage NRT length
 	_ready_NRT_for_moped()
 	
@@ -97,6 +100,12 @@ func _ready_NRT_for_moped() -> void:
 		nrt_segment.connect("moped_traveled_nrt", self, "_on_NRT_moped_traveled")
 		G.current_stage_NRT_length += nrt_segment.lights_nodes.size()
 	G.current_stage_NRT_length *= (_tile_size.x * 1.5)
+
+
+func _ready_citizens_for_stage() -> void:
+	for citizen in $Citizens.get_children():
+		var white_worker := citizen as CitizenRoadBlock
+		white_worker.connect("got_dissed", self, "_on_CitizenRoadBlock_got_dissed")
 
 
 func _ready_sorted_obstacle_positions() -> void:
@@ -230,11 +239,10 @@ func _on_MopedRebel_diss_said(diss_word: DissWord) -> void:
 	#start diss
 	diss_word.send_diss()
 	#substract diss cost
-	yield(
-		HUD.add_earned_nrt_points_label(moped_rebel.get_global_transform_with_canvas().get_origin(), -C.MR_DISS_SC_COST), 
-		'completed'
+	HUD.add_earned_points_score_and_label(
+		moped_rebel.get_global_transform_with_canvas().get_origin(), 
+		-C.MR_DISS_SC_COST
 	)
-	HUD.queue_change_points(-C.MR_DISS_SC_COST)
 
 	
 func _on_NRT_moped_traveled(
@@ -248,11 +256,19 @@ func _on_NRT_moped_traveled(
 	var sc_with_bonus : float = State.sc_multiplier * raw_points
 	LOG.info("MR gets {}*{} SC points for travelling {}/{} NRT!", [State.sc_multiplier, raw_points, travel_distance, total_nrt_length])
 	G.current_stage_NRT_traveled += travel_distance
-	yield(
-		HUD.add_earned_nrt_points_label(moped_rebel.get_global_transform_with_canvas().get_origin(), sc_with_bonus), 
-		'completed'
+	HUD.add_earned_points_score_and_label(
+		moped_rebel.get_global_transform_with_canvas().get_origin(), 
+		sc_with_bonus
 	)
-	HUD.queue_change_points(sc_with_bonus)
+	
+	
+func _on_CitizenRoadBlock_got_dissed(worker: CitizenRoadBlock) -> void:
+	G.current_stage_citizens_dissed += 1
+	var citizen_origin : Vector2 = worker.get_global_transform_with_canvas().get_origin()
+	HUD.add_earned_points_score_and_label(
+		citizen_origin, 
+		C.DISS_CITIZEN_BONUS
+	)
 	
 	
 func _get_onscreen_dissable_citizens() -> Array:
@@ -317,11 +333,11 @@ func _start_moped_stage_outro(cutscene_trigger: int) -> void:
 			HUD.visible = true
 			$CanvasLayer/HUD/StageProgress.visible = false
 			$CanvasLayer/HUD/DarkOverlay.visible = false
-			yield(
-				HUD.add_earned_nrt_points_label(tally_screen.total_earned_position, earned_points), 
-				'completed'
+			
+			HUD.add_earned_points_score_and_label(
+				tally_screen.total_earned_position, 
+				earned_points
 			)
-			HUD.queue_change_points(earned_points)
 			yield(HUD, "earned_points_merged")
 			yield(HUD.current_sc_label, "points_changed")
 		#TODO: switch to new scene
