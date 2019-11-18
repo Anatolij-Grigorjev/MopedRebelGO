@@ -8,8 +8,8 @@
 [ext_resource path="res://obstacles/roadblocks/tall/tall_roadblock.tscn" type="PackedScene" id=6]
 [ext_resource path="res://obstacles/citizens/white_worker.tscn" type="PackedScene" id=7]
 [ext_resource path="res://rebel/moped_rebel.tscn" type="PackedScene" id=8]
-[ext_resource path="res://gui/HUD.tscn" type="PackedScene" id=9]
-[ext_resource path="res://stages/bg/sky_poles_bg.tscn" type="PackedScene" id=10]
+[ext_resource path="res://stages/bg/sky_poles_bg.tscn" type="PackedScene" id=9]
+[ext_resource path="res://gui/HUD.tscn" type="PackedScene" id=10]
 [ext_resource path="res://stages/stage_cutscene_area.tscn" type="PackedScene" id=11]
 
 [node name="TestStage" type="Node2D"]
@@ -115,6 +115,10 @@ position = Vector2( -930, 50 )
 [node name="Camera2D" parent="MopedRebel" index="3"]
 limit_right = 7000
 
+[node name="SkyPollsBg" parent="." instance=ExtResource( 9 )]
+offset = Vector2( -1000, -700 )
+transform = Transform2D( 1, 0, 0, 1, -1000, -700 )
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 5
 
@@ -122,9 +126,7 @@ layer = 5
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="HUD" parent="CanvasLayer" instance=ExtResource( 9 )]
-
-[node name="SkyPollsBg" parent="CanvasLayer" instance=ExtResource( 10 )]
+[node name="HUD" parent="CanvasLayer" instance=ExtResource( 10 )]
 
 [node name="StartStageCutsceneArea" parent="." instance=ExtResource( 11 )]
 editor/display_folded = true
@@ -140,10 +142,12 @@ limit_smoothed = true
 drag_margin_h_enabled = true
 
 [node name="EndStageCutsceneArea2" parent="." instance=ExtResource( 11 )]
+editor/display_folded = true
 position = Vector2( 6600, -100 )
 start_cutscene_on = 2
 cutscene_routine_owner_path = NodePath("..")
 cutscene_routine_name = "_start_moped_stage_outro"
+return_control_after = false
 
 [node name="Camera2D" parent="EndStageCutsceneArea2" index="1"]
 offset = Vector2( 50, -50 )

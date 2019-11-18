@@ -25,7 +25,7 @@ This routine gets fired for cutscenes and should support 1 argument:
 	- area captive position (entry or exit)
 """
 export(String) var cutscene_routine_name
-
+export(bool) var return_control_after = true
 
 
 
@@ -63,8 +63,9 @@ func _process_cutscene_for_trigger(area: Area2D, trigger: int) -> void:
 		cutscene_routine_owner.call(cutscene_routine_name, trigger),
 		"completed"
 	)
-	$Camera2D.current = false
-	moped_rebel.enable_player_control()
+	if (return_control_after):
+		$Camera2D.current = false
+		moped_rebel.enable_player_control()
 
 
 """

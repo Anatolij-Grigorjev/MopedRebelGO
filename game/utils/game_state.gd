@@ -17,7 +17,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 	
 	
-func reset_stage_stats() -> void:
+func reset_current_stage_stats() -> void:
 	current_stage_citizens = 0
 	current_stage_citizens_dissed = 0
 	current_stage_NRT_length = 0.0

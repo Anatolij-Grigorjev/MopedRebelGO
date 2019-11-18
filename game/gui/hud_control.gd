@@ -222,7 +222,7 @@ func _add_earned_points_at_origin_label(from_position: Vector2, earned_points: f
 	add_child(earned_node)
 	earned_node.set_num_points(earned_points)
 	earned_node.rect_position = from_position
-	earned_node.start_reduce_to_point(current_sc_label.merge_points_position)
+	earned_node.start_reduce_to_point(additive_sc_label.merge_points_position)
 	yield(earned_node.tween, 'tween_all_completed')
 	earned_node.queue_free()
 	

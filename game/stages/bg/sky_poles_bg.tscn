@@ -4,33 +4,38 @@
 [ext_resource path="res://stages/bg/parallax_poles.png" type="Texture" id=2]
 
 [node name="SkyPollsBg" type="ParallaxBackground"]
-scroll_ignore_camera_zoom = true
 
 [node name="SkyLayer" type="ParallaxLayer" parent="."]
-position = Vector2( 36, 360 )
 scale = Vector2( 400, 1 )
 
 [node name="Sprite" type="Sprite" parent="SkyLayer"]
 texture = ExtResource( 1 )
+centered = false
 
 [node name="PollsLayer" type="ParallaxLayer" parent="."]
-position = Vector2( 150, 200 )
+position = Vector2( 0, 400 )
+motion_mirroring = Vector2( 300, 0 )
 
 [node name="Polls" type="Sprite" parent="PollsLayer"]
 texture = ExtResource( 2 )
+centered = false
 
 [node name="Polls2" type="Sprite" parent="PollsLayer"]
-position = Vector2( 300, 0 )
-texture = ExtResource( 2 )
-
-[node name="Polls3" type="Sprite" parent="PollsLayer"]
 position = Vector2( 600, 0 )
 texture = ExtResource( 2 )
+centered = false
 
-[node name="Polls4" type="Sprite" parent="PollsLayer"]
-position = Vector2( 900, 0 )
-texture = ExtResource( 2 )
-
-[node name="Polls5" type="Sprite" parent="PollsLayer"]
+[node name="Polls3" type="Sprite" parent="PollsLayer"]
 position = Vector2( 1200, 0 )
 texture = ExtResource( 2 )
+centered = false
+
+[node name="Polls4" type="Sprite" parent="PollsLayer"]
+position = Vector2( 1800, 0 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Polls5" type="Sprite" parent="PollsLayer"]
+position = Vector2( 2400, 0 )
+texture = ExtResource( 2 )
+centered = false

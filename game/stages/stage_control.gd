@@ -33,7 +33,7 @@ var _current_diss_aim: DissAim
 
 
 func _ready() -> void:
-	G.reset_stage_stats()
+	G.reset_current_stage_stats()
 	#adjust track bounds due to specific tile shape
 	_tracks_bounds.position.y += _tile_height / 2
 	#setup moped position
@@ -54,7 +54,7 @@ func _ready() -> void:
 	_ready_NRT_for_moped()
 	
 	#setup obstacle positions lines
-	_ready_sorted_obstacle_positions()
+	#_ready_sorted_obstacle_positions()
 	
 	_put_all_nodes_under_ysort()
 
