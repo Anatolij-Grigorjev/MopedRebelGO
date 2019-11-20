@@ -90,7 +90,12 @@ func _ready_bounds_indices_for_HUD() -> void:
 	var track_positions : Array = []
 	for track_idx in range(num_stage_tracks):
 		track_positions.append(_track0_position + track_idx * _tile_height)
-	HUD.set_stage_metadata(_tracks_bounds.size.x, moped_rebel.global_position.x, track_positions)
+	var stage_length = (
+		($EndStageCutsceneArea2.position - $EndStageCutsceneArea2.area_extents)
+		 - 
+		($StartStageCutsceneArea.position + $StartStageCutsceneArea.area_extents)
+	).x
+	HUD.set_stage_metadata(stage_length, moped_rebel.global_position.x, track_positions)
 
 
 func _ready_NRT_for_moped() -> void:

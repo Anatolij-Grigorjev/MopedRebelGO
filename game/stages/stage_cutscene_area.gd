@@ -28,6 +28,7 @@ export(String) var cutscene_routine_name
 export(bool) var return_control_after = true
 
 
+onready var area_extents: Vector2 = $Area2D/CollisionShape2D.shape.extents
 
 
 
