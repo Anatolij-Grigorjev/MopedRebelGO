@@ -3,7 +3,9 @@
 [ext_resource path="res://stages/non_regulation_track.gd" type="Script" id=1]
 [ext_resource path="res://stages/tile_light_texture.png" type="Texture" id=2]
 
-[node name="NonRegulationTrackBase" type="Node2D"]
+[node name="NonRegulationTrackBase" type="Node2D" groups=[
+"nrt",
+]]
 script = ExtResource( 1 )
 track_regular_shine = Color( 0, 0, 1, 0.501961 )
 track_moped_shine = Color( 0, 1, 0, 0.501961 )

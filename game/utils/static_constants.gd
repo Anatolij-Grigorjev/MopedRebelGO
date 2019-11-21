@@ -31,7 +31,15 @@ Group name for any citizen to which a diss can be directed by moped rebel
 """
 const GROUP_DISSABLES: String = "dissable"
 """
-Group for moped rebel himself
+Group for pieces of non-regulation tracks
+"""
+const GROUP_NRT = "nrt"
+"""
+Marker for root node of moped rebel
+"""
+const GROUP_MR_ROOT = "moped_rebel_root"
+"""
+Group for moped rebel collision components
 """
 const GROUP_MR : String = "moped_rebel"
 """

@@ -1,16 +1,17 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://stages/stage_control.gd" type="Script" id=1]
 [ext_resource path="res://stages/tiles/diag_brown_white_metal.tres" type="TileSet" id=2]
-[ext_resource path="res://stages/non_regulation_track1.tscn" type="PackedScene" id=3]
-[ext_resource path="res://stages/non_regulation_track2.tscn" type="PackedScene" id=4]
-[ext_resource path="res://stages/non_regulation_track3.tscn" type="PackedScene" id=5]
-[ext_resource path="res://obstacles/roadblocks/tall/tall_roadblock.tscn" type="PackedScene" id=6]
-[ext_resource path="res://obstacles/citizens/white_worker.tscn" type="PackedScene" id=7]
-[ext_resource path="res://rebel/moped_rebel.tscn" type="PackedScene" id=8]
-[ext_resource path="res://stages/bg/sky_poles_bg.tscn" type="PackedScene" id=9]
-[ext_resource path="res://gui/HUD.tscn" type="PackedScene" id=10]
-[ext_resource path="res://stages/stage_cutscene_area.tscn" type="PackedScene" id=11]
+[ext_resource path="res://stages/group_grab_ysort.gd" type="Script" id=3]
+[ext_resource path="res://stages/non_regulation_track1.tscn" type="PackedScene" id=4]
+[ext_resource path="res://stages/non_regulation_track2.tscn" type="PackedScene" id=5]
+[ext_resource path="res://stages/non_regulation_track3.tscn" type="PackedScene" id=6]
+[ext_resource path="res://obstacles/roadblocks/tall/tall_roadblock.tscn" type="PackedScene" id=7]
+[ext_resource path="res://obstacles/citizens/white_worker.tscn" type="PackedScene" id=8]
+[ext_resource path="res://rebel/moped_rebel.tscn" type="PackedScene" id=9]
+[ext_resource path="res://stages/bg/sky_poles_bg.tscn" type="PackedScene" id=10]
+[ext_resource path="res://gui/HUD.tscn" type="PackedScene" id=11]
+[ext_resource path="res://stages/stage_cutscene_area.tscn" type="PackedScene" id=12]
 
 [node name="TestStage" type="Node2D"]
 script = ExtResource( 1 )
@@ -21,37 +22,39 @@ cell_size = Vector2( 200, 100 )
 format = 1
 tile_data = PoolIntArray( -65540, 3, 0, -65539, 3, 0, -65538, 3, 0, -65537, 3, 0, -131072, 3, 0, -131071, 3, 0, -131070, 3, 0, -131069, 3, 0, -131068, 3, 0, -131067, 3, 0, -131066, 3, 0, -131065, 3, 0, -131064, 3, 0, -131063, 3, 0, -131062, 3, 0, -131061, 3, 0, -131060, 3, 0, -131059, 3, 0, -131058, 3, 0, -131057, 3, 0, -131056, 3, 0, -131055, 3, 0, -131054, 3, 0, -131053, 3, 0, -131052, 3, 0, -131051, 3, 0, -131050, 3, 0, -131049, 3, 0, -131048, 3, 0, -131047, 3, 0, -131046, 3, 0, -131045, 3, 0, -131044, 3, 0, -131043, 3, 0, -131042, 3, 0, -131041, 3, 0, -131040, 3, 0, -131039, 3, 0, -131038, 3, 0, -4, 1, 0, -3, 1, 0, -2, 1, 0, -1, 1, 0, -65536, 1, 0, -65535, 1, 0, -65534, 1, 0, -65533, 1, 0, -65532, 1, 0, -65531, 1, 0, -65530, 1, 0, -65529, 1, 0, -65528, 1, 0, -65527, 1, 0, -65526, 1, 0, -65525, 1, 0, -65524, 1, 0, -65523, 1, 0, -65522, 1, 0, -65521, 1, 0, -65520, 1, 0, -65519, 1, 0, -65518, 1, 0, -65517, 1, 0, -65516, 1, 0, -65515, 1, 0, -65514, 1, 0, -65513, 1, 0, -65512, 1, 0, -65511, 1, 0, -65510, 1, 0, -65509, 1, 0, -65508, 1, 0, -65507, 1, 0, -65506, 1, 0, -65505, 1, 0, -65504, 1, 0, -65503, 1, 0, -65502, 1, 0, 65532, 1, 0, 65533, 1, 0, 65534, 1, 0, 65535, 1, 0, 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0, 8, 1, 0, 9, 1, 0, 10, 1, 0, 11, 1, 0, 12, 1, 0, 13, 1, 0, 14, 1, 0, 15, 1, 0, 16, 1, 0, 17, 1, 0, 18, 1, 0, 19, 1, 0, 20, 1, 0, 21, 1, 0, 22, 1, 0, 23, 1, 0, 24, 1, 0, 25, 1, 0, 26, 1, 0, 27, 1, 0, 28, 1, 0, 29, 1, 0, 30, 1, 0, 31, 1, 0, 32, 1, 0, 33, 1, 0, 34, 1, 0, 131068, 4, 0, 131069, 4, 0, 131070, 4, 0, 131071, 4, 0, 65536, 4, 0, 65537, 4, 0, 65538, 4, 0, 65539, 4, 0, 65540, 4, 0, 65541, 4, 0, 65542, 4, 0, 65543, 4, 0, 65544, 4, 0, 65545, 4, 0, 65546, 4, 0, 65547, 4, 0, 65548, 4, 0, 65549, 4, 0, 65550, 4, 0, 65551, 4, 0, 65552, 4, 0, 65553, 4, 0, 65554, 4, 0, 65555, 4, 0, 65556, 4, 0, 65557, 4, 0, 65558, 4, 0, 65559, 4, 0, 65560, 4, 0, 65561, 4, 0, 65562, 4, 0, 65563, 4, 0, 65564, 4, 0, 65565, 4, 0, 65566, 4, 0, 65567, 4, 0, 65568, 4, 0, 65569, 4, 0, 65570, 4, 0, 196604, 1, 0, 196605, 1, 0, 196606, 1, 0, 196607, 1, 0, 131072, 1, 0, 131073, 1, 0, 131074, 1, 0, 131075, 1, 0, 131076, 1, 0, 131077, 1, 0, 131078, 1, 0, 131079, 1, 0, 131080, 1, 0, 131081, 1, 0, 131082, 1, 0, 131083, 1, 0, 131084, 1, 0, 131085, 1, 0, 131086, 1, 0, 131087, 1, 0, 131088, 1, 0, 131089, 1, 0, 131090, 1, 0, 131091, 1, 0, 131092, 1, 0, 131093, 1, 0, 131094, 1, 0, 131095, 1, 0, 131096, 1, 0, 131097, 1, 0, 131098, 1, 0, 131099, 1, 0, 131100, 1, 0, 131101, 1, 0, 131102, 1, 0, 131103, 1, 0, 131104, 1, 0, 131105, 1, 0, 131106, 1, 0 )
 
-[node name="YSort" type="YSort" parent="."]
+[node name="GroupGrabYSort" type="YSort" parent="."]
+script = ExtResource( 3 )
+grab_groups = [ "nrt", "dissable", "moped_rebel_root", "obstacle" ]
 
 [node name="NRT" type="Node2D" parent="."]
 editor/display_folded = true
 
-[node name="NonRegulationTrack1" parent="NRT" instance=ExtResource( 3 )]
+[node name="NonRegulationTrack1" parent="NRT" instance=ExtResource( 4 )]
 position = Vector2( 753.979, 45.7332 )
 
-[node name="NonRegulationTrack2" parent="NRT" instance=ExtResource( 3 )]
+[node name="NonRegulationTrack2" parent="NRT" instance=ExtResource( 4 )]
 position = Vector2( 1145.8, -49.4413 )
 
-[node name="NonRegulationTrack3" parent="NRT" instance=ExtResource( 4 )]
+[node name="NonRegulationTrack3" parent="NRT" instance=ExtResource( 5 )]
 position = Vector2( 1747.87, 46.9692 )
 track_moped_shine = Color( 0.635294, 0.0862745, 0.227451, 0.501961 )
 travel_nrt_points = 300.0
 nrt_cruise_speed = 500.0
 
-[node name="NonRegulationTrack4" parent="NRT" instance=ExtResource( 4 )]
+[node name="NonRegulationTrack4" parent="NRT" instance=ExtResource( 5 )]
 position = Vector2( 2351.05, 48.2052 )
 track_moped_shine = Color( 0.635294, 0.0862745, 0.227451, 0.501961 )
 travel_nrt_points = 300.0
 nrt_cruise_speed = 500.0
 
-[node name="NonRegulationTrack5" parent="NRT" instance=ExtResource( 5 )]
+[node name="NonRegulationTrack5" parent="NRT" instance=ExtResource( 6 )]
 position = Vector2( 3136.05, -51.9134 )
 track_regular_shine = Color( 0.0352941, 0.0352941, 0.901961, 0.501961 )
 track_moped_shine = Color( 0.388235, 0.0235294, 0.117647, 0.501961 )
 travel_nrt_points = 500.0
 nrt_cruise_speed = 600.0
 
-[node name="NonRegulationTrack6" parent="NRT" instance=ExtResource( 5 )]
+[node name="NonRegulationTrack6" parent="NRT" instance=ExtResource( 6 )]
 position = Vector2( 3949.36, 50.6773 )
 track_regular_shine = Color( 0.054902, 0.054902, 0.803922, 0.501961 )
 track_moped_shine = Color( 0.4, 0.0235294, 0.117647, 0.501961 )
@@ -61,61 +64,61 @@ nrt_cruise_speed = 600.0
 [node name="Obstacles" type="Node2D" parent="."]
 editor/display_folded = true
 
-[node name="TallRoadblock" parent="Obstacles" instance=ExtResource( 6 )]
+[node name="TallRoadblock" parent="Obstacles" instance=ExtResource( 7 )]
 position = Vector2( 1300, 62 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="TallRoadblock2" parent="Obstacles" instance=ExtResource( 6 )]
+[node name="TallRoadblock2" parent="Obstacles" instance=ExtResource( 7 )]
 position = Vector2( 3956.58, -42.2529 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="TallRoadblock3" parent="Obstacles" instance=ExtResource( 6 )]
+[node name="TallRoadblock3" parent="Obstacles" instance=ExtResource( 7 )]
 position = Vector2( 5349.11, 251.889 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="Citizens" type="Node2D" parent="."]
 editor/display_folded = true
 
-[node name="WhiteWorker" parent="Citizens" instance=ExtResource( 7 )]
+[node name="WhiteWorker" parent="Citizens" instance=ExtResource( 8 )]
 position = Vector2( 596.142, -69.6646 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="WhiteWorker2" parent="Citizens" instance=ExtResource( 7 )]
+[node name="WhiteWorker2" parent="Citizens" instance=ExtResource( 8 )]
 position = Vector2( 1515.82, 63.7946 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="WhiteWorker3" parent="Citizens" instance=ExtResource( 7 )]
+[node name="WhiteWorker3" parent="Citizens" instance=ExtResource( 8 )]
 position = Vector2( 2569.26, -47.4462 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="WhiteWorker6" parent="Citizens" instance=ExtResource( 7 )]
+[node name="WhiteWorker6" parent="Citizens" instance=ExtResource( 8 )]
 position = Vector2( 2616.67, 171.525 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="WhiteWorker7" parent="Citizens" instance=ExtResource( 7 )]
+[node name="WhiteWorker7" parent="Citizens" instance=ExtResource( 8 )]
 position = Vector2( 3000.43, -20.3569 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="WhiteWorker8" parent="Citizens" instance=ExtResource( 7 )]
+[node name="WhiteWorker8" parent="Citizens" instance=ExtResource( 8 )]
 position = Vector2( 3140.39, 236.991 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="WhiteWorker4" parent="Citizens" instance=ExtResource( 7 )]
+[node name="WhiteWorker4" parent="Citizens" instance=ExtResource( 8 )]
 position = Vector2( 3338.92, 141.904 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="WhiteWorker5" parent="Citizens" instance=ExtResource( 7 )]
+[node name="WhiteWorker5" parent="Citizens" instance=ExtResource( 8 )]
 position = Vector2( 4350.25, 252.518 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="MopedRebel" parent="." instance=ExtResource( 8 )]
+[node name="MopedRebel" parent="." instance=ExtResource( 9 )]
 editor/display_folded = true
 position = Vector2( -930, 50 )
 
 [node name="Camera2D" parent="MopedRebel" index="3"]
 limit_right = 7000
 
-[node name="SkyPollsBg" parent="." instance=ExtResource( 9 )]
+[node name="SkyPollsBg" parent="." instance=ExtResource( 10 )]
 offset = Vector2( -700, -700 )
 transform = Transform2D( 1, 0, 0, 1, -700, -700 )
 scroll_limit_begin = Vector2( 1000, 0 )
@@ -127,9 +130,9 @@ layer = 5
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="HUD" parent="CanvasLayer" instance=ExtResource( 10 )]
+[node name="HUD" parent="CanvasLayer" instance=ExtResource( 11 )]
 
-[node name="StartStageCutsceneArea" parent="." instance=ExtResource( 11 )]
+[node name="StartStageCutsceneArea" parent="." instance=ExtResource( 12 )]
 editor/display_folded = true
 position = Vector2( -500, -100 )
 cutscene_routine_owner_path = NodePath("..")
@@ -142,7 +145,7 @@ limit_bottom = 120
 limit_smoothed = true
 drag_margin_h_enabled = true
 
-[node name="EndStageCutsceneArea2" parent="." instance=ExtResource( 11 )]
+[node name="EndStageCutsceneArea2" parent="." instance=ExtResource( 12 )]
 editor/display_folded = true
 position = Vector2( 6600, -100 )
 start_cutscene_on = 2

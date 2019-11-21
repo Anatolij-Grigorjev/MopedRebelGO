@@ -22,7 +22,6 @@ export(int) var current_moped_track := 3
 export(String) var stage_name := "test"
 
 
-var _sorted_obstacle_positions_by_track := []
 onready var _tile_size: Vector2 = $Road.get_cell_size()
 onready var _tile_height: int = _tile_size.y
 
@@ -46,44 +45,16 @@ func _ready() -> void:
 	#setup track positions for HUD warnings
 	_ready_bounds_indices_for_HUD()
 	
-	G.current_stage_citizens = $Citizens.get_child_count()
+	G.current_stage_citizens = get_tree().get_nodes_in_group(C.GROUP_DISSABLES).size()
 	#setup citizen signals for stage
 	_ready_citizens_for_stage()
 	
 	#setup NRT signals and total stage NRT length
 	_ready_NRT_for_moped()
-	
-	#setup obstacle positions lines
-	#_ready_sorted_obstacle_positions()
-	
-	_put_all_nodes_under_ysort()
 
 	#logging
 	LOG.info("Tilemap bounds: {}", [_tracks_bounds])
 	LOG.info("Moped tracks position: {}", [moped_rebel.global_position])
-	for idx in range(_sorted_obstacle_positions_by_track.size()):
-		LOG.info("For track {} got {} obstacles!", [idx, _sorted_obstacle_positions_by_track[idx].size()])
-		
-
-"""
-Inserts all relevant ontrack nodes under the YSort node on the stage
-All relevant nodes are:
-* Obstacles children
-* Citizens children
-* Moped Rebel
-"""
-func _put_all_nodes_under_ysort() -> void:
-	var parent := $YSort
-	#reparent rebel node itself
-	Helpers.reparent_node(moped_rebel, parent)
-	
-	#reparent all static obstacles
-	for obstacle in $Obstacles.get_children():
-		Helpers.reparent_node(obstacle, parent)
-		
-	#reparent all citizens
-	for citizen in $Citizens.get_children():
-		Helpers.reparent_node(citizen, parent)
 
 
 func _ready_bounds_indices_for_HUD() -> void:
@@ -100,7 +71,7 @@ func _ready_bounds_indices_for_HUD() -> void:
 
 func _ready_NRT_for_moped() -> void:
 	#connect signals and accum NRT distance
-	for nrt_segment_node in $NRT.get_children():
+	for nrt_segment_node in get_tree().get_nodes_in_group(C.GROUP_NRT):
 		var nrt_segment = nrt_segment_node as NonRegulationTrack
 		nrt_segment.connect("moped_traveled_nrt", self, "_on_NRT_moped_traveled")
 		G.current_stage_NRT_length += nrt_segment.lights_nodes.size()
@@ -108,30 +79,13 @@ func _ready_NRT_for_moped() -> void:
 
 
 func _ready_citizens_for_stage() -> void:
-	for citizen in $Citizens.get_children():
+	for citizen in get_tree().get_nodes_in_group(C.GROUP_DISSABLES):
 		var white_worker := citizen as CitizenRoadBlock
 		white_worker.connect("got_dissed", self, "_on_CitizenRoadBlock_got_dissed")
 
 
-func _ready_sorted_obstacle_positions() -> void:
-	for idx in range(num_stage_tracks):
-		_sorted_obstacle_positions_by_track.append([])
-		
-	for elem in $Obstacles.get_children():
-		var obstacle_track_idx : int = floor((elem.global_position.y - _track0_position) / _tile_height) - 1
-		LOG.info("obstacle {} -> idx {}", [elem.global_position.y, obstacle_track_idx])
-		_sorted_obstacle_positions_by_track[obstacle_track_idx].append(elem.global_position)
-		
-	for idx in range(_sorted_obstacle_positions_by_track.size()):
-		var positions_list : Array = _sorted_obstacle_positions_by_track[idx]
-		positions_list.sort_custom(Helpers, "sort_positions_x")
-
-
 func _process(delta: float) -> void:
 	HUD.set_stage_progress(moped_rebel.global_position.x)
-	var nearest_tracks_obstacles := _build_nearest_track_obstacles_list()
-	if (nearest_tracks_obstacles):
-		HUD.update_next_obstacle_warning_icons(nearest_tracks_obstacles)
 	_process_diss_aim()
 	
 	
@@ -170,29 +124,6 @@ func _stop_aim_citizen(citizen: CitizenRoadBlock) -> void:
 		return
 	_current_diss_aim.queue_free()
 	_current_diss_aim = null
-
-	
-func _build_nearest_track_obstacles_list() -> Array:
-	var next_obstacle_distances := []
-	for track_idx in range(_sorted_obstacle_positions_by_track.size()):
-		var obstacle_positions : Array = _sorted_obstacle_positions_by_track[track_idx]
-		var next_position_idx := _get_first_idx_position_ahead(obstacle_positions)
-		if (next_position_idx >= 0):
-			var moped_distance : float = obstacle_positions[next_position_idx].x - moped_rebel.global_position.x
-			next_obstacle_distances.append({
-				"track_idx": track_idx,
-				"obstacle_type": C.ObstacleTypes.ROADBLOCK,
-				"moped_distance": moped_distance
-			})
-	return next_obstacle_distances
-	
-	
-func _get_first_idx_position_ahead(positions: Array) -> int:
-	var moped_position : float = moped_rebel.global_position.x
-	for idx in range(positions.size()):
-		if (positions[idx].x > moped_position):
-			return idx
-	return -1
 	
 	
 func _on_MopedRebel_swerve_direction_pressed(intended_direction: int) -> void:

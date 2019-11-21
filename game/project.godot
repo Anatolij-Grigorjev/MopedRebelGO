@@ -64,6 +64,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://utils/game_state.gd"
 }, {
+"base": "YSort",
+"class": "GroupGrabYsort",
+"language": "GDScript",
+"path": "res://stages/group_grab_ysort.gd"
+}, {
 "base": "Control",
 "class": "HUDController",
 "language": "GDScript",
@@ -151,6 +156,7 @@ _global_script_class_icons={
 "DissWord": "",
 "EarnedPoints": "",
 "GameState": "",
+"GroupGrabYsort": "",
 "HUDController": "",
 "Helpers": "",
 "InputProcessor": "",
