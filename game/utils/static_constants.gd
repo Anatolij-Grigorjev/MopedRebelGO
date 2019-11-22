@@ -83,6 +83,7 @@ const DISS_CITIZEN_BONUS = 120
 *		MOPED REBEL			*
 *****************************
 """
+const MR_MAX_SC: float = 9999.0
 const MR_DISS_SC_COST: float = 15.5
 const MR_CRUISE_SPEED : float = 255.56
 const MR_CUTSCENE_SPEED : float = 155.54

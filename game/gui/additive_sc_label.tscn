@@ -34,7 +34,6 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="AdditiveSCLabel" type="Label" parent="."]
-editor/display_folded = true
 margin_left = -40.0
 margin_top = -25.0
 margin_right = 60.0

@@ -22,3 +22,4 @@ func reset_current_stage_stats() -> void:
 	current_stage_citizens_dissed = 0
 	current_stage_NRT_length = 0.0
 	current_stage_NRT_traveled = 0.0
+	sc_multiplier = 1.0

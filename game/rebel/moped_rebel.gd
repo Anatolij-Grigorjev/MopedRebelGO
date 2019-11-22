@@ -20,6 +20,7 @@ var DissWord: Resource = preload("res://rebel/diss_word.tscn")
 signal swerve_direction_pressed(swerve_direction)
 signal diss_said(diss_word)
 signal diss_target_change_pressed(change_direction)
+signal anger_pulse_consumed
 
 
 var cruise_speed : float = C.MR_CRUISE_SPEED
@@ -194,7 +195,8 @@ func _build_diss_word() -> Node2D:
 func _on_AngerDetector_area_entered(area: Area2D) -> void:
 	if (area.is_in_group(C.GROUP_ANGER_PULSE)):
 		var anger_pulse_node: AngerPulse = area.get_owner() as AngerPulse
-		G.sc_multiplier += anger_pulse_node.pulse_sc_mult_add
 		animator_anger.play("consume_anger")
 		anger_pulse_node.queue_free()
+		G.sc_multiplier += anger_pulse_node.pulse_sc_mult_add
+		emit_signal("anger_pulse_consumed")
 	

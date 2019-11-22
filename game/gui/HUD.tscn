@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://gui/hud_control.gd" type="Script" id=1]
 [ext_resource path="res://gui/street_cred_progress_bar.tscn" type="PackedScene" id=2]
@@ -6,6 +6,33 @@
 [ext_resource path="res://gui/current_sc_label.tscn" type="PackedScene" id=4]
 [ext_resource path="res://gui/additive_sc_label.tscn" type="PackedScene" id=5]
 [ext_resource path="res://stages/tile_light_texture.png" type="Texture" id=6]
+
+[sub_resource type="Animation" id=1]
+resource_name = "points_changed"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2, 2 ), Vector2( 3, 3 ), Vector2( 2, 2 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -40, -25 ), Vector2( -75, -65 ), Vector2( -40, -25 ) ]
+}
 
 [node name="HUD" type="Control"]
 anchor_right = 1.0
@@ -17,7 +44,8 @@ script = ExtResource( 1 )
 [node name="StreetCredProgressBar" parent="." instance=ExtResource( 2 )]
 
 [node name="StageProgress" parent="." instance=ExtResource( 3 )]
-margin_left = 300.0
+margin_left = 350.0
+margin_right = 1150.0
 
 [node name="CurrentSCLabel" parent="." instance=ExtResource( 4 )]
 
@@ -29,6 +57,18 @@ margin_right = 150.0
 [node name="AdditiveSCLabel" parent="." instance=ExtResource( 5 )]
 margin_left = 110.0
 margin_right = 150.0
+
+[node name="AdditiveSCMultiplier" parent="." instance=ExtResource( 4 )]
+margin_left = 275.0
+margin_right = 315.0
+
+[node name="CurrentSCLabel" parent="AdditiveSCMultiplier" index="0"]
+text = "X 1.3"
+align = 0
+label_display_format = "X %02.1f"
+
+[node name="AnimationPlayer" parent="AdditiveSCMultiplier/CurrentSCLabel" index="0"]
+anims/points_changed = SubResource( 1 )
 
 [node name="DarkOverlay" type="TextureRect" parent="."]
 visible = false
@@ -45,3 +85,5 @@ stretch_mode = 1
 wait_time = 2.0
 
 [node name="TransferSCTween" type="Tween" parent="."]
+
+[editable path="AdditiveSCMultiplier"]

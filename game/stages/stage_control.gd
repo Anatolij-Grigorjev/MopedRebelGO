@@ -39,6 +39,8 @@ func _ready() -> void:
 	moped_rebel.connect('swerve_direction_pressed', self, '_on_MopedRebel_swerve_direction_pressed')
 	moped_rebel.connect('diss_target_change_pressed', self, '_on_MopedRebel_diss_target_change_pressed')
 	moped_rebel.connect('diss_said', self, '_on_MopedRebel_diss_said')
+	moped_rebel.connect("anger_pulse_consumed", HUD, "update_sc_mult_label")
+	
 	var moped_tracks_offset : int = _tile_height * current_moped_track
 	moped_rebel.global_position.y = _track0_position + moped_tracks_offset
 	
@@ -194,7 +196,7 @@ func _on_NRT_moped_traveled(
 	G.current_stage_NRT_traveled += travel_distance
 	HUD.add_earned_points_score_and_label(
 		moped_rebel.get_global_transform_with_canvas().get_origin(), 
-		sc_with_bonus
+		raw_points
 	)
 	
 	
@@ -244,8 +246,8 @@ func _start_moped_stage_outro(cutscene_trigger: int) -> void:
 	if (StageCutsceneArea.CutsceneTrigger.ENTRY == cutscene_trigger):
 		_toggle_ui_elements_visible(false)
 		yield(get_tree().create_timer(10.0), "timeout")
-		#do start of outro stuff
-		pass
+		State.reset_current_stage_stats()
+
 	else:
 		#passed end of outro
 		LOG.info("stage finished! tally up!")
@@ -263,12 +265,13 @@ func _start_moped_stage_outro(cutscene_trigger: int) -> void:
 		)
 		$CanvasLayer.add_child_below_node($CanvasLayer/SummaryTablePosition, tally_screen)
 		yield(tally_screen, "tally_forward_pressed")
-		if (tally_screen.total_earned_points > 0):
+		if (tally_screen.total_earned_points > 0 and State.current_street_scred < C.MR_MAX_SC):
 			var earned_points : float = tally_screen.total_earned_points
 			#visible HUD except for progress bar and tally points
 			HUD.visible = true
 			$CanvasLayer/HUD/StageProgress.visible = false
 			$CanvasLayer/HUD/DarkOverlay.visible = false
+			HUD.additive_sc_multiplier.visible = false
 			
 			HUD.add_earned_points_score_and_label(
 				tally_screen.total_earned_position, 
