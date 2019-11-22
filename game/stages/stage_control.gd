@@ -44,8 +44,11 @@ func _ready() -> void:
 	var moped_tracks_offset : int = _tile_height * current_moped_track
 	moped_rebel.global_position.y = _track0_position + moped_tracks_offset
 	
-	#setup track positions for HUD warnings
-	_ready_bounds_indices_for_HUD()
+	#setup track size for progress
+	$CanvasLayer/StageProgress.set_bounds(Vector2(
+		($StartStageCutsceneArea.global_position + $StartStageCutsceneArea.area_extents).x,
+		($EndStageCutsceneArea2.global_position - $EndStageCutsceneArea2.area_extents).x
+	))
 	
 	G.current_stage_citizens = get_tree().get_nodes_in_group(C.GROUP_DISSABLES).size()
 	#setup citizen signals for stage
@@ -57,18 +60,6 @@ func _ready() -> void:
 	#logging
 	LOG.info("Tilemap bounds: {}", [_tracks_bounds])
 	LOG.info("Moped tracks position: {}", [moped_rebel.global_position])
-
-
-func _ready_bounds_indices_for_HUD() -> void:
-	var track_positions : Array = []
-	for track_idx in range(num_stage_tracks):
-		track_positions.append(_track0_position + track_idx * _tile_height)
-	var stage_length = (
-		($EndStageCutsceneArea2.position - $EndStageCutsceneArea2.area_extents)
-		 - 
-		($StartStageCutsceneArea.position + $StartStageCutsceneArea.area_extents)
-	).x
-	HUD.set_stage_metadata(stage_length, moped_rebel.global_position.x, track_positions)
 
 
 func _ready_NRT_for_moped() -> void:
@@ -87,7 +78,6 @@ func _ready_citizens_for_stage() -> void:
 
 
 func _process(delta: float) -> void:
-	HUD.set_stage_progress(moped_rebel.global_position.x)
 	_process_diss_aim()
 	
 	
@@ -268,8 +258,8 @@ func _start_moped_stage_outro(cutscene_trigger: int) -> void:
 		if (tally_screen.total_earned_points > 0 and State.current_street_scred < C.MR_MAX_SC):
 			var earned_points : float = tally_screen.total_earned_points
 			#visible HUD except for progress bar and tally points
+			$CanvasLayer/StageProgress.visible = false
 			HUD.visible = true
-			$CanvasLayer/HUD/StageProgress.visible = false
 			$CanvasLayer/HUD/DarkOverlay.visible = false
 			HUD.additive_sc_multiplier.visible = false
 			

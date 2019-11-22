@@ -27,7 +27,6 @@ onready var State : GameState = get_node("/root/G")
 #components
 onready var LOG : Logger = Logger.new(self)
 onready var sc_progress : StreetCredProgressBar = $StreetCredProgressBar
-onready var stage_progress : ProgressBar = $StageProgress
 onready var current_sc_label : PointsLabel = $CurrentSCLabel/CurrentSCLabel
 onready var additive_sc_label : PointsLabel = $AdditiveSCLabel/AdditiveSCLabel
 onready var additive_sc_multiplier : PointsLabel = $AdditiveSCMultiplier/CurrentSCLabel
@@ -36,15 +35,6 @@ onready var dark_overlay : TextureRect = $DarkOverlay
 onready var transfer_points_debounce : Timer = $TransferPointsDebounce
 onready var transfer_sc_tween: Tween = $TransferSCTween
 
-
-"""
-cache of currently flashing warning icons by track
-"""
-var _current_track_warnings := []
-"""
-internal list of HUD-relative positions for tracks to put warnings on them
-"""
-var _track_idx_icon_positions := []
 
 var _current_points_change_base_accum: float = 0.0
 
@@ -70,15 +60,6 @@ func _update_accum_sc_label() -> void:
 	
 func update_sc_mult_label() -> void:
 	additive_sc_multiplier.update_current_points(State.sc_multiplier)
-
-	
-func set_stage_metadata(stage_length: float, current_pos: float, track_positions: Array) -> void:
-	stage_progress.min_value = 0
-	stage_progress.max_value = stage_length
-	stage_progress.value = current_pos
-	_track_idx_icon_positions = Array(track_positions)
-	for idx in range(_track_idx_icon_positions.size()):
-		_current_track_warnings.append(null)
 		
 		
 func queue_change_points(base_amount: float) -> void:
@@ -146,10 +127,6 @@ func _add_level_up_label(level_up_text : String) -> void:
 	yield(level_up_node, "tree_exiting")
 	dark_overlay.visible = false
 	Engine.time_scale = 1.0
-
-
-func set_stage_progress(distance_covered: float) -> void:
-	stage_progress.value = distance_covered
 	
 
 """

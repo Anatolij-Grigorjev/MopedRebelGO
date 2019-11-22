@@ -130,6 +130,11 @@ _global_script_classes=[ {
 "path": "res://stages/stage_cutscene_area.gd"
 }, {
 "base": "ProgressBar",
+"class": "StageProgressBar",
+"language": "GDScript",
+"path": "res://gui/stage_progress.gd"
+}, {
+"base": "ProgressBar",
 "class": "StreetCredProgressBar",
 "language": "GDScript",
 "path": "res://gui/street_cred_progress_bar.gd"
@@ -169,6 +174,7 @@ _global_script_class_icons={
 "RoadBlock": "",
 "StageControl": "",
 "StageCutsceneArea": "",
+"StageProgressBar": "",
 "StreetCredProgressBar": "",
 "TallyTableRow": "",
 "WarningIcon": ""
