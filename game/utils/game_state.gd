@@ -14,7 +14,7 @@ var current_stage_NRT_traveled := 0.0
 
 
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 	
 	
 func reset_current_stage_stats() -> void:

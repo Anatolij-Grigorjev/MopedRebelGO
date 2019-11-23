@@ -5,6 +5,7 @@ Controls advance to next screen and shows data
 """
 var Logger : Resource = preload("res://utils/logger.gd")
 
+
 signal tally_forward_pressed
 
 
@@ -23,6 +24,7 @@ var total_earned_points: float = 0.0
 var _forward_pressed: bool = false
 var _stats_data: Dictionary = {}
 var _load_screen_animation_length: float
+
 
 func _ready() -> void:
 	row_citizens.set_row_label("Citizens dissed:")
