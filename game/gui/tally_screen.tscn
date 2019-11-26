@@ -1,15 +1,16 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://gui/tally_screen.gd" type="Script" id=1]
 [ext_resource path="res://stages/tile_light_texture.png" type="Texture" id=2]
-[ext_resource path="res://gui/tally_table_row.tscn" type="PackedScene" id=3]
-[ext_resource path="res://gui/centered_label_button.tscn" type="PackedScene" id=4]
+[ext_resource path="res://gui/screen_section_header.tscn" type="PackedScene" id=3]
+[ext_resource path="res://gui/tally_table_row.tscn" type="PackedScene" id=4]
+[ext_resource path="res://gui/centered_label_button.tscn" type="PackedScene" id=5]
 
 [sub_resource type="Animation" id=2]
 resource_name = "load_screen"
 length = 7.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("TallyScreen/ScreenBlocks/Sections/Header/TitleBox/Label:rect_position")
+tracks/0/path = NodePath("TallyScreen/ScreenBlocks/Sections/ScreenSectionHeader/TitleBox/Label:rect_position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -21,7 +22,7 @@ tracks/0/keys = {
 "values": [ Vector2( -1000, 0 ), Vector2( 110, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("TallyScreen/ScreenBlocks/Sections/Header/SectionSeparator:modulate")
+tracks/1/path = NodePath("TallyScreen/ScreenBlocks/Sections/ScreenSectionHeader/SectionSeparator:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -185,19 +186,20 @@ anims/load_screen = SubResource( 2 )
 next/load_screen = "flashin_button"
 
 [node name="TallyScreen" type="MarginContainer" parent="."]
-editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 50.0
-margin_top = 50.0
-margin_right = -50.0
-margin_bottom = -50.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_constants/margin_right = 50
+custom_constants/margin_top = 50
+custom_constants/margin_left = 50
+custom_constants/margin_bottom = 50
 
 [node name="ScreenBlocks" type="VBoxContainer" parent="TallyScreen"]
-margin_right = 1180.0
-margin_bottom = 620.0
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 1230.0
+margin_bottom = 670.0
 
 [node name="Sections" type="VBoxContainer" parent="TallyScreen/ScreenBlocks"]
 margin_right = 1180.0
@@ -206,43 +208,10 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 5.0
 
-[node name="Header" type="VBoxContainer" parent="TallyScreen/ScreenBlocks/Sections"]
+[node name="ScreenSectionHeader" parent="TallyScreen/ScreenBlocks/Sections" instance=ExtResource( 3 )]
+anchor_right = 0.0
 margin_right = 1180.0
 margin_bottom = 72.0
-size_flags_vertical = 3
-custom_constants/separation = 25
-
-[node name="TitleBox" type="HBoxContainer" parent="TallyScreen/ScreenBlocks/Sections/Header"]
-editor/display_folded = true
-margin_right = 1180.0
-margin_bottom = 31.0
-size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
-
-[node name="VSeparator" type="VSeparator" parent="TallyScreen/ScreenBlocks/Sections/Header/TitleBox"]
-margin_right = 106.0
-margin_bottom = 31.0
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="TallyScreen/ScreenBlocks/Sections/Header/TitleBox"]
-margin_left = 110.0
-margin_right = 1180.0
-margin_bottom = 31.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 10.0
-custom_colors/font_color = Color( 1, 1, 0.196078, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-text = "Stage Summary"
-valign = 2
-uppercase = true
-
-[node name="SectionSeparator" type="HSeparator" parent="TallyScreen/ScreenBlocks/Sections/Header"]
-margin_top = 56.0
-margin_right = 1180.0
-margin_bottom = 72.0
-size_flags_vertical = 3
-custom_styles/separator = SubResource( 3 )
 
 [node name="TallyTable" type="VBoxContainer" parent="TallyScreen/ScreenBlocks/Sections"]
 margin_top = 76.0
@@ -252,15 +221,19 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 5.0
 
-[node name="TallyRowCitizens" parent="TallyScreen/ScreenBlocks/Sections/TallyTable" instance=ExtResource( 3 )]
+[node name="TallyRowCitizens" parent="TallyScreen/ScreenBlocks/Sections/TallyTable" instance=ExtResource( 4 )]
+editor/display_folded = true
+modulate = Color( 1, 1, 1, 0 )
 
-[node name="TallyRowNRTs" parent="TallyScreen/ScreenBlocks/Sections/TallyTable" instance=ExtResource( 3 )]
-modulate = Color( 1, 1, 1, 0.857143 )
+[node name="TallyRowNRTs" parent="TallyScreen/ScreenBlocks/Sections/TallyTable" instance=ExtResource( 4 )]
+editor/display_folded = true
+modulate = Color( 1, 1, 1, 0 )
 margin_top = 121.0
 margin_bottom = 238.0
 
-[node name="TallyRowOverallRebel" parent="TallyScreen/ScreenBlocks/Sections/TallyTable" instance=ExtResource( 3 )]
-modulate = Color( 1, 1, 1, 0.75 )
+[node name="TallyRowOverallRebel" parent="TallyScreen/ScreenBlocks/Sections/TallyTable" instance=ExtResource( 4 )]
+editor/display_folded = true
+modulate = Color( 1, 1, 1, 0 )
 margin_top = 242.0
 margin_bottom = 360.0
 
@@ -291,7 +264,6 @@ margin_bottom = 118.0
 margin_bottom = 118.0
 
 [node name="TallyArea" type="VBoxContainer" parent="TallyScreen/ScreenBlocks/Sections"]
-editor/display_folded = true
 margin_top = 440.0
 margin_right = 1180.0
 margin_bottom = 513.0
@@ -367,7 +339,7 @@ margin_bottom = 46.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ButtonContainer" parent="TallyScreen/ScreenBlocks" instance=ExtResource( 4 )]
+[node name="ButtonContainer" parent="TallyScreen/ScreenBlocks" instance=ExtResource( 5 )]
 modulate = Color( 1, 1, 1, 0 )
 margin_top = 517.0
 margin_right = 1180.0

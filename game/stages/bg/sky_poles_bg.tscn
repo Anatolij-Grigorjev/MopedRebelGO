@@ -13,6 +13,7 @@ scale = Vector2( 400, 1 )
 [node name="Sprite" type="Sprite" parent="SkyLayer"]
 texture = ExtResource( 1 )
 centered = false
+flip_v = true
 
 [node name="CloudsLayer" type="ParallaxLayer" parent="."]
 motion_scale = Vector2( 0.5, 1 )

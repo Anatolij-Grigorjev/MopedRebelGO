@@ -158,6 +158,8 @@ func _transfer_points_debounce_timeout() -> void:
 		yield(transfer_sc_tween, "tween_all_completed")
 	
 	transfer_sc_label.update_current_points(points_to_transfer)
+	_reset_sc_multiplier()
+	
 	$TransferSCLabel.visible = true
 	$TransferSCLabel.rect_position = $AdditiveSCLabel.rect_position
 	transfer_sc_tween.interpolate_property($TransferSCLabel, 'rect_position',
@@ -173,3 +175,7 @@ func _transfer_points_debounce_timeout() -> void:
 	_add_sc_points(points_to_transfer)
 	$TransferSCLabel.visible = false
 	
+	
+func _reset_sc_multiplier() -> void:
+	State.sc_multiplier = 1.0
+	update_sc_mult_label()

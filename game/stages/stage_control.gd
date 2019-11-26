@@ -253,12 +253,12 @@ func _start_moped_stage_outro(cutscene_trigger: int) -> void:
 			G.current_stage_NRT_length,
 			stage_bonus
 		)
+		$CanvasLayer/StageProgress.visible = false
 		$CanvasLayer.add_child_below_node($CanvasLayer/SummaryTablePosition, tally_screen)
 		yield(tally_screen, "tally_forward_pressed")
 		if (tally_screen.total_earned_points > 0 and State.current_street_scred < C.MR_MAX_SC):
 			var earned_points : float = tally_screen.total_earned_points
 			#visible HUD except for progress bar and tally points
-			$CanvasLayer/StageProgress.visible = false
 			HUD.visible = true
 			$CanvasLayer/HUD/DarkOverlay.visible = false
 			HUD.additive_sc_multiplier.visible = false

@@ -26,6 +26,10 @@ var _stats_data: Dictionary = {}
 var _load_screen_animation_length: float
 
 
+func _init():
+	set_stats_data(4, 8, 450, 700, 450)
+
+
 func _ready() -> void:
 	row_citizens.set_row_label("Citizens dissed:")
 	row_nrts.set_row_label("NRT traveled:")
