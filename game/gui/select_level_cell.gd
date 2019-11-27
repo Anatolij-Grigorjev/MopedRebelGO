@@ -6,8 +6,21 @@ is selectable
 """
 
 export(PackedScene) var level_scene: PackedScene
+export(Texture) var level_thumbnail: Texture setget set_level_thumb, get_level_thumb
 export(String) var level_name: String = "test" setget set_level_name, get_level_name
 export(bool) var selected: bool = false setget set_selected
+
+
+func set_level_thumb(thumb: Texture) -> void:
+	if ($SelectedBorder/VBoxContainer/ThumbnailMarginContainer/Thumbnail):
+		$SelectedBorder/VBoxContainer/ThumbnailMarginContainer/Thumbnail.texture = thumb
+		
+		
+func get_level_thumb() -> Texture:
+	if ($SelectedBorder/VBoxContainer/ThumbnailMarginContainer/Thumbnail):
+		return $SelectedBorder/VBoxContainer/ThumbnailMarginContainer/Thumbnail.texture
+	else:
+		return null
 
 
 func get_level_name() -> String:

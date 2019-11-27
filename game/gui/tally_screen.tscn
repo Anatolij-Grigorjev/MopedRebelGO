@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://gui/tally_screen.gd" type="Script" id=1]
 [ext_resource path="res://stages/tile_light_texture.png" type="Texture" id=2]
-[ext_resource path="res://gui/screen_section_header.tscn" type="PackedScene" id=3]
-[ext_resource path="res://gui/tally_table_row.tscn" type="PackedScene" id=4]
-[ext_resource path="res://gui/centered_label_button.tscn" type="PackedScene" id=5]
+[ext_resource path="res://gui/margin_50.tscn" type="PackedScene" id=3]
+[ext_resource path="res://gui/screen_section_header.tscn" type="PackedScene" id=4]
+[ext_resource path="res://gui/tally_table_row.tscn" type="PackedScene" id=5]
+[ext_resource path="res://gui/centered_label_button.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Animation" id=2]
 resource_name = "load_screen"
@@ -185,15 +186,7 @@ playback_speed = 1.5
 anims/load_screen = SubResource( 2 )
 next/load_screen = "flashin_button"
 
-[node name="TallyScreen" type="MarginContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/margin_right = 50
-custom_constants/margin_top = 50
-custom_constants/margin_left = 50
-custom_constants/margin_bottom = 50
+[node name="TallyScreen" parent="." instance=ExtResource( 3 )]
 
 [node name="ScreenBlocks" type="VBoxContainer" parent="TallyScreen"]
 margin_left = 50.0
@@ -208,10 +201,11 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 5.0
 
-[node name="ScreenSectionHeader" parent="TallyScreen/ScreenBlocks/Sections" instance=ExtResource( 3 )]
+[node name="ScreenSectionHeader" parent="TallyScreen/ScreenBlocks/Sections" instance=ExtResource( 4 )]
 anchor_right = 0.0
 margin_right = 1180.0
 margin_bottom = 72.0
+section_name = "stage summary"
 
 [node name="TallyTable" type="VBoxContainer" parent="TallyScreen/ScreenBlocks/Sections"]
 margin_top = 76.0
@@ -221,17 +215,17 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 5.0
 
-[node name="TallyRowCitizens" parent="TallyScreen/ScreenBlocks/Sections/TallyTable" instance=ExtResource( 4 )]
+[node name="TallyRowCitizens" parent="TallyScreen/ScreenBlocks/Sections/TallyTable" instance=ExtResource( 5 )]
 editor/display_folded = true
 modulate = Color( 1, 1, 1, 0 )
 
-[node name="TallyRowNRTs" parent="TallyScreen/ScreenBlocks/Sections/TallyTable" instance=ExtResource( 4 )]
+[node name="TallyRowNRTs" parent="TallyScreen/ScreenBlocks/Sections/TallyTable" instance=ExtResource( 5 )]
 editor/display_folded = true
 modulate = Color( 1, 1, 1, 0 )
 margin_top = 121.0
 margin_bottom = 238.0
 
-[node name="TallyRowOverallRebel" parent="TallyScreen/ScreenBlocks/Sections/TallyTable" instance=ExtResource( 4 )]
+[node name="TallyRowOverallRebel" parent="TallyScreen/ScreenBlocks/Sections/TallyTable" instance=ExtResource( 5 )]
 editor/display_folded = true
 modulate = Color( 1, 1, 1, 0 )
 margin_top = 242.0
@@ -339,7 +333,7 @@ margin_bottom = 46.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ButtonContainer" parent="TallyScreen/ScreenBlocks" instance=ExtResource( 5 )]
+[node name="ButtonContainer" parent="TallyScreen/ScreenBlocks" instance=ExtResource( 6 )]
 modulate = Color( 1, 1, 1, 0 )
 margin_top = 517.0
 margin_right = 1180.0

@@ -20,19 +20,20 @@ tracks/0/keys = {
 }
 
 [node name="ButtonContainer" type="CenterContainer"]
-margin_right = 146.0
-margin_bottom = 14.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 1 )
 
 [node name="PressButtonLabel" type="Label" parent="."]
-visible = false
-margin_right = 146.0
-margin_bottom = 14.0
+margin_left = 567.0
+margin_top = 353.0
+margin_right = 713.0
+margin_bottom = 367.0
 custom_colors/font_color = Color( 1, 1, 0.196078, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-text = "Press 'Diss' Button..."
+text = "Press 'DISS' button..."
 align = 1
 valign = 1
 uppercase = true
