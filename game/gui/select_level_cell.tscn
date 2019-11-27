@@ -2,23 +2,49 @@
 
 [ext_resource path="res://gui/select_level_cell.gd" type="Script" id=1]
 [ext_resource path="res://stages/test/test_stage.tscn" type="PackedScene" id=2]
-[ext_resource path="res://icon.png" type="Texture" id=3]
-[ext_resource path="res://gui/thumbnail_cover.png" type="Texture" id=4]
+[ext_resource path="res://gui/thumbnail_cover.png" type="Texture" id=3]
+[ext_resource path="res://icon.png" type="Texture" id=4]
 
 [node name="SelectLevelCell" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -640.0
+margin_top = -360.0
+margin_right = 640.0
+margin_bottom = 360.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource( 1 )
 level_scene = ExtResource( 2 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-editor/display_folded = true
-margin_right = 138.0
-margin_bottom = 166.0
+[node name="SelectedBorder" type="NinePatchRect" parent="."]
+self_modulate = Color( 1, 0, 0, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 3 )
+draw_center = false
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SelectedBorder"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -69.0
+margin_top = -83.0
+margin_right = 69.0
+margin_bottom = 83.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ThumbnailMarginContainer" type="MarginContainer" parent="VBoxContainer"]
+[node name="ThumbnailMarginContainer" type="MarginContainer" parent="SelectedBorder/VBoxContainer"]
 margin_right = 138.0
 margin_bottom = 138.0
 size_flags_horizontal = 3
@@ -28,19 +54,7 @@ custom_constants/margin_top = 5
 custom_constants/margin_left = 5
 custom_constants/margin_bottom = 5
 
-[node name="Thumbnail" type="TextureRect" parent="VBoxContainer/ThumbnailMarginContainer"]
-margin_left = 5.0
-margin_top = 5.0
-margin_right = 133.0
-margin_bottom = 133.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 7.0
-texture = ExtResource( 3 )
-
-[node name="Cover" type="TextureRect" parent="VBoxContainer/ThumbnailMarginContainer"]
-visible = false
-modulate = Color( 0, 0, 0, 0.352941 )
+[node name="Thumbnail" type="TextureRect" parent="SelectedBorder/VBoxContainer/ThumbnailMarginContainer"]
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 133.0
@@ -50,7 +64,19 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 7.0
 texture = ExtResource( 4 )
 
-[node name="LabelMarginContainer" type="MarginContainer" parent="VBoxContainer"]
+[node name="Cover" type="TextureRect" parent="SelectedBorder/VBoxContainer/ThumbnailMarginContainer"]
+visible = false
+modulate = Color( 0, 0, 0, 0.352941 )
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 133.0
+margin_bottom = 133.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 7.0
+texture = ExtResource( 3 )
+
+[node name="LabelMarginContainer" type="MarginContainer" parent="SelectedBorder/VBoxContainer"]
 margin_top = 142.0
 margin_right = 138.0
 margin_bottom = 166.0
@@ -62,13 +88,13 @@ custom_constants/margin_top = 5
 custom_constants/margin_left = 0
 custom_constants/margin_bottom = 5
 
-[node name="Label" type="Label" parent="VBoxContainer/LabelMarginContainer"]
+[node name="Label" type="Label" parent="SelectedBorder/VBoxContainer/LabelMarginContainer"]
 margin_top = 5.0
 margin_right = 138.0
 margin_bottom = 19.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "TEST"
+text = "test"
 align = 1
 valign = 1
 uppercase = true
