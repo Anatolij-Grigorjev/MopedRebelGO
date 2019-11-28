@@ -335,6 +335,8 @@ size_flags_vertical = 3
 
 [node name="ButtonContainer" parent="TallyScreen/ScreenBlocks" instance=ExtResource( 6 )]
 modulate = Color( 1, 1, 1, 0 )
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_top = 517.0
 margin_right = 1180.0
 margin_bottom = 620.0

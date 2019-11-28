@@ -1,9 +1,26 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://gui/select_level_cell.gd" type="Script" id=1]
 [ext_resource path="res://stages/test/test_stage.tscn" type="PackedScene" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
 [ext_resource path="res://gui/thumbnail_cover.png" type="Texture" id=4]
+
+[sub_resource type="Animation" id=1]
+resource_name = "pressed"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("SelectedBorder:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.9, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="SelectLevelCell" type="Control"]
 anchor_right = 1.0
@@ -93,3 +110,7 @@ text = "test"
 align = 1
 valign = 1
 uppercase = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 3.0
+anims/pressed = SubResource( 1 )

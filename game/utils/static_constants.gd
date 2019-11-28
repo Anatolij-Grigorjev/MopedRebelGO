@@ -71,6 +71,7 @@ enum DIRECTION {
 *		STAGES				*
 *****************************
 """
+const STAGE_SELECT_SCENE_PATH = "res://gui/stage_select_screen.tscn"
 const STAGE_COMPLETION_BONUS = {
 	"test": 450
 }

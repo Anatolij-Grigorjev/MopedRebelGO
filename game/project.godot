@@ -119,6 +119,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://obstacles/roadblocks/roadblock.gd"
 }, {
+"base": "Control",
+"class": "SelectLevelCell",
+"language": "GDScript",
+"path": "res://gui/select_level_cell.gd"
+}, {
 "base": "Node2D",
 "class": "StageControl",
 "language": "GDScript",
@@ -172,6 +177,7 @@ _global_script_class_icons={
 "PackagesBundle": "",
 "PointsLabel": "",
 "RoadBlock": "",
+"SelectLevelCell": "",
 "StageControl": "",
 "StageCutsceneArea": "",
 "StageProgressBar": "",
@@ -183,7 +189,7 @@ _global_script_class_icons={
 [application]
 
 config/name="MopedRebelGO"
-run/main_scene="res://stages/test/test_stage.tscn"
+run/main_scene="res://gui/stage_select_screen.tscn"
 config/icon="res://icon.png"
 config/quit_on_go_back=false
 

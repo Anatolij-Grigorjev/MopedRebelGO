@@ -1,5 +1,6 @@
 tool
 extends Control
+class_name SelectLevelCell
 """
 Cell that means a level in a menu. Includes reference to level scene
 is selectable
@@ -50,3 +51,7 @@ func set_selected(is_selected: bool) -> void:
 		level_name_label.modulate = Color.white
 		thumbnail_cover.visible = false
 		select_border.self_modulate.a = 0
+		
+		
+func pressed() -> void:
+	$AnimationPlayer.play("pressed")

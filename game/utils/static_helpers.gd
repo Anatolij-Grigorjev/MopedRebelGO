@@ -84,6 +84,16 @@ static func is_blank(text: String) -> bool:
 	
 	
 """
+Switch to new scene, relative to a specific root (usually get_tree#get_root)
+"""
+static func switch_to_scene(root: Node, new_scene: Node) -> void:
+	#remove old scene from root
+	root.get_child(root.get_child_count() - 1).queue_free()
+	#add new scene
+	root.add_child(new_scene)
+	
+	
+"""
 Returns a vector with coordinates swapped with respect to input vector
 So for a given passed Vector2(x,y) will return Vector2(y,x)
 Returns null for null input
