@@ -18,11 +18,6 @@ func _ready() -> void:
 	visibility.connect("screen_exited", self, "_on_Citizen_screen_exited")
 	pass
 	
-	
-func _process(delta: float) -> void:
-	
-	pass 
-	
 
 func get_target_citizen() -> CitizenRoadBlock:
 	return _target_citizen

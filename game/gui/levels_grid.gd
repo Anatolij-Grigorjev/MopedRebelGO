@@ -37,6 +37,21 @@ func _change_selected_stage(new_selection: int) -> void:
 func _on_ButtonContainer_button_pressed() -> void:
 	var stage_node: SelectLevelCell = stages[selected_stage] as SelectLevelCell
 	stage_node.pressed()
-	yield(get_tree().create_timer(1.5), "timeout")
-	var stage_scene = stage_node.level_scene.instance()
-	Helpers.switch_to_scene(get_tree().get_root(), stage_scene)
+	yield(get_tree().create_timer(0.5), "timeout")
+	var thread_ctx: ThreadCtx = ThreadCtx.new(Thread.new())
+	thread_ctx.call_params.append(stage_node.level_scene)
+	thread_ctx.thread.start(self, "_instance_scene", thread_ctx)
+
+
+func _instance_scene(thread_ctx: ThreadCtx) -> Node:
+	if (not thread_ctx):
+		return null
+	
+	var scene = thread_ctx.call_params[0] as PackedScene
+	var ready_scene: Node = scene.instance()
+	call_deferred("_scene_instance_done", thread_ctx)
+	return ready_scene
+
+func _scene_instance_done(ctx: ThreadCtx) -> void:
+	var ready_scene: Node = ctx.thread.wait_to_finish()
+	Helpers.switch_to_scene(get_tree().get_root(), ready_scene)

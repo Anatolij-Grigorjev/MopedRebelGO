@@ -149,6 +149,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://gui/tally_table_row.gd"
 }, {
+"base": "Reference",
+"class": "ThreadCtx",
+"language": "GDScript",
+"path": "res://utils/thread_ctx.gd"
+}, {
 "base": "Control",
 "class": "WarningIcon",
 "language": "GDScript",
@@ -183,6 +188,7 @@ _global_script_class_icons={
 "StageProgressBar": "",
 "StreetCredProgressBar": "",
 "TallyTableRow": "",
+"ThreadCtx": "",
 "WarningIcon": ""
 }
 
