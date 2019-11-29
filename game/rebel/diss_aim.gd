@@ -16,7 +16,6 @@ func _ready() -> void:
 	_target_citizen = get_parent()
 	var visibility = _target_citizen.visibility_controller  as VisibilityNotifier2D
 	visibility.connect("screen_exited", self, "_on_Citizen_screen_exited")
-	pass
 	
 
 func get_target_citizen() -> CitizenRoadBlock:

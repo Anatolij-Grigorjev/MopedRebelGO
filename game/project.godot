@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://obstacles/citizens/anger_pulse.gd"
 }, {
 "base": "Reference",
+"class": "AsyncTask",
+"language": "GDScript",
+"path": "res://utils/async_task.gd"
+}, {
+"base": "Reference",
 "class": "C",
 "language": "GDScript",
 "path": "res://utils/static_constants.gd"
@@ -162,6 +167,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AdditivePointsLabel": "",
 "AngerPulse": "",
+"AsyncTask": "",
 "C": "",
 "CenteredLabelButton": "",
 "CitizenRoadBlock": "",
