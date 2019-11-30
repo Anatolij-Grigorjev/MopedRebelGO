@@ -7,8 +7,6 @@ var Logger : Resource = preload("res://utils/logger.gd")
 
 const DISS_SPEED = 500
 
-signal hit_citizen
-
 
 onready var LOG: Logger = Logger.new(self)
 onready var tween: Tween = $Tween
@@ -42,4 +40,3 @@ func send_diss() -> void:
 	tween.start()
 	
 	yield(tween, "tween_all_completed")
-	emit_signal("hit_citizen")

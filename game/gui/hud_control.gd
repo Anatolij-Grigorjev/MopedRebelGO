@@ -4,17 +4,9 @@ class_name HUDController
 Orchestration of various HUD elements and making sure data/signals intended
 for them reach them from this single point of entry
 """
-var Logger : Resource = preload("res://utils/logger.gd")
 var WarningObstacle : Resource = preload("res://gui/WarningIconObstacle.tscn")
 var LevelUpText : Resource = preload("res://gui/level_up_text.tscn")
 var EarnedPoints : Resource = preload("res://gui/earned_points.tscn")
-
-
-"""
-Range in which moped should see warning icons about upcoming obstacles
-"""
-const MIN_WARNING_ICON_DISTANCE = 1000.0
-const MAX_WARNING_ICON_DISTANCE = 4500.0
 
 
 signal earned_points_merged
@@ -25,7 +17,6 @@ onready var State : GameState = get_node("/root/G")
 
 
 #components
-onready var LOG : Logger = Logger.new(self)
 onready var sc_progress : StreetCredProgressBar = $StreetCredProgressBar
 onready var current_sc_label : PointsLabel = $CurrentSCLabel/CurrentSCLabel
 onready var additive_sc_label : PointsLabel = $AdditiveSCLabel/AdditiveSCLabel
