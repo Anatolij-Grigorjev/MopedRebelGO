@@ -126,7 +126,6 @@ transform = Transform2D( 1, 0, 0, 1, -700, -700 )
 scroll_limit_begin = Vector2( 1000, 0 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-editor/display_folded = true
 layer = 5
 
 [node name="SummaryTablePosition" type="Control" parent="CanvasLayer"]

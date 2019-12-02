@@ -60,6 +60,8 @@ func _ready() -> void:
 	#logging
 	LOG.info("Tilemap bounds: {}", [_tracks_bounds])
 	LOG.info("Moped tracks position: {}", [moped_rebel.global_position])
+	if (get_node("/root/LoadingOverlay")):
+		get_node("/root/LoadingOverlay").hide()
 
 
 func _ready_NRT_for_moped() -> void:
@@ -173,11 +175,7 @@ func _on_MopedRebel_diss_said(diss_word: DissWord) -> void:
 	)
 
 	
-func _on_NRT_moped_traveled(
-	nrt_num_tiles: int, 
-	nrt_travel_points: float, 
-	travel_distance: float
-) -> void:
+func _on_NRT_moped_traveled(nrt_num_tiles: int, nrt_travel_points: float, travel_distance: float) -> void:
 	#actual tile size is about half a tile longer than advertised
 	var total_nrt_length : float = nrt_num_tiles * (_tile_size.x * 1.5)
 	var raw_points : float = travel_distance/total_nrt_length * nrt_travel_points

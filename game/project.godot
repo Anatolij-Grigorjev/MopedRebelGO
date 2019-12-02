@@ -208,6 +208,7 @@ config/quit_on_go_back=false
 [autoload]
 
 G="*res://utils/game_state.gd"
+LoadingScreen="*res://stages/loading_overlay.tscn"
 
 [debug]
 

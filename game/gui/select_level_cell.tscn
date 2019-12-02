@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://gui/select_level_cell.gd" type="Script" id=1]
-[ext_resource path="res://stages/test/test_stage.tscn" type="PackedScene" id=2]
-[ext_resource path="res://stages/test/thumb.png" type="Texture" id=3]
-[ext_resource path="res://gui/thumbnail_cover.png" type="Texture" id=4]
+[ext_resource path="res://stages/test/thumb.png" type="Texture" id=2]
+[ext_resource path="res://gui/thumbnail_cover.png" type="Texture" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "pressed"
@@ -28,8 +27,8 @@ anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 1 )
-level_scene = ExtResource( 2 )
-level_thumbnail = ExtResource( 3 )
+level_scene_path = "res://stages/test/test_stage.tscn"
+level_thumbnail = ExtResource( 2 )
 level_name = "on the road"
 
 [node name="SelectedBorder" type="NinePatchRect" parent="."]
@@ -38,7 +37,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
 draw_center = false
 patch_margin_left = 5
 patch_margin_top = 5
@@ -75,7 +74,7 @@ margin_bottom = 133.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 7.0
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 
 [node name="Cover" type="TextureRect" parent="SelectedBorder/VBoxContainer/ThumbnailMarginContainer"]
 visible = false
@@ -87,7 +86,7 @@ margin_bottom = 133.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 7.0
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
 
 [node name="LabelMarginContainer" type="MarginContainer" parent="SelectedBorder/VBoxContainer"]
 margin_top = 142.0

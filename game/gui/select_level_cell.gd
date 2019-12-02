@@ -6,7 +6,7 @@ Cell that means a level in a menu. Includes reference to level scene
 is selectable
 """
 
-export(PackedScene) var level_scene: PackedScene
+export(String) var level_scene_path: String
 export(Texture) var level_thumbnail: Texture setget set_level_thumb, get_level_thumb
 export(String) var level_name: String = "test" setget set_level_name, get_level_name
 export(bool) var selected: bool = false setget set_selected
