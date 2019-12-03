@@ -1,8 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://stages/load_stage.gd" type="Script" id=1]
-[ext_resource path="res://gui/adjust_node2d_children.gd" type="Script" id=2]
-[ext_resource path="res://rebel/packages_bundle.tscn" type="PackedScene" id=3]
 
 [node name="LoadingOverlay" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -17,11 +15,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="Label" type="Label" parent="Control"]
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -40.0
-margin_bottom = -35.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 100
+custom_constants/margin_bottom = 100
+
+[node name="Label" type="Label" parent="Control/MarginContainer"]
+margin_right = 1180.0
+margin_bottom = 620.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_colors/font_color = Color( 1, 1, 0.196078, 1 )
@@ -31,16 +35,6 @@ align = 2
 valign = 2
 uppercase = true
 
-[node name="PackagesLocation" type="Control" parent="Control"]
-editor/display_folded = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -25.0
-margin_bottom = -40.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-script = ExtResource( 2 )
-
-[node name="PackagesBundle" parent="Control/PackagesLocation" instance=ExtResource( 3 )]
-position = Vector2( 1255, 670 )
-scale = Vector2( 0.25, 0.25 )
+[node name="ViewportContainer" type="ViewportContainer" parent="Control"]
+margin_right = 40.0
+margin_bottom = 40.0

@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://default_env.tres" type="Environment" id=1]
+[ext_resource path="res://rebel/moped_rebel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://stages/test/test_stage.tscn" type="PackedScene" id=3]
+
+[sub_resource type="World" id=1]
+environment = ExtResource( 1 )
+
+[node name="LoadingAnimation" type="Viewport"]
+size = Vector2( 250, 250 )
+world = SubResource( 1 )
+handle_input_locally = false
+hdr = false
+usage = 0
+gui_disable_input = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="MopedRebel" parent="." instance=ExtResource( 2 )]
+
+[node name="TestStage" parent="." instance=ExtResource( 3 )]

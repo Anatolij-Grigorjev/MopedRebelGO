@@ -8,4 +8,7 @@ based on control anchors
 
 func _ready():
 	for node in get_children():
-		(node as Node2D).position = OS.get_screen_size() + Vector2(margin_right, margin_bottom)
+		#node is actually a node2d (transalte is method for 2d transform)
+		if (node.has_method("translate")):
+			print(rect_size)
+			(node as Node2D).position = OS.get_screen_size() + Vector2(margin_right, margin_bottom)

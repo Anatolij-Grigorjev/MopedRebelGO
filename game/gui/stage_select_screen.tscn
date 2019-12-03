@@ -52,7 +52,6 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 291.0
 margin_bottom = 252.0
-level_scene_path = "res://stages/test/test_stage.tscn"
 
 [node name="ReferenceRect" type="ReferenceRect" parent="Margin50/ScreenParts/LevelsGrid"]
 margin_left = 296.0
