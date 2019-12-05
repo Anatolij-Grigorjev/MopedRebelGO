@@ -17,8 +17,6 @@ onready var HUD: HUDController = $CanvasLayer/HUD
 onready var start_position: Position2D = $StartPosition
 
 
-export(int) var num_stage_tracks := 5
-export(int) var current_moped_track := 3
 export(String) var stage_name := "test"
 
 
@@ -40,9 +38,6 @@ func _ready() -> void:
 	moped_rebel.connect('diss_target_change_pressed', self, '_on_MopedRebel_diss_target_change_pressed')
 	moped_rebel.connect('diss_said', self, '_on_MopedRebel_diss_said')
 	moped_rebel.connect("anger_pulse_consumed", HUD, "update_sc_mult_label")
-	
-	var moped_tracks_offset : int = _tile_height * current_moped_track
-	moped_rebel.global_position.y = _track0_position + moped_tracks_offset
 	
 	#setup track size for progress
 	$CanvasLayer/StageProgress.set_bounds(Vector2(
@@ -121,16 +116,16 @@ func _stop_aim_citizen(citizen: CitizenRoadBlock) -> void:
 	
 	
 func _on_MopedRebel_swerve_direction_pressed(intended_direction: int) -> void:
-	# want to go lowed than last track
-	if (intended_direction == 1 and current_moped_track == num_stage_tracks):
-		return
-	# want to go higher than top track
-	if (intended_direction == -1 and current_moped_track == 1):
+	var moped_on_tile_idx : Vector2 = $Road.world_to_map(moped_rebel.global_position)
+	var moped_next_tile_idx := moped_on_tile_idx + Vector2(0, intended_direction)
+	var moped_next_tile_type : int = $Road.get_cellv(moped_next_tile_idx)
+	
+	#specified direction is an invalid move
+	if (moped_next_tile_type == TileMap.INVALID_CELL):
 		return
 	
-	moped_rebel.perform_swerve(intended_direction, $Road.get_cell_size().y)	
-	current_moped_track += intended_direction
-	LOG.debug("Swerved moped to track {}!", [current_moped_track])
+	moped_rebel.perform_swerve(intended_direction, _tile_height)
+	LOG.debug("Swerved moped {} track to track {}!", [intended_direction, moped_next_tile_idx.y])
 	
 	
 func _on_MopedRebel_diss_target_change_pressed(change_direction: int) -> void:
