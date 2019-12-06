@@ -1,4 +1,4 @@
-extends ProgressBar
+extends TextureProgress
 class_name StreetCredProgressBar
 """
 This script controls the progress bar for street cred - 

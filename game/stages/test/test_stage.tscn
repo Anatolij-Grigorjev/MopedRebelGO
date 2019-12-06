@@ -117,6 +117,7 @@ position = Vector2( -930, 50 )
 
 [node name="Camera2D" parent="MopedRebel" index="3"]
 limit_right = 7000
+limit_bottom = 100000
 
 [node name="SkyPollsBg" parent="." instance=ExtResource( 10 )]
 editor/display_folded = true
