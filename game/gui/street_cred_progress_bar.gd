@@ -24,11 +24,9 @@ onready var animator : AnimationPlayer = $AnimationPlayer
 
 
 var _progress_value_nodepath : NodePath = NodePath(":value")
-onready var _bar_custom_fg_handle : StyleBoxFlat = get("custom_styles/fg")
-onready var _bar_custom_bg_handle : StyleBoxFlat = get("custom_styles/bg")
-onready var _initial_bar_color: Color = _bar_custom_fg_handle.bg_color
-onready var _initial_bar_bg_border_color : Color = _bar_custom_bg_handle.border_color
 onready var _label_size : Vector2 = sc_label.rect_size
+onready var _initial_bar_border_color: Color = tint_over
+onready var _initial_bar_color: Color = tint_progress
 
 
 func _process(delta: float) -> void:
@@ -76,8 +74,8 @@ progress bar height
 """
 func _get_label_position_current_progress() -> Vector2:
 	var fullness_coef : float = (value - min_value) / (max_value - min_value)
-	var bar_top_pos : float = rect_size.x * fullness_coef
-	var new_label_height :float = bar_top_pos - _label_size.x
+	var bar_top_pos : float = rect_size.y * fullness_coef
+	var new_label_height : float = bar_top_pos - _label_size.y
 	LOG.debug("value: {}/{}, fullness: {}, bar top: {}, label_pos: {}", [
 			value, 
 			max_value, 
@@ -88,7 +86,7 @@ func _get_label_position_current_progress() -> Vector2:
 	if (new_label_height <= 0):
 		return Vector2.ZERO
 	else:
-		return Vector2(new_label_height, 0)
+		return Vector2(0, new_label_height)
 	
 	
 """
@@ -115,8 +113,8 @@ func grow_progress_local(new_progress: int) -> void:
 		animator.play("bar_rise_flicker")
 	yield(tween, "tween_all_completed")
 	animator.stop(true)
-	_bar_custom_fg_handle.bg_color = _initial_bar_color
-	_bar_custom_bg_handle.border_color = _initial_bar_bg_border_color
+	tint_over = _initial_bar_border_color
+	tint_progress = _initial_bar_color
 
 """
 Perform progress bar growth across bar threshold. This involves looping
