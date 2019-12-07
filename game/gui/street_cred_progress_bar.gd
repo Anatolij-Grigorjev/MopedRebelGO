@@ -64,8 +64,7 @@ func _set_current_progress_ranges(curr_value: int, min_value: int, max_value: in
 func _on_tween_step(source: Object, prop_path: NodePath, elapsed: float, value: Object) -> void:
 	#this is a tween about changing progress bar value, adjust label
 	if (source == self and prop_path == _progress_value_nodepath):
-		var new_rect_pos := _get_label_position_current_progress()
-		sc_label.rect_position = new_rect_pos
+		sc_label.rect_position = _get_label_position_current_progress()
 
 
 """
@@ -76,17 +75,18 @@ func _get_label_position_current_progress() -> Vector2:
 	var fullness_coef : float = (value - min_value) / (max_value - min_value)
 	var bar_top_pos : float = rect_size.y * fullness_coef
 	var new_label_height : float = bar_top_pos - _label_size.y
+	var label_pos_y : float = rect_size.y - bar_top_pos
 	LOG.debug("value: {}/{}, fullness: {}, bar top: {}, label_pos: {}", [
 			value, 
 			max_value, 
 			fullness_coef, 
 			bar_top_pos, 
-			new_label_height
+			label_pos_y
 	])
-	if (new_label_height <= 0):
-		return Vector2.ZERO
+	if (label_pos_y > rect_size.y - _label_size.y):
+		return Vector2(0, rect_size.y - _label_size.y)
 	else:
-		return Vector2(0, new_label_height)
+		return Vector2(0, label_pos_y)
 	
 	
 """
