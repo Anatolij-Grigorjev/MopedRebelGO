@@ -49,7 +49,7 @@ func _ready():
 			prev_sc_level.req_sc,
 			next_sc_level.req_sc
 		)
-		
+	sc_label.rect_size.x = rect_size.x
 	sc_label.rect_position = _get_label_position_current_progress()
 	tween.connect("tween_step", self, "_on_tween_step")
 	

@@ -17,11 +17,11 @@ onready var State : GameState = get_node("/root/G")
 
 
 #components
-onready var sc_progress : StreetCredProgressBar = $StreetCredProgressBar
-onready var current_sc_label : PointsLabel = $CurrentSCLabel/CurrentSCLabel
-onready var additive_sc_label : PointsLabel = $AdditiveSCLabel/AdditiveSCLabel
-onready var additive_sc_multiplier : PointsLabel = $AdditiveSCMultiplier/CurrentSCLabel
-onready var transfer_sc_label: PointsLabel = $TransferSCLabel/AdditiveSCLabel
+onready var sc_progress : StreetCredProgressBar = $MarginContainer/VBoxContainer/HBoxContainer/StreetCredProgressBar
+onready var current_sc_label : PointsLabel = $MarginContainer/VBoxContainer/Labels/CurrentSCLabel
+onready var additive_sc_label : PointsLabel = $MarginContainer/VBoxContainer/Labels/AdditiveSCLabel
+onready var additive_sc_multiplier : PointsLabel = $MarginContainer/VBoxContainer/Labels/AdditiveSCMultiplier
+onready var transfer_sc_label: PointsLabel = $MarginContainer/VBoxContainer/Labels/TransferSCLabel
 onready var dark_overlay : TextureRect = $DarkOverlay
 onready var transfer_points_debounce : Timer = $TransferPointsDebounce
 onready var transfer_sc_tween: Tween = $TransferSCTween
@@ -30,7 +30,10 @@ onready var transfer_sc_tween: Tween = $TransferSCTween
 var _current_points_change_base_accum: float = 0.0
 
 
-#TODO: separate actual accum score from multiplier
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("debug2"):
+		queue_change_points(78 * randf())
+
 
 func _ready():
 	transfer_points_debounce.connect("timeout", self, "_transfer_points_debounce_timeout")
@@ -151,10 +154,10 @@ func _transfer_points_debounce_timeout() -> void:
 	transfer_sc_label.update_current_points(points_to_transfer)
 	_reset_sc_multiplier()
 	
-	$TransferSCLabel.visible = true
-	$TransferSCLabel.rect_position = $AdditiveSCLabel.rect_position
-	transfer_sc_tween.interpolate_property($TransferSCLabel, 'rect_position',
-		null, $CurrentSCLabel.rect_position, 1.0, 
+	transfer_sc_label.modulate.a = 1.0
+	transfer_sc_label.rect_position = additive_sc_label.rect_position
+	transfer_sc_tween.interpolate_property(transfer_sc_label, 'rect_position',
+		null, current_sc_label.rect_position, 1.0, 
 		Tween.TRANS_LINEAR, Tween.EASE_OUT_IN
 	)
 	transfer_sc_tween.start()
@@ -164,7 +167,7 @@ func _transfer_points_debounce_timeout() -> void:
 	yield(transfer_sc_tween, "tween_all_completed")
 	#flush the update
 	_add_sc_points(points_to_transfer)
-	$TransferSCLabel.visible = false
+	transfer_sc_label.modulate.a = 0
 	
 	
 func _reset_sc_multiplier() -> void:

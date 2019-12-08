@@ -6,6 +6,7 @@ animating it and providing points merge position
 """
 var Logger : Resource = preload("res://utils/logger.gd")
 
+
 signal points_changed
 
 
@@ -14,11 +15,12 @@ export(String) var label_display_format : String = "%02d"
 
 onready var LOG: Logger = Logger.new(self)
 onready var animator: AnimationPlayer = $AnimationPlayer
-onready var merge_points_position : Vector2 = $MergePointsPosition.rect_global_position
+var merge_points_position : Vector2
 
 
 func _ready():
-	pass # Replace with function body.
+	$MergePointsPosition.rect_position = rect_size
+	merge_points_position = $MergePointsPosition.rect_global_position
 
 
 func update_current_points(current_pts: float) -> void:
