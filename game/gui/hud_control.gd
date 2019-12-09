@@ -18,10 +18,10 @@ onready var State : GameState = get_node("/root/G")
 
 #components
 onready var sc_progress : StreetCredProgressBar = $MarginContainer/VBoxContainer/HBoxContainer/StreetCredProgressBar
-onready var current_sc_label : PointsLabel = $MarginContainer/VBoxContainer/Labels/CurrentSCLabel
-onready var additive_sc_label : PointsLabel = $MarginContainer/VBoxContainer/Labels/AdditiveSCLabel
-onready var additive_sc_multiplier : PointsLabel = $MarginContainer/VBoxContainer/Labels/AdditiveSCMultiplier
-onready var transfer_sc_label: PointsLabel = $MarginContainer/VBoxContainer/Labels/TransferSCLabel
+onready var current_sc_label : PointsLabel = $MarginContainer/VBoxContainer/Labels/HBoxContainer/CurrentSCLabel
+onready var additive_sc_label : PointsLabel = $MarginContainer/VBoxContainer/Labels/HBoxContainer/AdditiveSCLabel
+onready var additive_sc_multiplier : PointsLabel = $MarginContainer/VBoxContainer/Labels/HBoxContainer/AdditiveSCMultiplier
+onready var transfer_sc_label: PointsLabel = $MarginContainer/VBoxContainer/Labels/HBoxContainer/TransferSCLabel
 onready var dark_overlay : TextureRect = $DarkOverlay
 onready var transfer_points_debounce : Timer = $TransferPointsDebounce
 onready var transfer_sc_tween: Tween = $TransferSCTween

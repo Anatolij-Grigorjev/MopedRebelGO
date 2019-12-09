@@ -30,17 +30,16 @@ tracks/1/keys = {
 }
 
 [node name="CurrentSCLabel" type="Label"]
-margin_right = 40.0
+margin_right = 56.0
 margin_bottom = 14.0
 custom_colors/font_color = Color( 1, 1, 0.196078, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-text = "78566"
+text = "67"
 align = 1
 valign = 1
 uppercase = true
 script = ExtResource( 1 )
+raw_value = 67.75
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/points_changed = SubResource( 1 )
-
-[node name="MergePointsPosition" type="Control" parent="."]

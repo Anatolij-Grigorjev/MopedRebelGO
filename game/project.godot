@@ -104,6 +104,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://stages/non_regulation_track.gd"
 }, {
+"base": "Label",
+"class": "NumericLabel",
+"language": "GDScript",
+"path": "res://gui/current_sc_label.gd"
+}, {
 "base": "Area2D",
 "class": "ObstacleDetector",
 "language": "GDScript",
@@ -113,11 +118,6 @@ _global_script_classes=[ {
 "class": "PackagesBundle",
 "language": "GDScript",
 "path": "res://rebel/packages_bundle.gd"
-}, {
-"base": "Label",
-"class": "PointsLabel",
-"language": "GDScript",
-"path": "res://gui/current_sc_label.gd"
 }, {
 "base": "Area2D",
 "class": "RoadBlock",
@@ -184,9 +184,9 @@ _global_script_class_icons={
 "Logger": "",
 "MopedRebel": "",
 "NonRegulationTrack": "",
+"NumericLabel": "",
 "ObstacleDetector": "",
 "PackagesBundle": "",
-"PointsLabel": "",
 "RoadBlock": "",
 "SelectLevelCell": "",
 "StageControl": "",

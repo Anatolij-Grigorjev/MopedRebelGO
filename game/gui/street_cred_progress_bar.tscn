@@ -64,6 +64,7 @@ tracks/1/keys = {
 }
 
 [node name="StreetCredProgressBar" type="TextureProgress"]
+editor/display_folded = true
 margin_right = 50.0
 margin_bottom = 300.0
 rect_pivot_offset = Vector2( 25, 150 )

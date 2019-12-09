@@ -39,37 +39,59 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
 
-[node name="CurrentSCLabel" parent="MarginContainer/VBoxContainer/Labels" instance=ExtResource( 2 )]
-margin_right = 310.0
+[node name="ReferenceRect" type="ReferenceRect" parent="MarginContainer/VBoxContainer/Labels"]
+margin_right = 26.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Labels"]
+editor/display_folded = true
+margin_left = 26.0
+margin_right = 199.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 15
+
+[node name="CurrentSCLabel" parent="MarginContainer/VBoxContainer/Labels/HBoxContainer" instance=ExtResource( 2 )]
+margin_bottom = 60.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "00"
 align = 0
 
-[node name="TransferSCLabel" parent="MarginContainer/VBoxContainer/Labels" instance=ExtResource( 3 )]
-modulate = Color( 0, 0, 0, 0 )
-margin_left = 310.0
-margin_right = 620.0
+[node name="TransferSCLabel" parent="MarginContainer/VBoxContainer/Labels/HBoxContainer" instance=ExtResource( 3 )]
+margin_left = 55.0
+margin_right = 95.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="AdditiveSCLabel" parent="MarginContainer/VBoxContainer/Labels" instance=ExtResource( 3 )]
-margin_left = 620.0
-margin_right = 930.0
+[node name="AdditiveSCLabel" parent="MarginContainer/VBoxContainer/Labels/HBoxContainer" instance=ExtResource( 3 )]
+margin_left = 110.0
+margin_right = 118.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "0"
 
-[node name="AdditiveSCMultiplier" parent="MarginContainer/VBoxContainer/Labels" instance=ExtResource( 2 )]
+[node name="AdditiveSCMultiplier" parent="MarginContainer/VBoxContainer/Labels/HBoxContainer" instance=ExtResource( 2 )]
 editor/display_folded = true
-margin_left = 930.0
-margin_right = 1240.0
+margin_left = 133.0
+margin_right = 173.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-label_display_format = "x %02.2f"
+text = "00"
+
+[node name="ReferenceRect2" type="ReferenceRect" parent="MarginContainer/VBoxContainer/Labels"]
+margin_left = 199.0
+margin_right = 1240.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 20.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 80.0
