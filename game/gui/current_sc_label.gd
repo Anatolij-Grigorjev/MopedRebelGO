@@ -26,7 +26,8 @@ func set_number_format(new_format: String) -> void:
 		text = String(raw_value)
 	else:
 		text = new_format % raw_value
-		
+	number_format = new_format
+	
 
 func get_number_format() -> String:
 	return number_format

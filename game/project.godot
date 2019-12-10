@@ -159,6 +159,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://utils/thread_ctx.gd"
 }, {
+"base": "MarginContainer",
+"class": "UniformMarginContainer",
+"language": "GDScript",
+"path": "res://gui/uniform_margin_container.gd"
+}, {
 "base": "Control",
 "class": "WarningIcon",
 "language": "GDScript",
@@ -195,6 +200,7 @@ _global_script_class_icons={
 "StreetCredProgressBar": "",
 "TallyTableRow": "",
 "ThreadCtx": "",
+"UniformMarginContainer": "",
 "WarningIcon": ""
 }
 
