@@ -21,7 +21,7 @@ tracks/1/path = NodePath(".:rect_position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/keys = {
 "times": PoolRealArray( 0, 0.3, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
@@ -33,7 +33,7 @@ tracks/1/keys = {
 margin_right = 56.0
 margin_bottom = 14.0
 custom_colors/font_color = Color( 1, 1, 0.196078, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0.74902, 0.733333, 0.733333, 1 )
 text = "67"
 align = 1
 valign = 1

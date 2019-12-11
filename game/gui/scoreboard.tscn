@@ -1,0 +1,22 @@
+[gd_scene format=2]
+
+[node name="Scoreboard" type="MarginContainer"]
+margin_right = 228.0
+margin_bottom = 80.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 208.0
+margin_bottom = 60.0
+color = Color( 0.160784, 0.152941, 0.223529, 1 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 208.0
+margin_bottom = 60.0
