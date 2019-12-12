@@ -20,7 +20,6 @@ onready var animator: AnimationPlayer = $AnimationPlayer
 onready var merge_points_position : Vector2 = rect_size / 2
 
 
-
 func set_number_format(new_format: String) -> void:
 	if (Helpers.is_blank(new_format)):
 		text = String(raw_value)
