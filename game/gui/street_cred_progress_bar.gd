@@ -25,6 +25,8 @@ onready var animator : AnimationPlayer = $AnimationPlayer
 
 var _progress_value_nodepath : NodePath = NodePath(":value")
 onready var _label_size : Vector2 = sc_label.rect_size
+onready var _high_label_y : float = rect_position.y
+onready var _lowest_label_y : float = rect_size.y - _label_size.y
 onready var _initial_bar_border_color: Color = tint_over
 onready var _initial_bar_color: Color = tint_progress
 
@@ -49,6 +51,9 @@ func _ready():
 			prev_sc_level.req_sc,
 			next_sc_level.req_sc
 		)
+	#wait some frames to set label position
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
 	sc_label.rect_size.x = rect_size.x
 	sc_label.rect_position = _get_label_position_current_progress()
 	tween.connect("tween_step", self, "_on_tween_step")
@@ -73,20 +78,19 @@ progress bar height
 """
 func _get_label_position_current_progress() -> Vector2:
 	var fullness_coef : float = (value - min_value) / (max_value - min_value)
-	var bar_top_pos : float = rect_size.y * fullness_coef
-	var new_label_height : float = bar_top_pos - _label_size.y
-	var label_pos_y : float = rect_size.y - bar_top_pos
-	LOG.debug("value: {}/{}, fullness: {}, bar top: {}, label_pos: {}", [
+	var bar_height : float = rect_size.y * fullness_coef
+	var label_pos_y : float = rect_size.y - bar_height
+	LOG.debug("value: {}/{}, fullness: {}, bar size: {}, label_pos: {}", [
 			value, 
 			max_value, 
 			fullness_coef, 
-			bar_top_pos, 
+			bar_height,
 			label_pos_y
 	])
-	if (label_pos_y > rect_size.y - _label_size.y):
-		return Vector2(0, rect_size.y - _label_size.y)
-	else:
-		return Vector2(0, label_pos_y)
+	
+	return Vector2(0, 
+		clamp(label_pos_y, _high_label_y, _lowest_label_y)
+	)
 	
 	
 """

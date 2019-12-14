@@ -40,7 +40,7 @@ size_flags_vertical = 3
 custom_constants/separation = 0
 
 [node name="ReferenceRect" type="ReferenceRect" parent="MarginContainer/VBoxContainer/Labels"]
-margin_right = 26.0
+margin_right = 27.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -48,14 +48,15 @@ size_flags_stretch_ratio = 0.5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Labels"]
 editor/display_folded = true
-margin_left = 26.0
-margin_right = 199.0
+margin_left = 27.0
+margin_right = 152.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 15
 
 [node name="CurrentSCLabel" parent="MarginContainer/VBoxContainer/Labels/HBoxContainer" instance=ExtResource( 2 )]
+margin_right = 16.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -63,15 +64,15 @@ text = "00"
 align = 0
 
 [node name="TransferSCLabel" parent="MarginContainer/VBoxContainer/Labels/HBoxContainer" instance=ExtResource( 3 )]
-margin_left = 55.0
-margin_right = 95.0
+margin_left = 31.0
+margin_right = 71.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="AdditiveSCLabel" parent="MarginContainer/VBoxContainer/Labels/HBoxContainer" instance=ExtResource( 3 )]
-margin_left = 110.0
-margin_right = 118.0
+margin_left = 86.0
+margin_right = 94.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -79,15 +80,15 @@ text = "0"
 
 [node name="AdditiveSCMultiplier" parent="MarginContainer/VBoxContainer/Labels/HBoxContainer" instance=ExtResource( 2 )]
 editor/display_folded = true
-margin_left = 133.0
-margin_right = 173.0
+margin_left = 109.0
+margin_right = 125.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "00"
 
 [node name="ReferenceRect2" type="ReferenceRect" parent="MarginContainer/VBoxContainer/Labels"]
-margin_left = 199.0
+margin_left = 152.0
 margin_right = 1240.0
 margin_bottom = 60.0
 size_flags_horizontal = 3

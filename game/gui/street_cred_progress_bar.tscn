@@ -4,7 +4,7 @@
 [ext_resource path="res://gui/thumbnail_cover.png" type="Texture" id=2]
 [ext_resource path="res://gui/street_cred_progress_bar.gd" type="Script" id=3]
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=1]
 resource_name = "bar_reduce_flicker"
 length = 0.4
 loop = true
@@ -34,7 +34,7 @@ tracks/1/keys = {
 "values": [ Color( 0, 0, 0, 1 ), Color( 1, 0, 0, 1 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=2]
 length = 0.4
 loop = true
 step = 0.05
@@ -64,7 +64,6 @@ tracks/1/keys = {
 }
 
 [node name="StreetCredProgressBar" type="TextureProgress"]
-editor/display_folded = true
 margin_right = 50.0
 margin_bottom = 300.0
 rect_pivot_offset = Vector2( 25, 150 )
@@ -98,5 +97,5 @@ uppercase = true
 [node name="BarGrower" type="Tween" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/bar_reduce_flicker = SubResource( 3 )
-anims/bar_rise_flicker = SubResource( 4 )
+anims/bar_reduce_flicker = SubResource( 1 )
+anims/bar_rise_flicker = SubResource( 2 )
