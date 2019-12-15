@@ -24,22 +24,23 @@ onready var animator : AnimationPlayer = $AnimationPlayer
 
 
 var _progress_value_nodepath : NodePath = NodePath(":value")
-onready var _label_size : Vector2 = sc_label.rect_size
-onready var _high_label_y : float = rect_position.y
-onready var _lowest_label_y : float = rect_size.y - _label_size.y
+#cant set these before _ready since might change
+var _label_size : Vector2
+var _high_label_y : float
+var _lowest_label_y : float
 onready var _initial_bar_border_color: Color = tint_over
 onready var _initial_bar_color: Color = tint_progress
 
 
-func _process(delta: float) -> void:
-	if (Input.is_action_just_pressed("debug1")):
-		var new_value : float = min_value + randf() * (max_value - min_value)
-		LOG.debug("set new bar value {}", [new_value])
-		grow_progress_local(new_value)
-	if (Input.is_action_just_pressed("debug2")):
-		var new_value : int = max_value + randf() * max_value
-		LOG.debug("set new bar value {}", [new_value])
-		grow_progress_next_level(new_value, max_value, max_value * 2)
+#func _process(delta: float) -> void:
+#	if (Input.is_action_just_pressed("debug1")):
+#		var new_value : float = min_value + randf() * (max_value - min_value)
+#		LOG.debug("set new bar value {}", [new_value])
+#		grow_progress_local(new_value)
+#	if (Input.is_action_just_pressed("debug2")):
+#		var new_value : int = max_value + randf() * max_value
+#		LOG.debug("set new bar value {}", [new_value])
+#		grow_progress_next_level(new_value, max_value, max_value * 2)
 
 
 func _ready():
@@ -51,18 +52,21 @@ func _ready():
 			prev_sc_level.req_sc,
 			next_sc_level.req_sc
 		)
+	sc_label.rect_size.x = rect_size.x
 	#wait some frames to set label position
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
-	sc_label.rect_size.x = rect_size.x
-	sc_label.rect_position = _get_label_position_current_progress()
 	tween.connect("tween_step", self, "_on_tween_step")
+	_label_size = sc_label.rect_size
+	_high_label_y = rect_position.y
+	_lowest_label_y = rect_size.y - _label_size.y
+	_on_tween_step(self, _progress_value_nodepath, 0.0, null)
 	
 	
 func _set_current_progress_ranges(curr_value: int, min_value: int, max_value: int) -> void:
 	self.min_value = min_value
 	self.max_value = max_value
-	self.value = curr_value
+	self.value = clamp(curr_value, min_value, max_value)
 	LOG.debug("Set bar [{};{}] with value {}/{}", [min_value, max_value, value, max_value])
 
 
@@ -80,6 +84,7 @@ func _get_label_position_current_progress() -> Vector2:
 	var fullness_coef : float = (value - min_value) / (max_value - min_value)
 	var bar_height : float = rect_size.y * fullness_coef
 	var label_pos_y : float = rect_size.y - bar_height
+	label_pos_y = clamp(label_pos_y, _high_label_y, _lowest_label_y)
 	LOG.debug("value: {}/{}, fullness: {}, bar size: {}, label_pos: {}", [
 			value, 
 			max_value, 
@@ -88,9 +93,7 @@ func _get_label_position_current_progress() -> Vector2:
 			label_pos_y
 	])
 	
-	return Vector2(0, 
-		clamp(label_pos_y, _high_label_y, _lowest_label_y)
-	)
+	return Vector2(0, label_pos_y)
 	
 	
 """

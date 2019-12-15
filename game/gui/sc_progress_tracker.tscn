@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://gui/sc_progress_tracker.gd" type="Script" id=1]
+[ext_resource path="res://gui/current_sc_label.tscn" type="PackedScene" id=2]
+[ext_resource path="res://gui/street_cred_progress_bar.tscn" type="PackedScene" id=3]
+
+[node name="SCProgressTracker" type="VBoxContainer"]
+anchor_bottom = 1.0
+margin_right = 50.0
+margin_bottom = -320.0
+rect_min_size = Vector2( 50, 0 )
+custom_constants/separation = 5
+script = ExtResource( 1 )
+
+[node name="CurrentSCLabel" parent="." instance=ExtResource( 2 )]
+margin_right = 50.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="StreetCredProgressBar" parent="." instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_top = 29.0
+margin_bottom = 400.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 15.0

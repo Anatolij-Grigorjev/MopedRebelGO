@@ -1,0 +1,79 @@
+extends VBoxContainer
+
+var Logger : Resource = preload("res://utils/logger.gd")
+var LevelUpText : Resource = preload("res://gui/level_up_text.tscn")
+
+
+onready var LOG: Logger = Logger.new(self)
+onready var sc_progress_bar: ProgressBar = $StreetCredProgressBar
+onready var sc_points_label: NumericLabel = $CurrentSCLabel
+
+
+func _ready():
+	pass # Replace with function body.
+	
+	
+func _process(delta: float) -> void:
+	if (Input.is_action_just_pressed("debug1")):
+		var new_value : float = sc_progress_bar.min_value + randf() * (sc_progress_bar.max_value - sc_progress_bar.min_value)
+		LOG.debug("set new bar value {}", [new_value])
+		set_sc_points(new_value)
+#	if (Input.is_action_just_pressed("debug2")):
+#		var new_value : int = max_value + randf() * max_value
+#		LOG.debug("set new bar value {}", [new_value])
+#		grow_progress_next_level(new_value, max_value, max_value * 2)
+
+
+func set_sc_points(amount: float) -> void:
+	if (G.current_street_scred == C.MR_MAX_SC):
+		return
+		
+	var new_total := amount
+	var next_sc_level_info : Dictionary = C.MR_STREET_CRED_LEVELS[G.next_street_cred_level_idx]
+	#skip leves if required by total
+	while(
+		next_sc_level_info.has('level_sc') 
+		and next_sc_level_info.level_sc < new_total
+	):
+		G.next_street_cred_level_idx += 1 
+		next_sc_level_info = C.MR_STREET_CRED_LEVELS[G.next_street_cred_level_idx]
+	
+	if (next_sc_level_info.req_sc < new_total):
+		#level up!
+		G.next_street_cred_level_idx += 1
+		_do_levelup_popup(next_sc_level_info.name)
+		if (next_sc_level_info.has("level_sc")):
+			sc_progress_bar.grow_progress_next_level(
+				new_total,
+				next_sc_level_info.req_sc,
+				next_sc_level_info.level_sc
+			)
+		else:
+			new_total = C.MR_MAX_SC
+			#final level reached
+			sc_progress_bar.grow_progress_next_level(
+				C.MR_MAX_SC,
+				0,
+				C.MR_MAX_SC
+			)
+	else:
+		sc_progress_bar.grow_progress_local(new_total)
+	G.current_street_scred = new_total
+	sc_points_label.raw_value = G.current_street_scred
+	
+	
+func _do_levelup_popup(level_up_text : String) -> void:
+	#wait until levelup condition submitted
+	yield(sc_progress_bar, "progress_bar_filled")
+	#create a happy label thing
+	var level_up_node : Control = LevelUpText.instance()
+	var level_up_node_label_node : Label = level_up_node.get_node("LevelText")
+	level_up_node_label_node.text = level_up_text
+	level_up_node.rect_rotation = 0
+	level_up_node.rect_scale = Vector2(2.0, 2.0)
+	level_up_node.rect_position = get_viewport_rect().size / 2 - level_up_node.rect_size / 2
+	G.ROOT.add_child(level_up_node)
+	
+	Engine.time_scale = 0.5
+	yield(level_up_node, "tree_exiting")
+	Engine.time_scale = 1.0

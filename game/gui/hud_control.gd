@@ -4,8 +4,6 @@ class_name HUDController
 Orchestration of various HUD elements and making sure data/signals intended
 for them reach them from this single point of entry
 """
-var WarningObstacle : Resource = preload("res://gui/WarningIconObstacle.tscn")
-var LevelUpText : Resource = preload("res://gui/level_up_text.tscn")
 var EarnedPoints : Resource = preload("res://gui/earned_points.tscn")
 
 
@@ -63,64 +61,6 @@ func queue_change_points(base_amount: float) -> void:
 		transfer_points_debounce.start()
 	_current_points_change_base_accum += base_amount
 	_update_accum_sc_label()
-
-
-func _add_sc_points(amount: int) -> void:
-	if (State.current_street_scred == C.MR_MAX_SC):
-		return
-		
-	var new_total := State.current_street_scred + amount
-	var next_sc_level_info : Dictionary = C.MR_STREET_CRED_LEVELS[State.next_street_cred_level_idx]
-	#skip leves if required by total
-	while(
-		next_sc_level_info.has('level_sc') 
-		and next_sc_level_info.level_sc < new_total
-	):
-		State.next_street_cred_level_idx += 1 
-		next_sc_level_info = C.MR_STREET_CRED_LEVELS[State.next_street_cred_level_idx]
-	
-	if (next_sc_level_info.req_sc < new_total):
-		#level up!
-		State.next_street_cred_level_idx += 1
-		_add_level_up_label(next_sc_level_info.name)
-		if (next_sc_level_info.has("level_sc")):
-			sc_progress.grow_progress_next_level(
-				new_total,
-				next_sc_level_info.req_sc,
-				next_sc_level_info.level_sc
-			)
-		else:
-			new_total = C.MR_MAX_SC
-			#final level reached
-			sc_progress.grow_progress_next_level(
-				C.MR_MAX_SC,
-				0,
-				C.MR_MAX_SC
-			)
-	else:
-		sc_progress.grow_progress_local(new_total)
-	State.current_street_scred = new_total
-	_update_sc_label()
-	emit_signal("earned_points_merged")
-	
-	
-func _add_level_up_label(level_up_text : String) -> void:
-	#wait until levelup condition submitted
-	yield(sc_progress, "progress_bar_filled")
-	dark_overlay.visible = true
-	#create a happy label thing
-	var level_up_node : Control = LevelUpText.instance()
-	var level_up_node_label_node : Label = level_up_node.get_node("LevelText")
-	level_up_node_label_node.text = level_up_text
-	level_up_node.rect_rotation = 0
-	level_up_node.rect_scale = Vector2(2.0, 2.0)
-	level_up_node.rect_position = get_viewport_rect().size / 2 - level_up_node.rect_size / 2
-	add_child(level_up_node)
-	
-	Engine.time_scale = 0.5
-	yield(level_up_node, "tree_exiting")
-	dark_overlay.visible = false
-	Engine.time_scale = 1.0
 	
 
 """

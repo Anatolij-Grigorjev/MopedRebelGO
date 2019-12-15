@@ -263,4 +263,4 @@ func _start_moped_stage_outro(cutscene_trigger: int) -> void:
 			yield(HUD, "earned_points_merged")
 			yield(HUD.current_sc_label, "points_changed")
 		var levels_scene = ResourceLoader.load(C.STAGE_SELECT_SCENE_PATH)
-		Helpers.switch_to_scene(get_tree().get_root(), levels_scene.instance())
+		Helpers.switch_to_scene(G.ROOT, levels_scene.instance())

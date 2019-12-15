@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://gui/hud_control.gd" type="Script" id=1]
 [ext_resource path="res://gui/current_sc_label.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gui/additive_sc_label.tscn" type="PackedScene" id=3]
 [ext_resource path="res://gui/street_cred_progress_bar.tscn" type="PackedScene" id=4]
-[ext_resource path="res://stages/tile_light_texture.png" type="Texture" id=5]
 
 [node name="HUD" type="Control"]
 anchor_right = 1.0
@@ -116,18 +115,6 @@ margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 20.0
-
-[node name="DarkOverlay" type="TextureRect" parent="."]
-visible = false
-modulate = Color( 0, 0, 0, 0.392157 )
-show_behind_parent = true
-margin_left = -6000.0
-margin_top = -3000.0
-margin_right = -5700.0
-margin_bottom = -2900.0
-rect_scale = Vector2( 50, 50 )
-texture = ExtResource( 5 )
-stretch_mode = 1
 
 [node name="TransferPointsDebounce" type="Timer" parent="."]
 wait_time = 2.0
