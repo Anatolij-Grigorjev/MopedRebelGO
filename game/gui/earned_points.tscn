@@ -4,14 +4,15 @@
 
 [node name="EarnedPoints" type="Control"]
 script = ExtResource( 1 )
+num_points = 678.0
 
 [node name="PointsText" type="Label" parent="."]
 margin_right = 100.0
 margin_bottom = 25.0
 rect_scale = Vector2( 2, 2 )
-custom_colors/font_color = Color( 1, 1, 0.196078, 1 )
+custom_colors/font_color = Color( 1, 1, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-text = "8677.54"
+text = "+678.00"
 align = 1
 valign = 1
 uppercase = true

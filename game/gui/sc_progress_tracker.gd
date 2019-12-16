@@ -18,10 +18,10 @@ func _process(delta: float) -> void:
 		var new_value : float = sc_progress_bar.min_value + randf() * (sc_progress_bar.max_value - sc_progress_bar.min_value)
 		LOG.debug("set new bar value {}", [new_value])
 		set_sc_points(new_value)
-#	if (Input.is_action_just_pressed("debug2")):
-#		var new_value : int = max_value + randf() * max_value
-#		LOG.debug("set new bar value {}", [new_value])
-#		grow_progress_next_level(new_value, max_value, max_value * 2)
+	if (Input.is_action_just_pressed("debug2")):
+		var new_value : int = sc_progress_bar.max_value + randf() * sc_progress_bar.max_value
+		LOG.debug("set new bar value {}", [new_value])
+		set_sc_points(new_value)
 
 
 func set_sc_points(amount: float) -> void:
@@ -71,9 +71,9 @@ func _do_levelup_popup(level_up_text : String) -> void:
 	level_up_node_label_node.text = level_up_text
 	level_up_node.rect_rotation = 0
 	level_up_node.rect_scale = Vector2(2.0, 2.0)
-	level_up_node.rect_position = get_viewport_rect().size / 2 - level_up_node.rect_size / 2
+	level_up_node.rect_position = get_viewport_rect().size / 2
 	G.ROOT.add_child(level_up_node)
-	
+		
 	Engine.time_scale = 0.5
 	yield(level_up_node, "tree_exiting")
 	Engine.time_scale = 1.0

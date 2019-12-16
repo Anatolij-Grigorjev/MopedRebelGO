@@ -1,3 +1,4 @@
+tool
 extends Control
 class_name EarnedPoints
 """
@@ -5,10 +6,11 @@ This controller instantiates a label of number formatted as points
 Then that label floats to a predefined position via tween,
 reducing in scale dimensions as it goes along
 """
-var Logger : Resource = preload("res://utils/logger.gd")
-
-
 const REDUCE_TIME : float = 1.0
+
+
+export(Vector2) var end_point: Vector2 = Vector2.ZERO
+export(float) var num_points = 0.0 setget _set_num_points, _get_num_points
 
 
 onready var points_text: Label = $PointsText
@@ -16,18 +18,30 @@ onready var tween : Tween = $MoveToPoints
 
 
 func _ready() -> void:
-	pass
+	_start_reduce_to_point()
+	yield(tween, "tween_all_completed")
+	queue_free()
 
 
-func set_num_points(earned_points: float) -> void:
-	if (earned_points > 0):
-		points_text.text = "+%02.2f" % earned_points
-	else:
-		points_text.text = "%02.2f" % earned_points
-		points_text.set("custom_colors/font_color", Color.red)
+func _set_num_points(earned_points: float) -> void:
+	
+	num_points = earned_points
+	if ($PointsText):
+		var label = $PointsText
+		if (earned_points > 0):
+			label.text = "+%02.2f" % earned_points
+			label.set("custom_colors/font_color", Color.yellow)
+		else:
+			label.text = "%02.2f" % earned_points
+			label.set("custom_colors/font_color", Color.red)
+		
+		
+func _get_num_points() -> float:
+	return num_points
 
 
-func start_reduce_to_point(end_point: Vector2) -> void:
+func _start_reduce_to_point() -> void:
+	
 	tween.interpolate_property(
 		self, 'rect_position', 
 		null, end_point, 
