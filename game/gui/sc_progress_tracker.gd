@@ -10,7 +10,8 @@ onready var sc_points_label: NumericLabel = $CurrentSCLabel
 
 
 func _ready():
-	pass # Replace with function body.
+	if (get_node("/root/G")):
+		set_sc_points(G.current_street_scred)
 	
 	
 func _process(delta: float) -> void:
