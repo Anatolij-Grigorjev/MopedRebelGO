@@ -1,7 +1,15 @@
 extends VBoxContainer
-
+class_name SCProgressTracker
+"""
+Tracker control for current player SC points and a progress bar to advance
+that progress and cause levelups
+"""
 var Logger : Resource = preload("res://utils/logger.gd")
 var LevelUpText : Resource = preload("res://gui/level_up_text.tscn")
+
+
+#debug1 and debug2 are used to assign random points of this or next level
+export(bool) var debug_enabled: bool = false
 
 
 onready var LOG: Logger = Logger.new(self)
@@ -15,14 +23,15 @@ func _ready():
 	
 	
 func _process(delta: float) -> void:
-	if (Input.is_action_just_pressed("debug1")):
-		var new_value : float = sc_progress_bar.min_value + randf() * (sc_progress_bar.max_value - sc_progress_bar.min_value)
-		LOG.debug("set new bar value {}", [new_value])
-		set_sc_points(new_value)
-	if (Input.is_action_just_pressed("debug2")):
-		var new_value : int = sc_progress_bar.max_value + randf() * sc_progress_bar.max_value
-		LOG.debug("set new bar value {}", [new_value])
-		set_sc_points(new_value)
+	if (debug_enabled):
+		if (Input.is_action_just_pressed("debug1")):
+			var new_value : float = sc_progress_bar.min_value + randf() * (sc_progress_bar.max_value - sc_progress_bar.min_value)
+			LOG.debug("set new bar value {}", [new_value])
+			set_sc_points(new_value)
+		if (Input.is_action_just_pressed("debug2")):
+			var new_value : int = sc_progress_bar.max_value + randf() * sc_progress_bar.max_value
+			LOG.debug("set new bar value {}", [new_value])
+			set_sc_points(new_value)
 
 
 func set_sc_points(amount: float) -> void:

@@ -16,6 +16,9 @@ signal progress_bar_filled
 const PROGRESS_ALTER_VELOCITY_SEC = 0.5
 
 
+export(bool) var debug_enabled := false
+
+
 onready var State : GameState = get_node("/root/G")
 onready var LOG: Logger = Logger.new(self)
 onready var sc_label : Label = $SCLabel
@@ -32,15 +35,16 @@ onready var _initial_bar_border_color: Color = tint_over
 onready var _initial_bar_color: Color = tint_progress
 
 
-#func _process(delta: float) -> void:
-#	if (Input.is_action_just_pressed("debug1")):
-#		var new_value : float = min_value + randf() * (max_value - min_value)
-#		LOG.debug("set new bar value {}", [new_value])
-#		grow_progress_local(new_value)
-#	if (Input.is_action_just_pressed("debug2")):
-#		var new_value : int = max_value + randf() * max_value
-#		LOG.debug("set new bar value {}", [new_value])
-#		grow_progress_next_level(new_value, max_value, max_value * 2)
+func _process(delta: float) -> void:
+	if (debug_enabled):
+		if (Input.is_action_just_pressed("debug1")):
+			var new_value : float = min_value + randf() * (max_value - min_value)
+			LOG.debug("set new bar value {}", [new_value])
+			grow_progress_local(new_value)
+		if (Input.is_action_just_pressed("debug2")):
+			var new_value : int = max_value + randf() * max_value
+			LOG.debug("set new bar value {}", [new_value])
+			grow_progress_next_level(new_value, max_value, max_value * 2)
 
 
 func _ready():

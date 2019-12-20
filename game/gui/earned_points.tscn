@@ -1,21 +1,70 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://gui/earned_points.gd" type="Script" id=1]
 
+[sub_resource type="Animation" id=1]
+resource_name = "bonus_flicker"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("HBoxContainer/PointsText:custom_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 0.196078, 1 ), Color( 0.0666667, 0.0431373, 0.839216, 1 ), Color( 1, 1, 0.196078, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HBoxContainer/MultiplierText:custom_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 0.196078, 1 ), Color( 0.0666667, 0.0431373, 0.839216, 1 ), Color( 1, 1, 0.196078, 1 ) ]
+}
+
 [node name="EarnedPoints" type="Control"]
 script = ExtResource( 1 )
-end_point = Vector2( 450, 450 )
+end_point = Vector2( 100, 100 )
 num_points = 450.0
+multiplier = 2.0
 
-[node name="PointsText" type="Label" parent="."]
-margin_right = 100.0
-margin_bottom = 25.0
-rect_scale = Vector2( 2, 2 )
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+custom_constants/separation = 5
+
+[node name="PointsText" type="Label" parent="HBoxContainer"]
+margin_top = 13.0
+margin_right = 52.0
+margin_bottom = 27.0
 custom_colors/font_color = Color( 1, 1, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "+450.00"
-align = 1
+align = 2
+valign = 1
+uppercase = true
+
+[node name="MultiplierText" type="Label" parent="HBoxContainer"]
+margin_left = 57.0
+margin_top = 13.0
+margin_right = 89.0
+margin_bottom = 27.0
+custom_colors/font_color = Color( 1, 1, 0.196078, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "X 2.0"
 valign = 1
 uppercase = true
 
 [node name="MoveToPoints" type="Tween" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 1.5
+anims/bonus_flicker = SubResource( 1 )
