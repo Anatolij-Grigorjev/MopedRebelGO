@@ -39,9 +39,9 @@ func set_value(new_value: float) -> void:
 	if (new_value == default_value):
 		return
 	
+	value_lbl.raw_value = new_value
 	if (not timer.is_stopped()):
 		timer.stop()
-	value_lbl.raw_value = new_value
 	timer.start()
 	
 	

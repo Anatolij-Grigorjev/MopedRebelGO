@@ -36,6 +36,7 @@ func _process(delta: float) -> void:
 
 func set_sc_points(amount: float) -> void:
 	if (G.current_street_scred == C.MR_MAX_SC):
+		sc_points_label.animator.play("points_changed")
 		return
 		
 	var new_total := amount

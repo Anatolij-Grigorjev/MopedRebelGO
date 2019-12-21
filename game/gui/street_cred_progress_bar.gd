@@ -62,7 +62,7 @@ func _ready():
 	yield(get_tree(), "idle_frame")
 	tween.connect("tween_step", self, "_on_tween_step")
 	_label_size = sc_label.rect_size
-	_high_label_y = rect_position.y
+	_high_label_y = 0.0
 	_lowest_label_y = rect_size.y - _label_size.y
 	_on_tween_step(self, _progress_value_nodepath, 0.0, null)
 	
