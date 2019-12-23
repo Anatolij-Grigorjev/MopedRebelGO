@@ -15,6 +15,7 @@ var current_stage_NRT_traveled := 0.0
 
 #cached root for access
 onready var ROOT: Node = get_tree().get_root()
+var moped_rebel_node: MopedRebel = null
 
 func _ready() -> void:
 	pass

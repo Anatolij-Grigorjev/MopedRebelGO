@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://gui/hud_control.gd" type="Script" id=1]
 [ext_resource path="res://gui/sc_progress_tracker.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gui/timed_bonus.tscn" type="PackedScene" id=3]
+[ext_resource path="res://gui/stage_progress.tscn" type="PackedScene" id=4]
 
 [node name="HUD" type="Control"]
 anchor_right = 1.0
@@ -54,3 +55,5 @@ margin_right = 1240.0
 margin_bottom = 680.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
+
+[node name="StageProgress" parent="MarginContainer/HBox/ReferenceRect" instance=ExtResource( 4 )]

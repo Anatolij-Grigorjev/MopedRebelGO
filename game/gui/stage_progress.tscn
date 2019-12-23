@@ -5,18 +5,15 @@
 [ext_resource path="res://rebel/rebel_on_moped_mid.png" type="Texture" id=3]
 
 [node name="StageProgress" type="TextureProgress"]
-margin_left = 100.0
-margin_top = 30.0
-margin_right = 1100.0
-margin_bottom = 55.0
+anchor_right = 1.0
+margin_bottom = 75.0
 value = 56.0
 texture_over = ExtResource( 1 )
 nine_patch_stretch = true
 script = ExtResource( 2 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
-margin_top = 45.0
 margin_right = 64.0
-margin_bottom = 109.0
+margin_bottom = 64.0
 texture = ExtResource( 3 )
 expand = true

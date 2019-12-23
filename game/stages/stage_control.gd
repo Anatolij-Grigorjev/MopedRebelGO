@@ -2,7 +2,6 @@ class_name StageControl
 extends Node2D
 """
 A general script for controlling stage aspects like 
-
 - moving moped across tracks
 """
 var Logger : Resource = preload("res://utils/logger.gd")
@@ -12,7 +11,6 @@ var SummaryScene: Resource = preload("res://gui/tally_screen.tscn")
 
 onready var moped_rebel: MopedRebel = $MopedRebel
 onready var LOG: Logger = Logger.new(self)
-onready var State : GameState = get_node("/root/G")
 onready var HUD: HUDController = $CanvasLayer/HUD
 onready var start_position: Position2D = $StartPosition
 
@@ -40,10 +38,10 @@ func _ready() -> void:
 	moped_rebel.connect("anger_pulse_consumed", HUD, "update_sc_mult_label")
 	
 	#setup track size for progress
-	$CanvasLayer/StageProgress.set_bounds(Vector2(
+	HUD.stage_progress.stage_bounds = Vector2(
 		($StartStageCutsceneArea.global_position + $StartStageCutsceneArea.area_extents).x,
 		($EndStageCutsceneArea2.global_position - $EndStageCutsceneArea2.area_extents).x
-	))
+	)
 	
 	G.current_stage_citizens = get_tree().get_nodes_in_group(C.GROUP_DISSABLES).size()
 	#setup citizen signals for stage
@@ -164,7 +162,7 @@ func _on_MopedRebel_diss_said(diss_word: DissWord) -> void:
 	#start diss
 	diss_word.send_diss()
 	#substract diss cost
-	HUD.add_earned_points_score_and_label(
+	HUD.add_earned_points(
 		moped_rebel.get_global_transform_with_canvas().get_origin(), 
 		-C.MR_DISS_SC_COST
 	)
@@ -174,10 +172,9 @@ func _on_NRT_moped_traveled(nrt_num_tiles: int, nrt_travel_points: float, travel
 	#actual tile size is about half a tile longer than advertised
 	var total_nrt_length : float = nrt_num_tiles * (_tile_size.x * 1.5)
 	var raw_points : float = travel_distance/total_nrt_length * nrt_travel_points
-	var sc_with_bonus : float = State.sc_multiplier * raw_points
-	LOG.info("MR gets {}*{} SC points for travelling {}/{} NRT!", [State.sc_multiplier, raw_points, travel_distance, total_nrt_length])
+	LOG.info("MR gets {}*{} SC points for travelling {}/{} NRT!", [G.sc_multiplier, raw_points, travel_distance, total_nrt_length])
 	G.current_stage_NRT_traveled += travel_distance
-	HUD.add_earned_points_score_and_label(
+	HUD.add_earned_points(
 		moped_rebel.get_global_transform_with_canvas().get_origin(), 
 		raw_points
 	)
@@ -186,7 +183,7 @@ func _on_NRT_moped_traveled(nrt_num_tiles: int, nrt_travel_points: float, travel
 func _on_CitizenRoadBlock_got_dissed(worker: CitizenRoadBlock) -> void:
 	G.current_stage_citizens_dissed += 1
 	var citizen_origin : Vector2 = worker.get_global_transform_with_canvas().get_origin()
-	HUD.add_earned_points_score_and_label(
+	HUD.add_earned_points(
 		citizen_origin, 
 		C.DISS_CITIZEN_BONUS
 	)
@@ -229,7 +226,7 @@ func _start_moped_stage_outro(cutscene_trigger: int) -> void:
 	if (StageCutsceneArea.CutsceneTrigger.ENTRY == cutscene_trigger):
 		_toggle_ui_elements_visible(false)
 		yield(get_tree().create_timer(10.0), "timeout")
-		State.reset_current_stage_stats()
+		G.reset_current_stage_stats()
 
 	else:
 		#passed end of outro
@@ -246,17 +243,15 @@ func _start_moped_stage_outro(cutscene_trigger: int) -> void:
 			G.current_stage_NRT_length,
 			stage_bonus
 		)
-		$CanvasLayer/StageProgress.visible = false
 		$CanvasLayer.add_child_below_node($CanvasLayer/SummaryTablePosition, tally_screen)
 		yield(tally_screen, "tally_forward_pressed")
-		if (tally_screen.total_earned_points > 0 and State.current_street_scred < C.MR_MAX_SC):
+		if (tally_screen.total_earned_points > 0 and G.current_street_scred < C.MR_MAX_SC):
 			var earned_points : float = tally_screen.total_earned_points
 			#visible HUD except for progress bar and tally points
 			HUD.visible = true
-			$CanvasLayer/HUD/DarkOverlay.visible = false
 			HUD.additive_sc_multiplier.visible = false
 			
-			HUD.add_earned_points_score_and_label(
+			HUD.add_earned_points(
 				tally_screen.total_earned_position, 
 				earned_points
 			)

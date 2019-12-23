@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://stages/stage_control.gd" type="Script" id=1]
 [ext_resource path="res://stages/tiles/diag_brown_white_metal_slanted.tres" type="TileSet" id=2]
@@ -11,8 +11,7 @@
 [ext_resource path="res://rebel/moped_rebel.tscn" type="PackedScene" id=9]
 [ext_resource path="res://stages/bg/sky_poles_bg.tscn" type="PackedScene" id=10]
 [ext_resource path="res://gui/HUD.tscn" type="PackedScene" id=11]
-[ext_resource path="res://gui/stage_progress.tscn" type="PackedScene" id=12]
-[ext_resource path="res://stages/stage_cutscene_area.tscn" type="PackedScene" id=13]
+[ext_resource path="res://stages/stage_cutscene_area.tscn" type="PackedScene" id=12]
 
 [node name="TestStage" type="Node2D"]
 script = ExtResource( 1 )
@@ -113,6 +112,7 @@ position = Vector2( 4350.25, 252.518 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="MopedRebel" parent="." instance=ExtResource( 9 )]
+editor/display_folded = true
 position = Vector2( -930, 50 )
 
 [node name="Camera2D" parent="MopedRebel" index="3"]
@@ -134,12 +134,8 @@ margin_bottom = 40.0
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 11 )]
 
-[node name="StageProgress" parent="CanvasLayer" instance=ExtResource( 12 )]
-margin_left = 350.0
-margin_right = 1350.0
-track_node_path = NodePath("../../MopedRebel")
-
-[node name="StartStageCutsceneArea" parent="." instance=ExtResource( 13 )]
+[node name="StartStageCutsceneArea" parent="." instance=ExtResource( 12 )]
+editor/display_folded = true
 position = Vector2( -500, -100 )
 cutscene_routine_owner_path = NodePath("..")
 cutscene_routine_name = "_start_moped_stage_intro"
@@ -151,7 +147,7 @@ limit_bottom = 120
 limit_smoothed = true
 drag_margin_h_enabled = true
 
-[node name="EndStageCutsceneArea2" parent="." instance=ExtResource( 13 )]
+[node name="EndStageCutsceneArea2" parent="." instance=ExtResource( 12 )]
 editor/display_folded = true
 position = Vector2( 6600, -100 )
 start_cutscene_on = 2
