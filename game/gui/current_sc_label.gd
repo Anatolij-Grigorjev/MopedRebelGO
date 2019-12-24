@@ -9,6 +9,7 @@ var Logger : Resource = preload("res://utils/logger.gd")
 
 
 signal points_changed(new_value, old_value)
+signal points_anim_done
 
 
 export(String) var number_format : String = "%02d" setget set_number_format, get_number_format

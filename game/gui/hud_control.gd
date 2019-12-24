@@ -7,6 +7,9 @@ for them reach them from this single point of entry
 var EarnedPoints : Resource = preload("res://gui/earned_points.tscn")
 
 
+signal points_update_done
+
+
 export(bool) var debug_enabled := false
 
 
@@ -20,7 +23,7 @@ var current_multiplier: float setget ,get_current_multiplier
 
 
 func _ready():
-	pass
+	sc_progress.sc_points_label.connect("points_anim_done", self, "_on_SCPointsLabel_points_anim_done")
 	
 
 func _process(delta: float) -> void:
@@ -85,3 +88,7 @@ func _add_earned_points_at_origin_label(from_position: Vector2, earned_points: f
 	
 func _on_MopedRebel_anger_pulse_consumed(multiplier_add: float) -> void:
 	_add_multiplier(multiplier_add)
+	
+	
+func _on_SCPointsLabel_points_anim_done() -> void:
+	emit_signal("points_update_done")

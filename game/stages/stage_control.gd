@@ -248,10 +248,8 @@ func _start_moped_stage_outro(cutscene_trigger: int) -> void:
 		if (tally_screen.total_earned_points > 0 and G.current_street_scred < C.MR_MAX_SC):
 			var earned_points : float = tally_screen.total_earned_points
 			#visible HUD except for progress bar and tally points
-			HUD.visible = true
+			HUD.visible = true		
+			HUD.add_earned_points(tally_screen.total_earned_position, earned_points)
+			yield(HUD, "points_update_done")
 			
-			yield(HUD.add_earned_points(
-				tally_screen.total_earned_position, 
-				earned_points
-			), "completed")
 		LoadingScreen.load_scene(C.STAGE_SELECT_SCENE_PATH)
