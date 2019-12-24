@@ -35,7 +35,7 @@ func _ready() -> void:
 	moped_rebel.connect('swerve_direction_pressed', self, '_on_MopedRebel_swerve_direction_pressed')
 	moped_rebel.connect('diss_target_change_pressed', self, '_on_MopedRebel_diss_target_change_pressed')
 	moped_rebel.connect('diss_said', self, '_on_MopedRebel_diss_said')
-	moped_rebel.connect("anger_pulse_consumed", HUD, "update_sc_mult_label")
+	moped_rebel.connect("anger_pulse_consumed", HUD, '_on_MopedRebel_anger_pulse_consumed')
 	
 	#setup track size for progress
 	HUD.stage_progress.stage_bounds = Vector2(
@@ -172,7 +172,7 @@ func _on_NRT_moped_traveled(nrt_num_tiles: int, nrt_travel_points: float, travel
 	#actual tile size is about half a tile longer than advertised
 	var total_nrt_length : float = nrt_num_tiles * (_tile_size.x * 1.5)
 	var raw_points : float = travel_distance/total_nrt_length * nrt_travel_points
-	LOG.info("MR gets {}*{} SC points for travelling {}/{} NRT!", [G.sc_multiplier, raw_points, travel_distance, total_nrt_length])
+	LOG.info("MR gets {}*{} SC points for travelling {}/{} NRT!", [HUD.current_multiplier, raw_points, travel_distance, total_nrt_length])
 	G.current_stage_NRT_traveled += travel_distance
 	HUD.add_earned_points(
 		moped_rebel.get_global_transform_with_canvas().get_origin(), 
@@ -249,13 +249,9 @@ func _start_moped_stage_outro(cutscene_trigger: int) -> void:
 			var earned_points : float = tally_screen.total_earned_points
 			#visible HUD except for progress bar and tally points
 			HUD.visible = true
-			HUD.additive_sc_multiplier.visible = false
 			
-			HUD.add_earned_points(
+			yield(HUD.add_earned_points(
 				tally_screen.total_earned_position, 
 				earned_points
-			)
-			yield(HUD, "earned_points_merged")
-			yield(HUD.current_sc_label, "points_changed")
-		var levels_scene = ResourceLoader.load(C.STAGE_SELECT_SCENE_PATH)
-		Helpers.switch_to_scene(G.ROOT, levels_scene.instance())
+			), "completed")
+		LoadingScreen.load_scene(C.STAGE_SELECT_SCENE_PATH)

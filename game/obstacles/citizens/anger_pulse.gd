@@ -7,7 +7,7 @@ to travel exponentially, dissolve via transpearancy and dissapear
 
 export(float) var pulse_travel_distance : float = 400.0
 export(float) var pulse_ttl : float = 1.5
-export(float) var pulse_sc_mult_add : float = 0.05
+export(float) var pulse_sc_mult_add : float = 0.05 setget set_sc_mult_add
 
 
 onready var tween: Tween = $Tween

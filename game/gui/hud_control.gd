@@ -16,6 +16,9 @@ onready var timed_bonus: TimedBonus = $MarginContainer/HBox/VBoxContainer/TimedB
 onready var stage_progress: StageProgressBar = $MarginContainer/HBox/ReferenceRect/StageProgress
 
 
+var current_multiplier: float setget ,get_current_multiplier
+
+
 func _ready():
 	pass
 	
@@ -33,23 +36,35 @@ func _process(delta: float) -> void:
 			
 		if (Input.is_action_just_pressed("debug2")):
 			var add_mult := randf()
-			add_multiplier(add_mult)
-	pass
+			_add_multiplier(add_mult)
+	
+	
+func add_earned_points(from_canvas_position: Vector2, points: float) -> void:
+	yield(_add_earned_points_at_origin_label(from_canvas_position, points), "tree_exiting")
+	add_raw_points(points)
 		
 		
 func add_raw_points(base_amount: float) -> void:
 	var actual_points := _get_actual_points(base_amount)
 	sc_progress.set_sc_points(G.current_street_scred + actual_points)
-	
-	
-func add_multiplier(additive: float) -> void:
-	if (additive != 0.0):
-		var current_mult = timed_bonus.current_value
-		timed_bonus.set_value(current_mult + additive)
+		
+		
+func get_current_multiplier() -> float:
+	return timed_bonus.current_value
 	
 	
 func _get_actual_points(base_amount: float) -> float:
-	return base_amount * timed_bonus.current_value
+	#only apply multiplier to positive points
+	if (base_amount > 0):
+		return base_amount * timed_bonus.current_value
+	else:
+		return base_amount
+
+
+func _add_multiplier(additive: float) -> void:
+	if (additive != 0.0):
+		var current_mult = timed_bonus.current_value
+		timed_bonus.set_value(current_mult + additive)
 
 
 """
@@ -68,6 +83,5 @@ func _add_earned_points_at_origin_label(from_position: Vector2, earned_points: f
 	return earned_node
 	
 	
-func add_earned_points(from_canvas_position: Vector2, points: float) -> void:
-	yield(_add_earned_points_at_origin_label(from_canvas_position, points), "tree_exiting")
-	add_raw_points(points)
+func _on_MopedRebel_anger_pulse_consumed(multiplier_add: float) -> void:
+	_add_multiplier(multiplier_add)

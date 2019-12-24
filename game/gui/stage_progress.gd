@@ -10,6 +10,7 @@ export(Vector2) var stage_bounds setget _set_bounds
 
 
 var _moped_rebel: MopedRebel = null
+onready var figure_tex: TextureRect = $TextureRect
 
 
 func _ready() -> void:
@@ -23,7 +24,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	#if this is running means we have a valid MR instance
 	value = _moped_rebel.global_position.x
-	$TextureRect.rect_position.x = Helpers.mapval(value, min_value, max_value, 0.0, rect_size.x)
+	figure_tex.rect_position.x = Helpers.mapval(
+		value, 
+		min_value, max_value, 
+		0.0, rect_size.x - figure_tex.rect_size.x)
 	
 
 func _set_bounds(global_bounds: Vector2) -> void:

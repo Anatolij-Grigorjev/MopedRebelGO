@@ -20,7 +20,7 @@ var DissWord: Resource = preload("res://rebel/diss_word.tscn")
 signal swerve_direction_pressed(swerve_direction)
 signal diss_said(diss_word)
 signal diss_target_change_pressed(change_direction)
-signal anger_pulse_consumed
+signal anger_pulse_consumed(sc_mult_add)
 
 
 var cruise_speed : float = C.MR_CRUISE_SPEED
@@ -46,6 +46,7 @@ var _can_control_moped: bool = true
 
 
 func _ready() -> void:
+	G.moped_rebel_node = self
 	$ObstacleDetect.connect("hit_obstacle", self, "_on_ObstacleDetector_hit_obstacle")
 	$AnimatedSprite/PackagesBundle.connect("delivery_package_thrown", self, "_on_PackagesBundle_delivery_package_thrown")
 	pass
@@ -197,6 +198,5 @@ func _on_AngerDetector_area_entered(area: Area2D) -> void:
 		var anger_pulse_node: AngerPulse = area.get_owner() as AngerPulse
 		animator_anger.play("consume_anger")
 		anger_pulse_node.queue_free()
-		G.sc_multiplier += anger_pulse_node.pulse_sc_mult_add
-		emit_signal("anger_pulse_consumed")
+		emit_signal("anger_pulse_consumed", anger_pulse_node.pulse_sc_mult_add)
 	
