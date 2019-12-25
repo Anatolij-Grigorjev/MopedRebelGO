@@ -24,6 +24,7 @@ var current_multiplier: float setget ,get_current_multiplier
 
 func _ready():
 	sc_progress.sc_points_label.connect("points_anim_done", self, "_on_SCPointsLabel_points_anim_done")
+	sc_progress.connect("levelup_ready", self, "_on_SCProgressTracker_levelup_ready")
 	
 
 func _process(delta: float) -> void:
@@ -92,3 +93,8 @@ func _on_MopedRebel_anger_pulse_consumed(multiplier_add: float) -> void:
 	
 func _on_SCPointsLabel_points_anim_done() -> void:
 	emit_signal("points_update_done")
+	
+	
+func _on_SCProgressTracker_levelup_ready(levelup_node: Node) -> void:
+	var parent = get_parent() if is_instance_valid(get_parent()) else self
+	parent.add_child(levelup_node)

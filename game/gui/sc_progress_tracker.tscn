@@ -11,6 +11,7 @@ margin_bottom = -320.0
 rect_min_size = Vector2( 50, 0 )
 custom_constants/separation = 5
 script = ExtResource( 1 )
+debug_enabled = true
 
 [node name="CurrentSCLabel" parent="." instance=ExtResource( 2 )]
 margin_right = 50.0

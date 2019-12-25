@@ -8,6 +8,9 @@ var Logger : Resource = preload("res://utils/logger.gd")
 var LevelUpText : Resource = preload("res://gui/level_up_text.tscn")
 
 
+signal levelup_ready(levelup_node)
+
+
 #debug1 and debug2 are used to assign random points of this or next level
 export(bool) var debug_enabled: bool = false
 
@@ -83,8 +86,8 @@ func _do_levelup_popup(level_up_text : String) -> void:
 	level_up_node.rect_rotation = 0
 	level_up_node.rect_scale = Vector2(2.0, 2.0)
 	level_up_node.rect_position = get_viewport_rect().size / 2
-	G.ROOT.add_child(level_up_node)
-		
+	emit_signal("levelup_ready", level_up_node)
+	
 	Engine.time_scale = 0.5
 	yield(level_up_node, "tree_exiting")
 	Engine.time_scale = 1.0
