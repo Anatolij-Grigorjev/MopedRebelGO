@@ -134,16 +134,17 @@ Performs required animations for value changes and
 generates text based on levelup
 """
 func grow_progress_next_level(new_progress: int, 
-								new_min: int, 
-								new_max: int
+								new_min: int = min_value, 
+								new_max: int = max_value
 ) -> void:
-	var prev_progress_max := max_value
-	#grow current progress to end
-	yield(grow_progress_local(prev_progress_max), "completed")
-	#inform about full progress bar
-	emit_signal("progress_bar_filled")
-	#change current bar
-	_set_current_progress_ranges(prev_progress_max, new_min, new_max)
+	if (new_min > min_value and new_max > max_value):
+		var prev_progress_max := max_value
+		#grow current progress to end
+		yield(grow_progress_local(prev_progress_max), "completed")
+		#inform about full progress bar
+		emit_signal("progress_bar_filled")
+		#change current bar
+		_set_current_progress_ranges(prev_progress_max, new_min, new_max)
 	#do rest of growth
 	grow_progress_local(new_progress)
 

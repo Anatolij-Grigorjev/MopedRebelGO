@@ -71,7 +71,8 @@ func set_sc_points(amount: float) -> void:
 				C.MR_MAX_SC
 			)
 	else:
-		sc_progress_bar.grow_progress_local(new_total)
+		#same level growth
+		sc_progress_bar.grow_progress_next_level(new_total)
 	G.current_street_scred = new_total
 	sc_points_label.raw_value = G.current_street_scred
 	

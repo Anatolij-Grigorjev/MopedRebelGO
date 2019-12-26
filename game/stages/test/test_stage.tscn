@@ -77,6 +77,7 @@ position = Vector2( 5349.11, 251.889 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="Citizens" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="WhiteWorker" parent="Citizens" instance=ExtResource( 8 )]
 position = Vector2( 596.142, -69.6646 )
@@ -132,6 +133,7 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 11 )]
+editor/display_folded = true
 
 [node name="SCProgressTracker" parent="CanvasLayer/HUD/MarginContainer/HBox" index="0"]
 editor/display_folded = false
@@ -142,9 +144,6 @@ margin_bottom = 42.0
 [node name="StreetCredProgressBar" parent="CanvasLayer/HUD/MarginContainer/HBox/SCProgressTracker" index="1"]
 margin_top = 47.0
 margin_bottom = 680.0
-
-[node name="VBoxContainer" parent="CanvasLayer/HUD/MarginContainer/HBox" index="1"]
-editor/display_folded = false
 
 [node name="StartStageCutsceneArea" parent="." instance=ExtResource( 12 )]
 editor/display_folded = true

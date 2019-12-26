@@ -4,7 +4,7 @@ class_name StageCutsceneArea
 Controller for in-stage cutscenes that triggers when MR enters or exits
 the appointed area. 
 This stops player control and lets the area camera frame the action
-The area requires a specified node wit ha function to start the cutscene
+The area requires a specified node with a function to start the cutscene
 it will wait until this completes before returning control to player
 """
 var Logger : Resource = preload("res://utils/logger.gd")

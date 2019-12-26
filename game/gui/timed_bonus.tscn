@@ -17,7 +17,7 @@ stretch_margin_top = 15
 stretch_margin_right = 15
 stretch_margin_bottom = 15
 script = ExtResource( 2 )
-reset_time = 1.5
+debug_enabled = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_right = 1.0

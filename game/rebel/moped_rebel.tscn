@@ -219,7 +219,7 @@ position = Vector2( -165, 0 )
 shape = SubResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2( 300, -150 )
+offset = Vector2( 300, -250 )
 current = true
 limit_top = -600
 limit_bottom = 120

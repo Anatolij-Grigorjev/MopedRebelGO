@@ -15,7 +15,7 @@ export(bool) var debug_enabled := false
 
 #components
 onready var sc_progress: SCProgressTracker = $MarginContainer/HBox/SCProgressTracker
-onready var timed_bonus: TimedBonus = $MarginContainer/HBox/VBoxContainer/TimedBonus
+onready var timed_bonus: TimedBonus = $MarginContainer/HBox/TimedBonus
 onready var stage_progress: StageProgressBar = $MarginContainer/HBox/ReferenceRect/StageProgress
 
 

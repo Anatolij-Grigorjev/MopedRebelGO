@@ -25,3 +25,4 @@ margin_top = 29.0
 margin_bottom = 400.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 15.0
+debug_enabled = true
