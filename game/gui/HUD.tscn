@@ -11,7 +11,6 @@ anchor_bottom = 1.0
 margin_top = -0.386841
 margin_bottom = -0.386841
 script = ExtResource( 1 )
-debug_enabled = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0

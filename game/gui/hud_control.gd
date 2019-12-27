@@ -77,7 +77,7 @@ to main current points label on HUD
 """
 func _add_earned_points_at_origin_label(from_position: Vector2, earned_points: float) -> EarnedPoints:
 	var earned_node : EarnedPoints = EarnedPoints.instance()
-	earned_node.end_point = sc_progress.sc_points_label.rect_position
+	earned_node.move_offset = Vector2(0, -50)
 	earned_node.multiplier = timed_bonus.current_value
 	earned_node.num_points = earned_points
 	earned_node.rect_position = from_position
