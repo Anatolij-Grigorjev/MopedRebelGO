@@ -161,11 +161,6 @@ func _on_MopedRebel_diss_said(diss_word: DissWord) -> void:
 		diss_word.set_target(_current_diss_aim)
 	#start diss
 	diss_word.send_diss()
-	#substract diss cost
-	HUD.add_earned_points(
-		moped_rebel.get_global_transform_with_canvas().get_origin(), 
-		-C.MR_DISS_SC_COST
-	)
 
 	
 func _on_NRT_moped_traveled(nrt_num_tiles: int, nrt_travel_points: float, travel_distance: float) -> void:
