@@ -255,5 +255,6 @@ func _start_moped_stage_outro(cutscene_trigger: int) -> void:
 			yield(HUD, "points_update_done")
 			
 		#wait before transition
+		tally_screen.centered_button.modulate.a = 0.0
 		yield(get_tree().create_timer(1.2), "timeout")
 		LoadingScreen.load_scene(C.STAGE_SELECT_SCENE_PATH)
