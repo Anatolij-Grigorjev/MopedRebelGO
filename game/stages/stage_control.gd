@@ -247,7 +247,11 @@ func _start_moped_stage_outro(cutscene_trigger: int) -> void:
 			HUD.stage_progress.visible = false
 			HUD.timed_bonus.visible = false
 			
-			HUD.add_earned_points(tally_screen.total_earned_position, earned_points)
+			HUD.add_earned_points(
+				tally_screen.total_earned_position, 
+				earned_points, 
+				HUD.sc_progress.sc_points_label.rect_position - tally_screen.total_earned_position
+			)
 			yield(HUD, "points_update_done")
 			
 		#wait before transition

@@ -43,8 +43,8 @@ func _process(delta: float) -> void:
 			_add_multiplier(add_mult)
 	
 	
-func add_earned_points(from_canvas_position: Vector2, points: float) -> void:
-	yield(_add_earned_points_at_origin_label(from_canvas_position, points), "tree_exiting")
+func add_earned_points(from_canvas_position: Vector2, points: float, move_offset = Vector2(0, -50)) -> void:
+	yield(_add_earned_points_at_origin_label(from_canvas_position, points, move_offset), "tree_exiting")
 	add_raw_points(points)
 		
 		
@@ -75,9 +75,9 @@ func _add_multiplier(additive: float) -> void:
 Create earned points marker at base of rebel wheels and send that marker 
 to main current points label on HUD
 """
-func _add_earned_points_at_origin_label(from_position: Vector2, earned_points: float) -> EarnedPoints:
+func _add_earned_points_at_origin_label(from_position: Vector2, earned_points: float, move_offset = Vector2(0, -50)) -> EarnedPoints:
 	var earned_node : EarnedPoints = EarnedPoints.instance()
-	earned_node.move_offset = Vector2(0, -50)
+	earned_node.move_offset = move_offset
 	earned_node.multiplier = timed_bonus.current_value
 	earned_node.num_points = earned_points
 	earned_node.rect_position = from_position
