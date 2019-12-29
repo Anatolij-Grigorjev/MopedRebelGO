@@ -256,5 +256,5 @@ func _start_moped_stage_outro(cutscene_trigger: int) -> void:
 			
 		#wait before transition
 		tally_screen.centered_button.modulate.a = 0.0
-		yield(get_tree().create_timer(1.2), "timeout")
+		yield(get_tree().create_timer(0.8), "timeout")
 		LoadingScreen.load_scene(C.STAGE_SELECT_SCENE_PATH)

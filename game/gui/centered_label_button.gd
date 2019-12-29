@@ -14,6 +14,8 @@ export(String) var press_action = "say_diss"
 func _process(delta: float) -> void: 
 	if (Input.is_action_just_pressed(press_action)):
 		emit_signal("button_pressed")
+		set_button_text("PRESSED!")
+		$AnimationPlayer.stop()
 
 
 func set_button_text(text: String) -> void:
