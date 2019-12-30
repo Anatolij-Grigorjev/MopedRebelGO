@@ -6,7 +6,6 @@
 extents = Vector2( 100, 50 )
 
 [node name="NonRegulationTrack1" index="0" instance=ExtResource( 1 )]
-track_moped_shine = Color( 0, 1, 0, 0.501961 )
 
 [node name="Area2D" type="Area2D" parent="." index="1"]
 

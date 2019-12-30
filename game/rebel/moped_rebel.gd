@@ -37,7 +37,6 @@ onready var pushback_tween : Tween = $PushbackTween
 onready var input : InputProcessor = $InputProcessor
 onready var diss_position : Position2D = $DissPosition
 onready var diss_cooldown_bar: CooldownBar = $CooldownBar
-onready var nrt_travel_emitter : Particles2D = $NRTParticles
 
 
 var _is_swerving: bool = false 

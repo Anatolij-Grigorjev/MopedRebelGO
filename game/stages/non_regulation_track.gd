@@ -40,8 +40,8 @@ func _on_body_entered(body: PhysicsBody2D) -> void:
 	if (moped_rebel and not moped_rebel._is_crashing):
 		_moped_enter_position = moped_rebel.global_position
 		moped_rebel.velocity = Vector2(nrt_cruise_speed, 0)
-		moped_rebel.nrt_travel_emitter.emitting = true
 		_change_track_lights_to(track_moped_shine)
+		$Particles2D.emitting = true
 
 
 func _on_body_exited(body: PhysicsBody2D) -> void:
@@ -52,8 +52,8 @@ func _on_body_exited(body: PhysicsBody2D) -> void:
 		LOG.info("moped traveled {}px on this track", [travel_distance])
 		_change_track_lights_to(track_regular_shine)
 		_moped_enter_position = Vector2.ZERO
-		moped_rebel.nrt_travel_emitter.emitting = false
 		moped_rebel.velocity = Vector2(moped_rebel.cruise_speed, 0)
+		$Particles2D.emitting = false
 	
 	
 func _change_track_lights_to(new_lights_color: Color) -> void:
