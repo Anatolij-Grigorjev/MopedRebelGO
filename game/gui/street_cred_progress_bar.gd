@@ -110,7 +110,8 @@ Performs required bar animations during value change
 func grow_progress_local(new_progress: int) -> void:
 	if (new_progress > max_value):
 		LOG.error("Want to grow progress {} above current max {}, use 'grow_progress_next_level'!", 
-			[new_progress, max_value]
+			[new_progress, max_value],
+			false #dont break here
 		)
 	#cant go below allowed in current level
 	if (new_progress < min_value):
@@ -137,7 +138,7 @@ func grow_progress_next_level(new_progress: int,
 								new_min: int = min_value, 
 								new_max: int = max_value
 ) -> void:
-	if (new_min > min_value and new_max > max_value):
+	if (new_max > max_value):
 		var prev_progress_max := max_value
 		#grow current progress to end
 		yield(grow_progress_local(prev_progress_max), "completed")

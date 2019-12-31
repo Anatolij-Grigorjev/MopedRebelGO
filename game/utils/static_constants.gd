@@ -72,6 +72,7 @@ enum DIRECTION {
 *****************************
 """
 const STAGE_SELECT_SCENE_PATH = "res://gui/stage_select_screen.tscn"
+const WIN_SCENE_PATH = "res://gui/win_screen.tscn"
 const STAGE_COMPLETION_BONUS = {
 	"test": 450
 }
@@ -84,6 +85,7 @@ const DISS_CITIZEN_BONUS = 120
 *		MOPED REBEL			*
 *****************************
 """
+const MR_INITIAL_SC: float = 45.7
 const MR_MAX_SC: float = 9999.0
 const MR_CRUISE_SPEED : float = 255.56
 const MR_CUTSCENE_SPEED : float = 155.54

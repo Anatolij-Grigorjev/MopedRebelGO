@@ -2,7 +2,7 @@ extends Node
 class_name GameState
 
 
-var current_street_scred : int = 150
+var current_street_scred : float = C.MR_INITIAL_SC
 var next_street_cred_level_idx : int = 1
 
 
@@ -16,8 +16,10 @@ var current_stage_NRT_traveled := 0.0
 onready var ROOT: Node = get_tree().get_root()
 var moped_rebel_node: MopedRebel = null
 
-func _ready() -> void:
-	pass
+
+func reset_sc() -> void:
+	current_street_scred = C.MR_INITIAL_SC
+	next_street_cred_level_idx = 1
 	
 	
 func reset_current_stage_stats() -> void:
