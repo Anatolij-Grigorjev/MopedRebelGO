@@ -1,0 +1,12 @@
+res://default_env.tres
+res://gui/stage_select_screen.tscn
+res://rebel/diss_word.gd
+res://rebel/diss_word.tscn
+res://utils/logger.gd
+res://rebel/moped_rebel.tscn
+res://rebel/moped_rebel.gd
+res://obstacles/citizens/anger_pulse.gd
+res://gui/current_sc_label.gd
+res://utils/static_helpers.gd
+res://gui/street_cred_progress_bar.gd
+res://stages/load_stage.gd

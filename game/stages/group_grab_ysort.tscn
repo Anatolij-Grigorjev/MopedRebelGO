@@ -2,5 +2,5 @@
 
 [ext_resource path="res://stages/group_grab_ysort.gd" type="Script" id=1]
 
-[node name="GroupGrabYsort" type="YSort"]
+[node name="GroupGrabYsort" type="Node2D"]
 script = ExtResource( 1 )

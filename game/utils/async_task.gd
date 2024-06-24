@@ -35,7 +35,7 @@ func start() -> void:
 	assert _task_node != null
 	assert _task_method_name != null
 	
-	_worker_thread.start(self, "_do_task_async")
+	_worker_thread.start(Callable(self, "_do_task_async"))
 	print("finish start")
 	
 func _do_task_async():

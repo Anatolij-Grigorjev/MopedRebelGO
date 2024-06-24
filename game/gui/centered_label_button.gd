@@ -1,4 +1,4 @@
-tool
+@tool
 extends CenterContainer
 class_name CenteredLabelButton
 """
@@ -7,8 +7,8 @@ Controller for flashing label-based button control
 
 signal button_pressed
 
-export(String) var button_label = "Press 'DISS' button..." setget set_button_text, get_button_text
-export(String) var press_action = "say_diss"
+@export var button_label: String = "Press 'DISS' button...": get = get_button_text, set = set_button_text
+@export var press_action: String = "say_diss"
 
 
 func _process(delta: float) -> void: 

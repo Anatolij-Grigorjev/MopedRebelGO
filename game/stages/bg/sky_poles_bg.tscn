@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://stages/bg/parallax_sky.png" type="Texture" id=1]
-[ext_resource path="res://stages/bg/parallax_cloud.png" type="Texture" id=2]
-[ext_resource path="res://stages/bg/parallax_cloud2.png" type="Texture" id=3]
-[ext_resource path="res://stages/bg/parallax_poles.png" type="Texture" id=4]
+[ext_resource path="res://stages/bg/parallax_sky.png" type="Texture2D" id=1]
+[ext_resource path="res://stages/bg/parallax_cloud.png" type="Texture2D" id=2]
+[ext_resource path="res://stages/bg/parallax_cloud2.png" type="Texture2D" id=3]
+[ext_resource path="res://stages/bg/parallax_poles.png" type="Texture2D" id=4]
 
 [node name="SkyPollsBg" type="ParallaxBackground"]
 
@@ -11,13 +11,13 @@
 scale = Vector2( 400, 1 )
 motion_mirroring = Vector2( 1280, 0 )
 
-[node name="Sprite" type="Sprite" parent="SkyLayer"]
+[node name="Sprite2D" type="Sprite2D" parent="SkyLayer"]
 scale = Vector2( 10, 1 )
 texture = ExtResource( 1 )
 centered = false
 flip_v = true
 
-[node name="Sprite2" type="Sprite" parent="SkyLayer"]
+[node name="Sprite2" type="Sprite2D" parent="SkyLayer"]
 scale = Vector2( 10, 1 )
 texture = ExtResource( 1 )
 centered = false
@@ -28,13 +28,13 @@ flip_v = true
 motion_scale = Vector2( 0.5, 1 )
 motion_mirroring = Vector2( 1280, 0 )
 
-[node name="cloud1" type="Sprite" parent="CloudsLayer"]
+[node name="cloud1" type="Sprite2D" parent="CloudsLayer"]
 position = Vector2( 46.8336, 179.529 )
 scale = Vector2( 0.900044, 0.856063 )
 texture = ExtResource( 2 )
 centered = false
 
-[node name="cloud3" type="Sprite" parent="CloudsLayer"]
+[node name="cloud3" type="Sprite2D" parent="CloudsLayer"]
 position = Vector2( 636.937, 246.657 )
 scale = Vector2( 0.703387, 0.703387 )
 texture = ExtResource( 2 )
@@ -45,13 +45,13 @@ position = Vector2( 1280, 0 )
 motion_scale = Vector2( 0.75, 1 )
 motion_mirroring = Vector2( 1280, 0 )
 
-[node name="cloud1" type="Sprite" parent="CloudsLayer2"]
+[node name="cloud1" type="Sprite2D" parent="CloudsLayer2"]
 position = Vector2( -1027.9, 39.1905 )
 scale = Vector2( 1.26388, 1.41982 )
 texture = ExtResource( 2 )
 centered = false
 
-[node name="cloud3" type="Sprite" parent="CloudsLayer2"]
+[node name="cloud3" type="Sprite2D" parent="CloudsLayer2"]
 position = Vector2( -351.43, 234.662 )
 scale = Vector2( 0.995259, 1.14719 )
 texture = ExtResource( 2 )
@@ -62,13 +62,13 @@ position = Vector2( 500, 0 )
 motion_scale = Vector2( 0.25, 1 )
 motion_mirroring = Vector2( 1280, 0 )
 
-[node name="cloud2" type="Sprite" parent="Clouds2Layer"]
+[node name="cloud2" type="Sprite2D" parent="Clouds2Layer"]
 position = Vector2( 281.002, 104.595 )
 scale = Vector2( 0.587258, 0.547275 )
 texture = ExtResource( 3 )
 centered = false
 
-[node name="cloud4" type="Sprite" parent="Clouds2Layer"]
+[node name="cloud4" type="Sprite2D" parent="Clouds2Layer"]
 position = Vector2( 710.773, 65.531 )
 rotation = -3.14159
 scale = Vector2( 0.860061, -0.580185 )
@@ -80,13 +80,13 @@ position = Vector2( 1400, 0 )
 motion_scale = Vector2( 0.25, 1 )
 motion_mirroring = Vector2( 1200, 0 )
 
-[node name="cloud2" type="Sprite" parent="Clouds2Layer2"]
+[node name="cloud2" type="Sprite2D" parent="Clouds2Layer2"]
 position = Vector2( 281.002, 104.595 )
 scale = Vector2( 0.547275, 0.547275 )
 texture = ExtResource( 3 )
 centered = false
 
-[node name="cloud4" type="Sprite" parent="Clouds2Layer2"]
+[node name="cloud4" type="Sprite2D" parent="Clouds2Layer2"]
 position = Vector2( 903.889, 34.3447 )
 rotation = -3.14159
 scale = Vector2( 1, -1 )
@@ -98,26 +98,26 @@ position = Vector2( 0, 400 )
 motion_scale = Vector2( 2, 1 )
 motion_mirroring = Vector2( 1280, 0 )
 
-[node name="Polls" type="Sprite" parent="PollsLayer"]
+[node name="Polls" type="Sprite2D" parent="PollsLayer"]
 texture = ExtResource( 4 )
 centered = false
 
-[node name="Polls2" type="Sprite" parent="PollsLayer"]
+[node name="Polls2" type="Sprite2D" parent="PollsLayer"]
 position = Vector2( 300, 0 )
 texture = ExtResource( 4 )
 centered = false
 
-[node name="Polls3" type="Sprite" parent="PollsLayer"]
+[node name="Polls3" type="Sprite2D" parent="PollsLayer"]
 position = Vector2( 600, 0 )
 texture = ExtResource( 4 )
 centered = false
 
-[node name="Polls4" type="Sprite" parent="PollsLayer"]
+[node name="Polls4" type="Sprite2D" parent="PollsLayer"]
 position = Vector2( 900, 0 )
 texture = ExtResource( 4 )
 centered = false
 
-[node name="Polls5" type="Sprite" parent="PollsLayer"]
+[node name="Polls5" type="Sprite2D" parent="PollsLayer"]
 position = Vector2( 1200, 0 )
 texture = ExtResource( 4 )
 centered = false

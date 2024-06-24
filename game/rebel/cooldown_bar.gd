@@ -5,7 +5,7 @@ Controller for cooldown bar that appears duiring triggered cooldown
 for a specified duration and is invisible otherwise
 """
 
-onready var _bar: ProgressBar = $ProgressBar
+@onready var _bar: ProgressBar = $ProgressBar
 
 
 var _is_cooldown_running: bool = false

@@ -1,4 +1,4 @@
-extends TextureProgress
+extends TextureProgressBar
 class_name TimedBonus
 """
 Gui element that has a default value which resets after a timeout. 
@@ -8,15 +8,15 @@ Time to reset indicated by diminishing progress bar
 const MAX_RESET_TIME = 2.0
 const MIN_RESET_TIME = 1.0
 
-export(float) var default_value := 1.0 setget _set_default_value, _get_default_value
-export(bool) var debug_enabled := false
+@export var default_value := 1.0: get = _get_default_value, set = _set_default_value
+@export var debug_enabled := false
 
 
-onready var timer: Timer = $ValueReset
-onready var value_lbl: NumericLabel = $HBoxContainer/CurrentSCLabel
+@onready var timer: Timer = $ValueReset
+@onready var value_lbl: NumericLabel = $HBoxContainer/CurrentSCLabel
 
 
-var current_value: float setget ,_get_current_value
+var current_value: float: get = _get_current_value
 
 
 func _ready() -> void:

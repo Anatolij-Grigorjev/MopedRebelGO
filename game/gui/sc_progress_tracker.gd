@@ -12,12 +12,12 @@ signal levelup_ready(levelup_node)
 
 
 #debug1 and debug2 are used to assign random points of this or next level
-export(bool) var debug_enabled: bool = false
+@export var debug_enabled: bool = false
 
 
-onready var LOG: Logger = Logger.new(self)
-onready var sc_progress_bar: TextureProgress = $StreetCredProgressBar
-onready var sc_points_label: NumericLabel = $CurrentSCLabel
+@onready var LOG: Logger = Logger.new(self)
+@onready var sc_progress_bar: TextureProgressBar = $StreetCredProgressBar
+@onready var sc_points_label: NumericLabel = $CurrentSCLabel
 
 
 func _ready():
@@ -79,16 +79,16 @@ func set_sc_points(amount: float) -> void:
 	
 func _do_levelup_popup(level_up_text : String) -> void:
 	#wait until levelup condition submitted
-	yield(sc_progress_bar, "progress_bar_filled")
+	await sc_progress_bar.progress_bar_filled
 	#create a happy label thing
-	var level_up_node : Control = LevelUpText.instance()
+	var level_up_node : Control = LevelUpText.instantiate()
 	var level_up_node_label_node : Label = level_up_node.get_node("LevelText")
 	level_up_node_label_node.text = level_up_text
-	level_up_node.rect_rotation = 0
-	level_up_node.rect_scale = Vector2(2.0, 2.0)
-	level_up_node.rect_position = get_viewport_rect().size / 2
+	level_up_node.rotation = 0
+	level_up_node.scale = Vector2(2.0, 2.0)
+	level_up_node.position = get_viewport_rect().size / 2
 	emit_signal("levelup_ready", level_up_node)
 	
 	Engine.time_scale = 0.5
-	yield(level_up_node, "tree_exiting")
+	await level_up_node.tree_exiting
 	Engine.time_scale = 1.0

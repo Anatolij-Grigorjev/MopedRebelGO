@@ -8,8 +8,8 @@ var Logger : Resource = preload("res://utils/logger.gd")
 const DISS_SPEED = 500
 
 
-onready var LOG: Logger = Logger.new(self)
-onready var tween: Tween = $Tween
+@onready var LOG: Logger = Logger.new(self)
+@onready var tween: Tween = get_tree().create_tween()
 
 
 var _target_reticule: Node2D
@@ -39,4 +39,4 @@ func send_diss() -> void:
 	)
 	tween.start()
 	
-	yield(tween, "tween_all_completed")
+	await tween.tween_all_completed

@@ -1,4 +1,4 @@
-tool
+@tool
 extends Control
 class_name SelectLevelCell
 """
@@ -6,18 +6,18 @@ Cell that means a level in a menu. Includes reference to level scene
 is selectable
 """
 
-export(String) var level_scene_path: String
-export(Texture) var level_thumbnail: Texture setget set_level_thumb, get_level_thumb
-export(String) var level_name: String = "test" setget set_level_name, get_level_name
-export(bool) var selected: bool = false setget set_selected
+@export var level_scene_path: String
+@export var level_thumbnail: Texture2D: get = get_level_thumb, set = set_level_thumb
+@export var level_name: String = "test": get = get_level_name, set = set_level_name
+@export var selected: bool = false: set = set_selected
 
 
-func set_level_thumb(thumb: Texture) -> void:
+func set_level_thumb(thumb: Texture2D) -> void:
 	if ($SelectedBorder/VBoxContainer/ThumbnailMarginContainer/Thumbnail):
 		$SelectedBorder/VBoxContainer/ThumbnailMarginContainer/Thumbnail.texture = thumb
 		
 		
-func get_level_thumb() -> Texture:
+func get_level_thumb() -> Texture2D:
 	if ($SelectedBorder/VBoxContainer/ThumbnailMarginContainer/Thumbnail):
 		return $SelectedBorder/VBoxContainer/ThumbnailMarginContainer/Thumbnail.texture
 	else:
@@ -44,11 +44,11 @@ func set_selected(is_selected: bool) -> void:
 	var select_border: Control = $SelectedBorder
 	selected = is_selected
 	if (selected):
-		level_name_label.modulate = Color.red
+		level_name_label.modulate = Color.RED
 		thumbnail_cover.visible = true
 		select_border.self_modulate.a = 255
 	else:
-		level_name_label.modulate = Color.white
+		level_name_label.modulate = Color.WHITE
 		thumbnail_cover.visible = false
 		select_border.self_modulate.a = 0
 		

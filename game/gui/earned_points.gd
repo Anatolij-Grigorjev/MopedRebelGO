@@ -1,4 +1,4 @@
-tool
+@tool
 extends Control
 class_name EarnedPoints
 """
@@ -9,22 +9,22 @@ reducing in scale dimensions as it goes along
 const DEFAULT_TTL:float = 1.0
 
 
-export(Vector2) var move_offset = Vector2.ZERO
-export(float) var ttl: float = DEFAULT_TTL
-export(float) var num_points = 0.0 setget _set_num_points
-export(float) var multiplier = 1.0 setget _set_multiplier
+@export var move_offset: Vector2 = Vector2.ZERO
+@export var ttl: float = DEFAULT_TTL
+@export var num_points: float = 0.0: set = _set_num_points
+@export var multiplier: float = 1.0: set = _set_multiplier
 
 
-onready var points_text: Label = $HBoxContainer/PointsText
-onready var mult_text: Label = $HBoxContainer/MultiplierText
-onready var tween : Tween = $MoveToPoints
+@onready var points_text: Label = $HBoxContainer/PointsText
+@onready var mult_text: Label = $HBoxContainer/MultiplierText
+@onready var tween : Tween = $MoveToPoints
 
 
 func _ready() -> void:
 	_start_move_tween()
 	if (multiplier != 1.0):
 		$AnimationPlayer.play("bonus_flicker")
-	yield(tween, "tween_all_completed")
+	await tween.tween_all_completed
 	queue_free()
 
 
@@ -35,10 +35,10 @@ func _set_num_points(earned_points: float) -> void:
 		var label = $HBoxContainer/PointsText
 		if (earned_points > 0):
 			label.text = "+%02.2f" % earned_points
-			label.set("custom_colors/font_color", Color.yellow)
+			label.set("theme_override_colors/font_color", Color.YELLOW)
 		else:
 			label.text = "%02.2f" % earned_points
-			label.set("custom_colors/font_color", Color.red)
+			label.set("theme_override_colors/font_color", Color.RED)
 	
 	
 func _set_multiplier(new_mult: float) -> void:
@@ -53,8 +53,8 @@ func _set_multiplier(new_mult: float) -> void:
 func _start_move_tween() -> void:
 	
 	tween.interpolate_property(
-		self, 'rect_position', 
-		null, rect_position + move_offset, 
+		self, 'position', 
+		null, position + move_offset, 
 		ttl, 
 		Tween.TRANS_LINEAR, Tween.EASE_OUT_IN
 	)

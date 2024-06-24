@@ -6,7 +6,7 @@ this non-interactive warning
 """
 
 
-onready var distance_text: Label = $DistanceText
+@onready var distance_text: Label = $DistanceText
 
 
 func _ready():

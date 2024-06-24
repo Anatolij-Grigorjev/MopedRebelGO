@@ -15,20 +15,20 @@ enum CutsceneTrigger {
 	BOTH = 2
 }
 
-onready var LOG: Logger = Logger.new(self)
+@onready var LOG: Logger = Logger.new(self)
 
 
-export(CutsceneTrigger) var start_cutscene_on := CutsceneTrigger.ENTRY
-export(NodePath) var cutscene_routine_owner_path 
+@export var start_cutscene_on := CutsceneTrigger.ENTRY
+@export var cutscene_routine_owner_path: NodePath 
 """
 This routine gets fired for cutscenes and should support 1 argument:
 	- area captive position (entry or exit)
 """
-export(String) var cutscene_routine_name
-export(bool) var return_control_after = true
+@export var cutscene_routine_name: String
+@export var return_control_after: bool = true
 
 
-onready var area_extents: Vector2 = $Area2D/CollisionShape2D.shape.extents
+@onready var area_extents: Vector2 = $Area2D/CollisionShape2D.shape.extents
 
 
 

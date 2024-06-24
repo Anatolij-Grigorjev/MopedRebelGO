@@ -6,216 +6,15 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
-
-_global_script_classes=[ {
-"base": "PointsLabel",
-"class": "AdditivePointsLabel",
-"language": "GDScript",
-"path": "res://gui/additive_sc_label.gd"
-}, {
-"base": "Node2D",
-"class": "AngerPulse",
-"language": "GDScript",
-"path": "res://obstacles/citizens/anger_pulse.gd"
-}, {
-"base": "Reference",
-"class": "AsyncTask",
-"language": "GDScript",
-"path": "res://utils/async_task.gd"
-}, {
-"base": "Reference",
-"class": "C",
-"language": "GDScript",
-"path": "res://utils/static_constants.gd"
-}, {
-"base": "CenterContainer",
-"class": "CenteredLabelButton",
-"language": "GDScript",
-"path": "res://gui/centered_label_button.gd"
-}, {
-"base": "RoadBlock",
-"class": "CitizenRoadBlock",
-"language": "GDScript",
-"path": "res://obstacles/citizens/citizen.gd"
-}, {
-"base": "Node2D",
-"class": "CooldownBar",
-"language": "GDScript",
-"path": "res://rebel/cooldown_bar.gd"
-}, {
-"base": "Node2D",
-"class": "DeliveryPackage",
-"language": "GDScript",
-"path": "res://rebel/delivery_package.gd"
-}, {
-"base": "Sprite",
-"class": "DissAim",
-"language": "GDScript",
-"path": "res://rebel/diss_aim.gd"
-}, {
-"base": "Node2D",
-"class": "DissWord",
-"language": "GDScript",
-"path": "res://rebel/diss_word.gd"
-}, {
-"base": "Control",
-"class": "EarnedPoints",
-"language": "GDScript",
-"path": "res://gui/earned_points.gd"
-}, {
-"base": "Node",
-"class": "GameState",
-"language": "GDScript",
-"path": "res://utils/game_state.gd"
-}, {
-"base": "YSort",
-"class": "GroupGrabYsort",
-"language": "GDScript",
-"path": "res://stages/group_grab_ysort.gd"
-}, {
-"base": "Control",
-"class": "HUDController",
-"language": "GDScript",
-"path": "res://gui/hud_control.gd"
-}, {
-"base": "Reference",
-"class": "Helpers",
-"language": "GDScript",
-"path": "res://utils/static_helpers.gd"
-}, {
-"base": "Node",
-"class": "InputProcessor",
-"language": "GDScript",
-"path": "res://rebel/input_processor.gd"
-}, {
-"base": "Reference",
-"class": "Logger",
-"language": "GDScript",
-"path": "res://utils/logger.gd"
-}, {
-"base": "KinematicBody2D",
-"class": "MopedRebel",
-"language": "GDScript",
-"path": "res://rebel/moped_rebel.gd"
-}, {
-"base": "Node2D",
-"class": "NonRegulationTrack",
-"language": "GDScript",
-"path": "res://stages/non_regulation_track.gd"
-}, {
-"base": "Label",
-"class": "NumericLabel",
-"language": "GDScript",
-"path": "res://gui/current_sc_label.gd"
-}, {
-"base": "Area2D",
-"class": "ObstacleDetector",
-"language": "GDScript",
-"path": "res://rebel/obstacle_detector.gd"
-}, {
-"base": "Node2D",
-"class": "PackagesBundle",
-"language": "GDScript",
-"path": "res://rebel/packages_bundle.gd"
-}, {
-"base": "Area2D",
-"class": "RoadBlock",
-"language": "GDScript",
-"path": "res://obstacles/roadblocks/roadblock.gd"
-}, {
-"base": "VBoxContainer",
-"class": "SCProgressTracker",
-"language": "GDScript",
-"path": "res://gui/sc_progress_tracker.gd"
-}, {
-"base": "Control",
-"class": "SelectLevelCell",
-"language": "GDScript",
-"path": "res://gui/select_level_cell.gd"
-}, {
-"base": "Node2D",
-"class": "StageControl",
-"language": "GDScript",
-"path": "res://stages/stage_control.gd"
-}, {
-"base": "Node2D",
-"class": "StageCutsceneArea",
-"language": "GDScript",
-"path": "res://stages/stage_cutscene_area.gd"
-}, {
-"base": "TextureProgress",
-"class": "StageProgressBar",
-"language": "GDScript",
-"path": "res://gui/stage_progress.gd"
-}, {
-"base": "TextureProgress",
-"class": "StreetCredProgressBar",
-"language": "GDScript",
-"path": "res://gui/street_cred_progress_bar.gd"
-}, {
-"base": "HBoxContainer",
-"class": "TallyTableRow",
-"language": "GDScript",
-"path": "res://gui/tally_table_row.gd"
-}, {
-"base": "Reference",
-"class": "ThreadCtx",
-"language": "GDScript",
-"path": "res://utils/thread_ctx.gd"
-}, {
-"base": "TextureProgress",
-"class": "TimedBonus",
-"language": "GDScript",
-"path": "res://gui/timed_bonus.gd"
-}, {
-"base": "Control",
-"class": "WarningIcon",
-"language": "GDScript",
-"path": "res://gui/warning_icon.gd"
-} ]
-_global_script_class_icons={
-"AdditivePointsLabel": "",
-"AngerPulse": "",
-"AsyncTask": "",
-"C": "",
-"CenteredLabelButton": "",
-"CitizenRoadBlock": "",
-"CooldownBar": "",
-"DeliveryPackage": "",
-"DissAim": "",
-"DissWord": "",
-"EarnedPoints": "",
-"GameState": "",
-"GroupGrabYsort": "",
-"HUDController": "",
-"Helpers": "",
-"InputProcessor": "",
-"Logger": "",
-"MopedRebel": "",
-"NonRegulationTrack": "",
-"NumericLabel": "",
-"ObstacleDetector": "",
-"PackagesBundle": "",
-"RoadBlock": "",
-"SCProgressTracker": "",
-"SelectLevelCell": "",
-"StageControl": "",
-"StageCutsceneArea": "",
-"StageProgressBar": "",
-"StreetCredProgressBar": "",
-"TallyTableRow": "",
-"ThreadCtx": "",
-"TimedBonus": "",
-"WarningIcon": ""
-}
+config_version=5
 
 [application]
 
 config/name="MopedRebelGO"
 run/main_scene="res://gui/stage_select_screen.tscn"
-config/icon="res://icon.png"
 config/quit_on_go_back=false
+config/features=PackedStringArray("4.2")
+config/icon="res://icon.png"
 
 [autoload]
 
@@ -228,55 +27,55 @@ settings/stdout/print_fps=true
 
 [display]
 
-window/size/width=1280
-window/size/height=720
+window/size/viewport_width=1280
+window/size/viewport_height=720
 
 [input]
 
 swerve_up={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":87,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 swerve_down={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":83,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 speed_up={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":68,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 speed_down={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":65,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 debug1={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":32,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 debug2={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":66,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":66,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 say_diss={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":80,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":80,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 diss_target_above={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":79,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":79,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 diss_target_below={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":76,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":76,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 
 [layer_names]
@@ -289,10 +88,10 @@ diss_target_below={
 
 [network]
 
-limits/debugger_stdout/max_chars_per_second=1000000
-limits/debugger_stdout/max_messages_per_frame=1000
+limits/debugger/max_chars_per_second=1000000
+limits/debugger/max_queued_messages=1000
 limits/debugger_stdout/max_errors_per_frame=1000
 
 [rendering]
 
-environment/default_environment="res://default_env.tres"
+environment/defaults/default_environment="res://default_env.tres"

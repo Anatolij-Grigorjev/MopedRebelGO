@@ -92,15 +92,15 @@ func _log_at_level(level: int, message: String, params: Array) -> void:
 	if (level < C.GAME_LOGGING_LEVEL % LogLevel.size()):
 		return
 	#true means date time in UTC timezone
-	var current_datetime := OS.get_datetime(false)
-	var log_level_name : String = LOG_LEVEL_NAMES[level]
-	var call_stack : Array = get_stack()
+	var current_datetime: Dictionary = Time.get_datetime_dict_from_system(false)
+	var log_level_name: String = LOG_LEVEL_NAMES[level]
+	var call_stack: Array = get_stack()
 	# frame 0 is this private method, 
 	# frame 1 would be the log level wrapper
 	# frame 2 is then the method that invoked the logging
 	# might have fewer frames if logger tested standalone
-	var stack_frame_idx := min(2, call_stack.size() - 1)
-	var current_stack_frame : Dictionary = call_stack[stack_frame_idx]
+	var stack_frame_idx: int = min(2, call_stack.size() - 1)
+	var current_stack_frame: Dictionary = call_stack[stack_frame_idx]
 	var resolved_message: String = _resolve_message_params(message, params)
 	
 	var full_message : String = ("%s %s %s.%s:%s - %s"

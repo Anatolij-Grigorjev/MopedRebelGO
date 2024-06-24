@@ -9,13 +9,13 @@ var Logger : Resource = preload("res://utils/logger.gd")
 signal tally_forward_pressed
 
 
-onready var LOG: Logger = Logger.new(self)
-onready var animator: AnimationPlayer = $AnimationPlayer
-onready var total_earned_position : Vector2 = $TallyScreen/ScreenBlocks/Sections/TallyArea/TallyRow/Content/Labels/Value.rect_global_position
-onready var row_citizens: TallyTableRow = $TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowCitizens
-onready var row_nrts: TallyTableRow = $TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowNRTs
-onready var row_overall_rebel: TallyTableRow = $TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel
-onready var centered_button: CenteredLabelButton = $TallyScreen/ScreenBlocks/ButtonContainer
+@onready var LOG: Logger = Logger.new(self)
+@onready var animator: AnimationPlayer = $AnimationPlayer
+@onready var total_earned_position : Vector2 = $TallyScreen/ScreenBlocks/Sections/TallyArea/TallyRow/Content/Labels/Value.global_position
+@onready var row_citizens: TallyTableRow = $TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowCitizens
+@onready var row_nrts: TallyTableRow = $TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowNRTs
+@onready var row_overall_rebel: TallyTableRow = $TallyScreen/ScreenBlocks/Sections/TallyTable/TallyRowOverallRebel
+@onready var centered_button: CenteredLabelButton = $TallyScreen/ScreenBlocks/ButtonContainer
 
 
 var total_earned_points: float = 0.0
@@ -36,7 +36,7 @@ func _ready() -> void:
 	row_overall_rebel.set_row_label("Overall rebeliousness:")
 	_apply_stored_data()
 	_load_screen_animation_length = animator.get_animation("load_screen").length
-	centered_button.connect("button_pressed", self, "_on_ButtonContainer_button_pressed")
+	centered_button.connect("button_pressed", Callable(self, "_on_ButtonContainer_button_pressed"))
 
 
 func _on_ButtonContainer_button_pressed() -> void:

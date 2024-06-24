@@ -13,7 +13,7 @@ static func get_tilemap_global_bounds(tilemap: TileMap) -> Rect2:
 	if (not tilemap):
 		return Rect2()
 	
-	var tilemap_cells := tilemap.get_used_cells()
+	var tilemap_cells := tilemap.get_used_cells(0)
 	if (not tilemap_cells):
 		return Rect2()
 		
@@ -40,8 +40,8 @@ static func get_tilemap_global_bounds(tilemap: TileMap) -> Rect2:
 	
 	var cell_extents : Vector2 = tilemap.get_cell_size() / 2
 	
-	var upper_left_corner_pos := tilemap.map_to_world(Vector2(low_x, low_y)) - cell_extents
-	var lower_right_corner_pos := tilemap.map_to_world(Vector2(high_x, high_y)) + cell_extents
+	var upper_left_corner_pos := tilemap.map_to_local(Vector2(low_x, low_y)) - cell_extents
+	var lower_right_corner_pos := tilemap.map_to_local(Vector2(high_x, high_y)) + cell_extents
 	
 	return Rect2(
 		#x/y vector
@@ -78,9 +78,9 @@ Check if a string is blank (nil, empty, whitespace, etc)
 static func is_blank(text: String) -> bool:
 	if (text == null):
 		return true
-	if (text.empty()):
+	if (text.is_empty()):
 		return true
-	return text.strip_edges().empty()
+	return text.strip_edges().is_empty()
 	
 	
 """
@@ -104,7 +104,7 @@ mapval(3, 1, 5, 1, 10) => 6
 static func mapval(value: float, from_min: float, from_max: float, to_min: float, to_max: float) -> float:
 	assert (from_min < from_max)
 	assert (to_min <= to_max)
-	var clamped = clamp(value, from_min, from_max)
+	var limit_length = clamp(value, from_min, from_max)
 	var coef = (to_max - to_min) / (from_max - from_min)
 	
 	return to_min + coef * (value - from_min)

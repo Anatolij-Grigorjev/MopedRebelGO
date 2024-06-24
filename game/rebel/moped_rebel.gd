@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends CharacterBody2D
 class_name MopedRebel
 """
 Main Controller class for Moped Rebel Playable Character.
@@ -25,18 +25,17 @@ signal anger_pulse_consumed(sc_mult_add)
 
 var cruise_speed : float = C.MR_CRUISE_SPEED
 var cutscene_speed : float = C.MR_CUTSCENE_SPEED
-export(Vector2) var velocity := Vector2(cruise_speed, 0)
 
 
-onready var animator_main : AnimationPlayer = $AnimationPlayer
-onready var animator_anger : AnimationPlayer = $AngerAnimationPlayer
-onready var sprite : AnimatedSprite = $AnimatedSprite
-onready var LOG : Logger = Logger.new(self)
-onready var swerve_tween : Tween = $SwerveTween
-onready var pushback_tween : Tween = $PushbackTween
-onready var input : InputProcessor = $InputProcessor
-onready var diss_position : Position2D = $DissPosition
-onready var diss_cooldown_bar: CooldownBar = $CooldownBar
+@onready var animator_main : AnimationPlayer = $AnimationPlayer
+@onready var animator_anger : AnimationPlayer = $AngerAnimationPlayer
+@onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
+@onready var LOG : Logger = Logger.new(self)
+@onready var swerve_tween : Tween = get_tree().create_tween()
+@onready var pushback_tween : Tween = get_tree().create_tween()
+@onready var input : InputProcessor = $InputProcessor
+@onready var diss_position : Marker2D = $DissPosition
+@onready var diss_cooldown_bar: CooldownBar = $CooldownBar
 
 
 var _is_swerving: bool = false 
@@ -46,8 +45,8 @@ var _can_control_moped: bool = true
 
 func _ready() -> void:
 	G.moped_rebel_node = self
-	$ObstacleDetect.connect("hit_obstacle", self, "_on_ObstacleDetector_hit_obstacle")
-	$AnimatedSprite/PackagesBundle.connect("delivery_package_thrown", self, "_on_PackagesBundle_delivery_package_thrown")
+	$ObstacleDetect.connect("hit_obstacle", Callable(self, "_on_ObstacleDetector_hit_obstacle"))
+	$AnimatedSprite2D/PackagesBundle.connect("delivery_package_thrown", Callable(self, "_on_PackagesBundle_delivery_package_thrown"))
 	pass
 
 
@@ -82,7 +81,8 @@ func _process(delta: float) -> void:
 				diss_cooldown_bar.start_cooldown(input.max_diss_colldown)
 				var new_diss := _build_diss_word()
 				emit_signal("diss_said", new_diss)
-	move_and_slide(velocity)
+	set_velocity(velocity)
+	move_and_slide()
 	
 	
 """
@@ -103,7 +103,7 @@ func perform_swerve(swerve_direction: int, swerve_amount: int) -> void:
 	animator_main.play(correct_anim_name)
 	_prep_tween_swerve(swerve_direction, swerve_amount)
 	swerve_tween.start()
-	yield(swerve_tween, 'tween_all_completed')
+	await swerve_tween.tween_all_completed
 	#if moped swerved into obstacle dont reset transform
 	if (not _is_crashing):
 		_reset_sprite_transform()
@@ -166,7 +166,7 @@ func _on_ObstacleDetector_hit_obstacle(obstacle: Area2D) -> void:
 	_is_crashing = true
 	velocity = Vector2()
 	animator_main.play("crash_obstacle")
-	yield(animator_main, "animation_finished")
+	await animator_main.animation_finished
 	velocity = Vector2(C.MR_CRUISE_SPEED, 0)
 	_is_crashing = false
 	_reset_sprite_transform()
@@ -187,7 +187,7 @@ func _on_PackagesBundle_delivery_package_thrown(remaining_packages: int) -> void
 Construct new diss word instance without attaching to any parent
 """
 func _build_diss_word() -> Node2D:
-	var new_diss_word := DissWord.instance() as Node2D
+	var new_diss_word := DissWord.instantiate() as Node2D
 	#TODO: custom random diss phrase logic
 	return new_diss_word
 

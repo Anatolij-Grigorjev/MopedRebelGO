@@ -7,7 +7,7 @@ Internally manages cooldown state for action presses
 var Logger : Resource = preload("res://utils/logger.gd")
 
 
-onready var LOG: Logger = Logger.new(self)
+@onready var LOG: Logger = Logger.new(self)
 var max_diss_colldown : float = 0.5
 
 

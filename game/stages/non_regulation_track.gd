@@ -14,16 +14,16 @@ signal moped_traveled_nrt(num_tiles, travel_points, distance_traveled)
 
 
 
-export(Color) var track_regular_shine : Color = Color.blue
-export(Color) var track_moped_shine : Color = Color.green
+@export var track_regular_shine: Color = Color.BLUE
+@export var track_moped_shine: Color = Color.GREEN
 #how many SC points for travelling entire length of this NRT
-export(float) var travel_nrt_points : float = 100.0
-export(float) var nrt_cruise_speed : float = 450.57
+@export var travel_nrt_points: float = 100.0
+@export var nrt_cruise_speed: float = 450.57
 
 
-onready var LOG: Logger = Logger.new(self)
-onready var lights_nodes : Array = $Lights.get_children()
-onready var area: Area2D = $Area2D
+@onready var LOG: Logger = Logger.new(self)
+@onready var lights_nodes : Array = $Lights.get_children()
+@onready var area: Area2D = $Area2D
 
 
 var _moped_enter_position : Vector2 = Vector2.ZERO
@@ -31,8 +31,8 @@ var _moped_enter_position : Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	_change_track_lights_to(track_regular_shine)
-	area.connect("body_entered", self, "_on_body_entered")
-	area.connect("body_exited", self, "_on_body_exited")
+	area.connect("body_entered", Callable(self, "_on_body_entered"))
+	area.connect("body_exited", Callable(self, "_on_body_exited"))
 	
 	
 func _on_body_entered(body: PhysicsBody2D) -> void:
@@ -41,7 +41,7 @@ func _on_body_entered(body: PhysicsBody2D) -> void:
 		_moped_enter_position = moped_rebel.global_position
 		moped_rebel.velocity = Vector2(nrt_cruise_speed, 0)
 		_change_track_lights_to(track_moped_shine)
-		$Particles2D.emitting = true
+		$GPUParticles2D.emitting = true
 
 
 func _on_body_exited(body: PhysicsBody2D) -> void:
@@ -53,9 +53,9 @@ func _on_body_exited(body: PhysicsBody2D) -> void:
 		_change_track_lights_to(track_regular_shine)
 		_moped_enter_position = Vector2.ZERO
 		moped_rebel.velocity = Vector2(moped_rebel.cruise_speed, 0)
-		$Particles2D.emitting = false
+		$GPUParticles2D.emitting = false
 	
 	
 func _change_track_lights_to(new_lights_color: Color) -> void:
 	for light in lights_nodes:
-		(light as Light2D).color = new_lights_color
+		(light as PointLight2D).color = new_lights_color

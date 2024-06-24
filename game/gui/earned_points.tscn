@@ -6,26 +6,26 @@
 resource_name = "bonus_flicker"
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("HBoxContainer/PointsText:custom_colors/font_color")
+tracks/0/path = NodePath("HBoxContainer/PointsText:theme_override_colors/font_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PackedFloat32Array( 0, 0.5, 1 ),
+"transitions": PackedFloat32Array( 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 0.196078, 1 ), Color( 0.0666667, 0.0431373, 0.839216, 1 ), Color( 1, 1, 0.196078, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("HBoxContainer/MultiplierText:custom_colors/font_color")
+tracks/1/path = NodePath("HBoxContainer/MultiplierText:theme_override_colors/font_color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PackedFloat32Array( 0, 0.5, 1 ),
+"transitions": PackedFloat32Array( 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 0.196078, 1 ), Color( 0.0666667, 0.0431373, 0.839216, 1 ), Color( 1, 1, 0.196078, 1 ) ]
 }
@@ -37,28 +37,28 @@ num_points = 450.0
 multiplier = 2.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-custom_constants/separation = 5
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 5
 
 [node name="PointsText" type="Label" parent="HBoxContainer"]
-margin_top = 13.0
-margin_right = 52.0
-margin_bottom = 27.0
-custom_colors/font_color = Color( 1, 1, 0, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+offset_top = 13.0
+offset_right = 52.0
+offset_bottom = 27.0
+theme_override_colors/font_color = Color( 1, 1, 0, 1 )
+theme_override_colors/font_shadow_color = Color( 0, 0, 0, 1 )
 text = "+450.00"
 align = 2
 valign = 1
 uppercase = true
 
 [node name="MultiplierText" type="Label" parent="HBoxContainer"]
-margin_left = 57.0
-margin_top = 13.0
-margin_right = 89.0
-margin_bottom = 27.0
-custom_colors/font_color = Color( 1, 1, 0.196078, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+offset_left = 57.0
+offset_top = 13.0
+offset_right = 89.0
+offset_bottom = 27.0
+theme_override_colors/font_color = Color( 1, 1, 0.196078, 1 )
+theme_override_colors/font_shadow_color = Color( 0, 0, 0, 1 )
 text = "X 2.0"
 valign = 1
 uppercase = true

@@ -1,16 +1,16 @@
-extends YSort
+extends Node2D
 class_name GroupGrabYsort
 """
-A kind of YSort that puts all nodes 
+A kind of Node2D that puts all nodes 
 from specified groups in the tree under itself at scene load
 """
 var Logger : Resource = preload("res://utils/logger.gd")
 
 
-export(Array, String) var grab_groups: Array = []
+@export var grab_groups: Array = [] # (Array, String)
 
 
-onready var LOG: Logger = Logger.new(self)
+@onready var LOG: Logger = Logger.new(self)
 
 
 var _target_nodes: Array = []

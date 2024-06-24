@@ -10,14 +10,14 @@ var AngerPulse: Resource = preload("res://obstacles/citizens/anger_pulse.tscn")
 signal got_dissed(this_node)
 
 
-export(int) var disses_required: int = 2
-export(float) var diss_mult_add_pulse: float = 0.3
+@export var disses_required: int = 2
+@export var diss_mult_add_pulse: float = 0.3
 
 
-onready var animator: AnimationPlayer = $AnimationPlayer
-onready var dissed_progress : ProgressBar = $ProgressBar
-onready var visibility_controller: VisibilityNotifier2D = $VisibilityNotifier2D
-onready var hearing_area: Area2D = $Hearing
+@onready var animator: AnimationPlayer = $AnimationPlayer
+@onready var dissed_progress : ProgressBar = $ProgressBar
+@onready var visibility_controller: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
+@onready var hearing_area: Area2D = $Hearing
 
 
 var _disses_heard : int = 0 
@@ -32,7 +32,7 @@ func is_dissed() -> bool:
 	
 
 func _on_area_entered(area: Area2D):
-	._on_area_entered(area)
+	super._on_area_entered(area)
 	LOG.debug("citizen caught area {}", [area])
 	if (area.is_in_group(C.GROUP_MR)):
 		_remove_target()
@@ -65,7 +65,7 @@ func _update_diss_progress() -> void:
 	
 
 func _build_anger_pulse_direction(direction: int) -> void:
-	var anger_pulse_node = AngerPulse.instance()
+	var anger_pulse_node = AngerPulse.instantiate()
 	anger_pulse_node.scale = Vector2(direction, 1)
 	anger_pulse_node.set_sc_mult_add(diss_mult_add_pulse)
 	add_child(anger_pulse_node)

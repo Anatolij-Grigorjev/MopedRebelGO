@@ -10,21 +10,21 @@ var EarnedPoints : Resource = preload("res://gui/earned_points.tscn")
 signal points_update_done
 
 
-export(bool) var debug_enabled := false
+@export var debug_enabled := false
 
 
 #components
-onready var sc_progress: SCProgressTracker = $MarginContainer/HBox/SCProgressTracker
-onready var timed_bonus: TimedBonus = $MarginContainer/HBox/TimedBonus
-onready var stage_progress: StageProgressBar = $MarginContainer/HBox/ReferenceRect/StageProgress
+@onready var sc_progress: SCProgressTracker = $MarginContainer/HBox/SCProgressTracker
+@onready var timed_bonus: TimedBonus = $MarginContainer/HBox/TimedBonus
+@onready var stage_progress: StageProgressBar = $MarginContainer/HBox/ReferenceRect/StageProgress
 
 
-var current_multiplier: float setget ,get_current_multiplier
+var current_multiplier: float: get = get_current_multiplier
 
 
 func _ready():
-	sc_progress.sc_points_label.connect("points_anim_done", self, "_on_SCPointsLabel_points_anim_done")
-	sc_progress.connect("levelup_ready", self, "_on_SCProgressTracker_levelup_ready")
+	sc_progress.sc_points_label.connect("points_anim_done", Callable(self, "_on_SCPointsLabel_points_anim_done"))
+	sc_progress.connect("levelup_ready", Callable(self, "_on_SCProgressTracker_levelup_ready"))
 	
 
 func _process(delta: float) -> void:
@@ -32,8 +32,8 @@ func _process(delta: float) -> void:
 		if (Input.is_action_just_pressed("debug1")):
 			var add_points := 200
 			var rand_position = Vector2(
-				rand_range(100, C.GAME_RESOLUTION.x - 100),
-				rand_range(50, C.GAME_RESOLUTION.y - 50)
+				randf_range(100, C.GAME_RESOLUTION.x - 100),
+				randf_range(50, C.GAME_RESOLUTION.y - 50)
 			)
 			print("earned points pos: %s" % rand_position)
 			add_earned_points(rand_position, add_points)
@@ -44,7 +44,7 @@ func _process(delta: float) -> void:
 	
 	
 func add_earned_points(from_canvas_position: Vector2, points: float, move_offset = Vector2(0, -50)) -> void:
-	yield(_add_earned_points_at_origin_label(from_canvas_position, points, move_offset), "tree_exiting")
+	await _add_earned_points_at_origin_label(from_canvas_position, points, move_offset).tree_exiting
 	add_raw_points(points)
 		
 		
@@ -76,11 +76,11 @@ Create earned points marker at base of rebel wheels and send that marker
 to main current points label on HUD
 """
 func _add_earned_points_at_origin_label(from_position: Vector2, earned_points: float, move_offset = Vector2(0, -50)) -> EarnedPoints:
-	var earned_node : EarnedPoints = EarnedPoints.instance()
+	var earned_node : EarnedPoints = EarnedPoints.instantiate()
 	earned_node.move_offset = move_offset
 	earned_node.multiplier = timed_bonus.current_value
 	earned_node.num_points = earned_points
-	earned_node.rect_position = from_position
+	earned_node.position = from_position
 	
 	add_child(earned_node)
 	

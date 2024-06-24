@@ -1,7 +1,7 @@
-tool
+@tool
 extends VBoxContainer
 
-export(String) var section_name: String = "section" setget set_section_name, get_section_name
+@export var section_name: String = "section": get = get_section_name, set = set_section_name
 
 
 func set_section_name(name: String) -> void:

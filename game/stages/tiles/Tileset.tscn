@@ -1,40 +1,40 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://stages/tiles/normal_diag_tiles_sheared.png" type="Texture" id=1]
+[ext_resource path="res://stages/tiles/normal_diag_tiles_sheared.png" type="Texture2D" id=1]
 
 [node name="Tileset" type="Node2D"]
 
-[node name="TileBrownLight" type="Sprite" parent="."]
+[node name="TileBrownLight" type="Sprite2D" parent="."]
 position = Vector2( -150, -200 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 325, 100 )
 
-[node name="TileBrownDark" type="Sprite" parent="."]
+[node name="TileBrownDark" type="Sprite2D" parent="."]
 position = Vector2( 150, -200 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 500, 0, 325, 100 )
 
-[node name="TileWhiteDark" type="Sprite" parent="."]
+[node name="TileWhiteDark" type="Sprite2D" parent="."]
 position = Vector2( -150, -50 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 100, 325, 100 )
 
-[node name="TileWhiteLight" type="Sprite" parent="."]
+[node name="TileWhiteLight" type="Sprite2D" parent="."]
 position = Vector2( 150, -50 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 525, 100, 325, 100 )
 
-[node name="TileMetalDark" type="Sprite" parent="."]
+[node name="TileMetalDark" type="Sprite2D" parent="."]
 position = Vector2( -150, 100 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 50, 200, 325, 100 )
 
-[node name="TileMetalLight" type="Sprite" parent="."]
+[node name="TileMetalLight" type="Sprite2D" parent="."]
 position = Vector2( 150, 100 )
 texture = ExtResource( 1 )
 region_enabled = true

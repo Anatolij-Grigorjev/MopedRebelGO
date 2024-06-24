@@ -1,4 +1,4 @@
-tool
+@tool
 extends Label
 class_name NumericLabel
 """
@@ -12,18 +12,18 @@ signal points_changed(new_value, old_value)
 signal points_anim_done
 
 
-export(String) var number_format : String = "%02d" setget set_number_format, get_number_format
-export(float) var raw_value: float = 0.0 setget set_value, get_value
+@export var number_format: String = "%02d": get = get_number_format, set = set_number_format
+@export var raw_value: float = 0.0: get = get_value, set = set_value
 
 
-onready var LOG: Logger = Logger.new(self)
-onready var animator: AnimationPlayer = $AnimationPlayer
-onready var merge_points_position : Vector2 = rect_size / 2
+@onready var LOG: Logger = Logger.new(self)
+@onready var animator: AnimationPlayer = $AnimationPlayer
+@onready var merge_points_position : Vector2 = size / 2
 
 
 func set_number_format(new_format: String) -> void:
 	if (Helpers.is_blank(new_format)):
-		text = String(raw_value)
+		text = str(raw_value)
 	else:
 		text = new_format % raw_value
 	number_format = new_format

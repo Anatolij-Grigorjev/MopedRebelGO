@@ -8,7 +8,7 @@ and tell moped to react appropriately
 var Logger : Resource = preload("res://utils/logger.gd")
 
 
-onready var LOG: Logger = Logger.new(self)
+@onready var LOG: Logger = Logger.new(self)
 
 
 func _on_area_entered(area: Area2D):

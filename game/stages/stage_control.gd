@@ -9,20 +9,20 @@ var DissAim: Resource = preload("res://rebel/diss_aim.tscn")
 var SummaryScene: Resource = preload("res://gui/tally_screen.tscn")
 
 
-onready var moped_rebel: MopedRebel = $MopedRebel
-onready var LOG: Logger = Logger.new(self)
-onready var HUD: HUDController = $CanvasLayer/HUD
-onready var start_position: Position2D = $StartPosition
+@onready var moped_rebel: MopedRebel = $MopedRebel
+@onready var LOG: Logger = Logger.new(self)
+@onready var HUD: HUDController = $CanvasLayer/HUD
+@onready var start_position: Marker2D = $StartPosition
 
 
-export(String) var stage_name := "test"
+@export var stage_name := "test"
 
 
-onready var _tile_size: Vector2 = $Road.get_cell_size()
-onready var _tile_height: int = _tile_size.y
+@onready var _tile_size: Vector2 = $Road.get_cell_size()
+@onready var _tile_height: int = _tile_size.y
 
-onready var _tracks_bounds := Helpers.get_tilemap_global_bounds($Road)
-onready var _track0_position := _tracks_bounds.position.y
+@onready var _tracks_bounds := Helpers.get_tilemap_global_bounds($Road)
+@onready var _track0_position := _tracks_bounds.position.y
 
 var _current_diss_aim: DissAim
 
@@ -32,10 +32,10 @@ func _ready() -> void:
 	#adjust track bounds due to specific tile shape
 	_tracks_bounds.position.y += _tile_height / 2
 	#setup moped position
-	moped_rebel.connect('swerve_direction_pressed', self, '_on_MopedRebel_swerve_direction_pressed')
-	moped_rebel.connect('diss_target_change_pressed', self, '_on_MopedRebel_diss_target_change_pressed')
-	moped_rebel.connect('diss_said', self, '_on_MopedRebel_diss_said')
-	moped_rebel.connect("anger_pulse_consumed", HUD, '_on_MopedRebel_anger_pulse_consumed')
+	moped_rebel.connect('swerve_direction_pressed', Callable(self, '_on_MopedRebel_swerve_direction_pressed'))
+	moped_rebel.connect('diss_target_change_pressed', Callable(self, '_on_MopedRebel_diss_target_change_pressed'))
+	moped_rebel.connect('diss_said', Callable(self, '_on_MopedRebel_diss_said'))
+	moped_rebel.connect("anger_pulse_consumed", Callable(HUD, '_on_MopedRebel_anger_pulse_consumed'))
 	
 	#setup track size for progress
 	HUD.stage_progress.stage_bounds = Vector2(
@@ -61,7 +61,7 @@ func _ready_NRT_for_moped() -> void:
 	#connect signals and accum NRT distance
 	for nrt_segment_node in get_tree().get_nodes_in_group(C.GROUP_NRT):
 		var nrt_segment = nrt_segment_node as NonRegulationTrack
-		nrt_segment.connect("moped_traveled_nrt", self, "_on_NRT_moped_traveled")
+		nrt_segment.connect("moped_traveled_nrt", Callable(self, "_on_NRT_moped_traveled"))
 		G.current_stage_NRT_length += nrt_segment.lights_nodes.size()
 	G.current_stage_NRT_length *= (_tile_size.x * 1.5)
 
@@ -69,7 +69,7 @@ func _ready_NRT_for_moped() -> void:
 func _ready_citizens_for_stage() -> void:
 	for citizen in get_tree().get_nodes_in_group(C.GROUP_DISSABLES):
 		var white_worker := citizen as CitizenRoadBlock
-		white_worker.connect("got_dissed", self, "_on_CitizenRoadBlock_got_dissed")
+		white_worker.connect("got_dissed", Callable(self, "_on_CitizenRoadBlock_got_dissed"))
 
 
 func _process(delta: float) -> void:
@@ -92,13 +92,13 @@ func _process_diss_aim() -> void:
 	var available_citizens := _get_onscreen_dissable_citizens()
 	if (available_citizens):
 		#sort citizens desc
-		available_citizens.sort_custom(Helpers, "sort_nodes_global_y")
+		available_citizens.sort_custom(Callable(Helpers, "sort_nodes_global_y"))
 		#use first from top
 		_start_aim_citizen(available_citizens[0])
 		
 		
 func _start_aim_citizen(citizen: CitizenRoadBlock) -> void:
-	_current_diss_aim = DissAim.instance()
+	_current_diss_aim = DissAim.instantiate()
 	citizen.add_child(_current_diss_aim)
 	#add citizen height to target head
 	_current_diss_aim.position = citizen.hearing_area.position
@@ -114,7 +114,7 @@ func _stop_aim_citizen(citizen: CitizenRoadBlock) -> void:
 	
 	
 func _on_MopedRebel_swerve_direction_pressed(intended_direction: int) -> void:
-	var moped_on_tile_idx : Vector2 = $Road.world_to_map(moped_rebel.global_position)
+	var moped_on_tile_idx : Vector2 = $Road.local_to_map(moped_rebel.global_position)
 	var moped_next_tile_idx := moped_on_tile_idx + Vector2(0, intended_direction)
 	var moped_next_tile_type : int = $Road.get_cellv(moped_next_tile_idx)
 	
@@ -132,7 +132,7 @@ func _on_MopedRebel_diss_target_change_pressed(change_direction: int) -> void:
 		return
 
 	#sort citizens desc
-	available_citizens.sort_custom(Helpers, "sort_nodes_global_y")
+	available_citizens.sort_custom(Callable(Helpers, "sort_nodes_global_y"))
 	if (not is_instance_valid(_current_diss_aim)):
 		_start_aim_citizen(available_citizens[0])
 	else:
@@ -188,7 +188,7 @@ func _get_onscreen_dissable_citizens() -> Array:
 	var onscreen_dissables : Array = []
 	for dissable in get_tree().get_nodes_in_group(C.GROUP_DISSABLES):
 		var citizen : CitizenRoadBlock = dissable as CitizenRoadBlock
-		var citizen_visibility: VisibilityNotifier2D = citizen.visibility_controller
+		var citizen_visibility: VisibleOnScreenNotifier2D = citizen.visibility_controller
 		if (citizen_visibility.is_on_screen()
 			and not citizen.is_dissed()
 			and citizen_visibility.global_position.x > moped_rebel.global_position.x):
@@ -213,14 +213,14 @@ func _start_moped_stage_intro(cutscene_trigger: int) -> void:
 		Tween.TRANS_LINEAR, Tween.EASE_OUT_IN
 	)
 	mover_tween.start()
-	yield(mover_tween, "tween_all_completed")
+	await mover_tween.tween_all_completed
 	_toggle_ui_elements_visible(true)
 	
 	
 func _start_moped_stage_outro(cutscene_trigger: int) -> void:
 	if (StageCutsceneArea.CutsceneTrigger.ENTRY == cutscene_trigger):
 		_toggle_ui_elements_visible(false)
-		yield(get_tree().create_timer(10.0), "timeout")
+		await get_tree().create_timer(10.0).timeout
 		G.reset_current_stage_stats()
 
 	else:
@@ -230,7 +230,7 @@ func _start_moped_stage_outro(cutscene_trigger: int) -> void:
 		if (not C.STAGE_COMPLETION_BONUS.has(stage_name)):
 			LOG.error("stage bonus not found for '{}'", [stage_name])
 		var stage_bonus : float = C.STAGE_COMPLETION_BONUS[stage_name]
-		var tally_screen = SummaryScene.instance()
+		var tally_screen = SummaryScene.instantiate()
 		tally_screen.set_stats_data(
 			G.current_stage_citizens_dissed,
 			G.current_stage_citizens,
@@ -238,8 +238,8 @@ func _start_moped_stage_outro(cutscene_trigger: int) -> void:
 			G.current_stage_NRT_length,
 			stage_bonus
 		)
-		$CanvasLayer.add_child_below_node($CanvasLayer/SummaryTablePosition, tally_screen)
-		yield(tally_screen, "tally_forward_pressed")
+		$CanvasLayer.add_sibling($CanvasLayer/SummaryTablePosition, tally_screen)
+		await tally_screen.tally_forward_pressed
 		if (tally_screen.total_earned_points > 0 and G.current_street_scred < C.MR_MAX_SC):
 			var earned_points : float = tally_screen.total_earned_points
 			#make only progress bar visible
@@ -250,13 +250,13 @@ func _start_moped_stage_outro(cutscene_trigger: int) -> void:
 			HUD.add_earned_points(
 				tally_screen.total_earned_position, 
 				earned_points, 
-				HUD.sc_progress.sc_points_label.rect_position - tally_screen.total_earned_position
+				HUD.sc_progress.sc_points_label.position - tally_screen.total_earned_position
 			)
-			yield(HUD, "points_update_done")
+			await HUD.points_update_done
 			
 		#wait before transition
 		tally_screen.centered_button.modulate.a = 0.0
-		yield(get_tree().create_timer(0.8), "timeout")
+		await get_tree().create_timer(0.8).timeout
 		var next_scene_path = (
 			C.STAGE_SELECT_SCENE_PATH 
 			if G.current_street_scred < C.MR_MAX_SC 

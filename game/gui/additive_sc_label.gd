@@ -5,15 +5,15 @@ func update_current_points(current_pts: float) -> void:
 	if (current_pts != 0.0):
 		_set_points_color(current_pts)
 		_adjust_display_format(current_pts)
-		.update_current_points(current_pts)
+		super.update_current_points(current_pts)
 	self.visible = current_pts != 0.0
 	
 
 func _set_points_color(for_points: float) -> void:
 	if (for_points > 0):
-		self.set("custom_colors/font_color", Color.yellow)
+		self.set("theme_override_colors/font_color", Color.YELLOW)
 	else:
-		self.set("custom_colors/font_color", Color.red)
+		self.set("theme_override_colors/font_color", Color.RED)
 		
 		
 func _adjust_display_format(for_points: float) -> void:

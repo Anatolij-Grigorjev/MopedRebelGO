@@ -15,8 +15,8 @@ var DeliveryPackage: Resource = preload("res://rebel/delivery_package.tscn")
 signal delivery_package_thrown(remaining_packages)
 
 
-onready var LOG: Logger = Logger.new(self)
-onready var remaining_packages : int = get_child_count()
+@onready var LOG: Logger = Logger.new(self)
+@onready var remaining_packages : int = get_child_count()
 
 
 var _topmost_package: DeliveryPackage
@@ -31,13 +31,13 @@ func throw_top_package() -> void:
 	if (remaining_packages and _topmost_package):
 		remaining_packages = max(0, remaining_packages - 1)
 		LOG.debug("Throwing package {}, left: {}", [_topmost_package, remaining_packages])
-		var fly_package : DeliveryPackage = DeliveryPackage.instance()
+		var fly_package : DeliveryPackage = DeliveryPackage.instantiate()
 		fly_package.global_position = _topmost_package.global_position
 		fly_package.global_scale = _topmost_package.global_scale
 		get_tree().root.add_child(fly_package)
 		remove_child(_topmost_package)
 		#node configuration happens between frames, lets wait
-		yield(get_tree(), "idle_frame")
+		await get_tree().idle_frame
 		fly_package.do_flyoff()
 		if (remaining_packages):
 			_topmost_package = get_child(0)

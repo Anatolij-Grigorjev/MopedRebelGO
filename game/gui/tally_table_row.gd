@@ -5,8 +5,8 @@ Individual row controller that sets row label and value
 """
 
 
-onready var row_label: Label = $Content/Labels/Label
-onready var row_value: Label = $Content/Labels/Value
+@onready var row_label: Label = $Content/Labels/Label
+@onready var row_value: Label = $Content/Labels/Value
 
 
 func _ready():

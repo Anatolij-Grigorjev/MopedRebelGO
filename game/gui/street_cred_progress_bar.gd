@@ -1,4 +1,4 @@
-extends TextureProgress
+extends TextureProgressBar
 class_name StreetCredProgressBar
 """
 This script controls the progress bar for street cred - 
@@ -16,14 +16,14 @@ signal progress_bar_filled
 const PROGRESS_ALTER_VELOCITY_SEC = 0.5
 
 
-export(bool) var debug_enabled := false
+@export var debug_enabled := false
 
 
-onready var State : GameState = get_node("/root/G")
-onready var LOG: Logger = Logger.new(self)
-onready var sc_label : Label = $SCLabel
-onready var tween : Tween = $BarGrower 
-onready var animator : AnimationPlayer = $AnimationPlayer
+@onready var State : GameState = get_node("/root/G")
+@onready var LOG: Logger = Logger.new(self)
+@onready var sc_label : Label = $SCLabel
+@onready var tween : Tween = get_tree().create_tween() 
+@onready var animator : AnimationPlayer = $AnimationPlayer
 
 
 var _progress_value_nodepath : NodePath = NodePath(":value")
@@ -31,8 +31,8 @@ var _progress_value_nodepath : NodePath = NodePath(":value")
 var _label_size : Vector2
 var _high_label_y : float
 var _lowest_label_y : float
-onready var _initial_bar_border_color: Color = tint_over
-onready var _initial_bar_color: Color = tint_progress
+@onready var _initial_bar_border_color: Color = tint_over
+@onready var _initial_bar_color: Color = tint_progress
 
 
 func _process(delta: float) -> void:
@@ -56,14 +56,14 @@ func _ready():
 			prev_sc_level.req_sc,
 			next_sc_level.req_sc
 		)
-	sc_label.rect_size.x = rect_size.x
+	sc_label.size.x = size.x
 	#wait some frames to set label position
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
-	tween.connect("tween_step", self, "_on_tween_step")
-	_label_size = sc_label.rect_size
+	await get_tree().process_frame
+	await get_tree().process_frame
+	tween.connect("tween_step", Callable(self, "_on_tween_step"))
+	_label_size = sc_label.size
 	_high_label_y = 0.0
-	_lowest_label_y = rect_size.y - _label_size.y
+	_lowest_label_y = size.y - _label_size.y
 	_on_tween_step(self, _progress_value_nodepath, 0.0, null)
 	
 	
@@ -77,7 +77,7 @@ func _set_current_progress_ranges(curr_value: int, min_value: int, max_value: in
 func _on_tween_step(source: Object, prop_path: NodePath, elapsed: float, value: Object) -> void:
 	#this is a tween about changing progress bar value, adjust label
 	if (source == self and prop_path == _progress_value_nodepath):
-		sc_label.rect_position = _get_label_position_current_progress()
+		sc_label.position = _get_label_position_current_progress()
 
 
 """
@@ -86,8 +86,8 @@ progress bar height
 """
 func _get_label_position_current_progress() -> Vector2:
 	var fullness_coef : float = (value - min_value) / (max_value - min_value)
-	var bar_height : float = rect_size.y * fullness_coef
-	var label_pos_y : float = rect_size.y - bar_height
+	var bar_height : float = size.y * fullness_coef
+	var label_pos_y : float = size.y - bar_height
 	label_pos_y = clamp(label_pos_y, _high_label_y, _lowest_label_y)
 	LOG.debug("value: {}/{}, fullness: {}, bar size: {}, label_pos: {}", [
 			value, 
@@ -123,7 +123,7 @@ func grow_progress_local(new_progress: int) -> void:
 		animator.play("bar_reduce_flicker")
 	else:
 		animator.play("bar_rise_flicker")
-	yield(tween, "tween_all_completed")
+	await tween.finished
 	animator.stop(true)
 	tint_over = _initial_bar_border_color
 	tint_progress = _initial_bar_color
@@ -141,7 +141,7 @@ func grow_progress_next_level(new_progress: int,
 	if (new_max > max_value):
 		var prev_progress_max := max_value
 		#grow current progress to end
-		yield(grow_progress_local(prev_progress_max), "completed")
+		await grow_progress_local(prev_progress_max)
 		#inform about full progress bar
 		emit_signal("progress_bar_filled")
 		#change current bar
@@ -151,7 +151,7 @@ func grow_progress_next_level(new_progress: int,
 
 
 func _prepare_and_start_tween(new_progress: int) -> void:
-	tween.remove_all()
+	tween.stop()
 	var progress_alter_distance = abs(value - new_progress)
 	var progress_alter_relative = progress_alter_distance / max_value
 	var alter_time_secs = progress_alter_relative / PROGRESS_ALTER_VELOCITY_SEC
@@ -160,9 +160,7 @@ func _prepare_and_start_tween(new_progress: int) -> void:
 		progress_alter_distance, progress_alter_relative, 
 		alter_time_secs
 	])
-	tween.interpolate_property(
-		self, "value", 
-		value, new_progress, 
-		alter_time_secs, Tween.TRANS_LINEAR, Tween.EASE_OUT
-	)
-	tween.start()
+	tween.set_trans(Tween.TRANS_LINEAR)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "value", new_progress, alter_time_secs)
+	tween.play()
