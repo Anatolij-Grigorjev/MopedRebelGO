@@ -11,6 +11,9 @@ value = 56.0
 texture_over = ExtResource( 1 )
 nine_patch_stretch = true
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TextureRect" type="TextureRect" parent="."]
 margin_right = 64.0

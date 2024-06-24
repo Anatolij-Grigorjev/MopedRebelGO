@@ -61,14 +61,12 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 15.0
 
 [node name="ScreenSectionHeader" parent="Margin50/HBoxContainer/ScreenParts" instance=ExtResource( 4 )]
-editor/display_folded = true
 anchor_right = 0.0
 margin_right = 1066.0
 margin_bottom = 51.0
 section_name = "select stage"
 
 [node name="LevelsGrid" type="GridContainer" parent="Margin50/HBoxContainer/ScreenParts"]
-editor/display_folded = true
 margin_top = 55.0
 margin_right = 1066.0
 margin_bottom = 565.0
@@ -83,65 +81,64 @@ script = ExtResource( 5 )
 [node name="SelectLevelCell" parent="Margin50/HBoxContainer/ScreenParts/LevelsGrid" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 262.0
-margin_bottom = 252.0
-selected = false
+margin_right = 263.0
+margin_bottom = 253.0
 
 [node name="ReferenceRect" type="ReferenceRect" parent="Margin50/HBoxContainer/ScreenParts/LevelsGrid"]
-margin_left = 267.0
-margin_right = 529.0
-margin_bottom = 252.0
+margin_left = 268.0
+margin_right = 531.0
+margin_bottom = 253.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 border_color = Color( 0.109804, 0.00392157, 0.00392157, 1 )
 
 [node name="ReferenceRect2" type="ReferenceRect" parent="Margin50/HBoxContainer/ScreenParts/LevelsGrid"]
-margin_left = 534.0
-margin_right = 796.0
-margin_bottom = 252.0
+margin_left = 536.0
+margin_right = 799.0
+margin_bottom = 253.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 border_color = Color( 0.109804, 0.00392157, 0.00392157, 1 )
 
 [node name="ReferenceRect3" type="ReferenceRect" parent="Margin50/HBoxContainer/ScreenParts/LevelsGrid"]
-margin_left = 801.0
-margin_right = 1063.0
-margin_bottom = 252.0
+margin_left = 804.0
+margin_right = 1066.0
+margin_bottom = 253.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 border_color = Color( 0.109804, 0.00392157, 0.00392157, 1 )
 
 [node name="ReferenceRect4" type="ReferenceRect" parent="Margin50/HBoxContainer/ScreenParts/LevelsGrid"]
-margin_top = 257.0
-margin_right = 262.0
-margin_bottom = 509.0
+margin_top = 258.0
+margin_right = 263.0
+margin_bottom = 510.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 border_color = Color( 0.109804, 0.00392157, 0.00392157, 1 )
 
 [node name="ReferenceRect5" type="ReferenceRect" parent="Margin50/HBoxContainer/ScreenParts/LevelsGrid"]
-margin_left = 267.0
-margin_top = 257.0
-margin_right = 529.0
-margin_bottom = 509.0
+margin_left = 268.0
+margin_top = 258.0
+margin_right = 531.0
+margin_bottom = 510.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 border_color = Color( 0.109804, 0.00392157, 0.00392157, 1 )
 
 [node name="ReferenceRect6" type="ReferenceRect" parent="Margin50/HBoxContainer/ScreenParts/LevelsGrid"]
-margin_left = 534.0
-margin_top = 257.0
-margin_right = 796.0
-margin_bottom = 509.0
+margin_left = 536.0
+margin_top = 258.0
+margin_right = 799.0
+margin_bottom = 510.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 border_color = Color( 0.109804, 0.00392157, 0.00392157, 1 )
 
 [node name="ReferenceRect7" type="ReferenceRect" parent="Margin50/HBoxContainer/ScreenParts/LevelsGrid"]
-margin_left = 801.0
-margin_top = 257.0
-margin_right = 1063.0
-margin_bottom = 509.0
+margin_left = 804.0
+margin_top = 258.0
+margin_right = 1066.0
+margin_bottom = 510.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 border_color = Color( 0.109804, 0.00392157, 0.00392157, 1 )
@@ -152,6 +149,7 @@ anchor_bottom = 0.0
 margin_top = 569.0
 margin_right = 1066.0
 margin_bottom = 620.0
-button_label = "Press 'ENTER' button to play stage..."
+button_label = "PRESSED!"
 press_action = "ui_accept"
+
 [connection signal="button_pressed" from="Margin50/HBoxContainer/ScreenParts/ButtonContainer" to="Margin50/HBoxContainer/ScreenParts/LevelsGrid" method="_on_ButtonContainer_button_pressed"]

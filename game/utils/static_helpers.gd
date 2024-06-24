@@ -102,8 +102,8 @@ Example: a 3-star rating in a 5-star rating system maps to a 10-point system:
 mapval(3, 1, 5, 1, 10) => 6
 """	
 static func mapval(value: float, from_min: float, from_max: float, to_min: float, to_max: float) -> float:
-	assert from_min < from_max
-	assert to_min <= to_max
+	assert (from_min < from_max)
+	assert (to_min <= to_max)
 	var clamped = clamp(value, from_min, from_max)
 	var coef = (to_max - to_min) / (from_max - from_min)
 	

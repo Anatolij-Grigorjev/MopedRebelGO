@@ -16,7 +16,6 @@ collision_mask = 16
 shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-drag_margin_h_enabled = false
-drag_margin_v_enabled = false
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

@@ -16,7 +16,7 @@ export(bool) var debug_enabled: bool = false
 
 
 onready var LOG: Logger = Logger.new(self)
-onready var sc_progress_bar: ProgressBar = $StreetCredProgressBar
+onready var sc_progress_bar: TextureProgress = $StreetCredProgressBar
 onready var sc_points_label: NumericLabel = $CurrentSCLabel
 
 

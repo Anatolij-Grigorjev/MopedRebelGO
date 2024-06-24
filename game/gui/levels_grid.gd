@@ -31,7 +31,7 @@ func _process(delta: float) -> void:
 		
 func _change_selected_stage(new_selection: int) -> void:
 	stages[selected_stage].selected = false
-	selected_stage = wrapi(new_selection, 0, stages.size())
+	selected_stage = wrapi(new_selection, 0, stages.size() - 1)
 	stages[selected_stage].selected = true
 
 

@@ -13,7 +13,7 @@ var call_params: Array = []
 
 
 func _init(ctx: Thread):
-	assert ctx != null
+	assert(ctx != null)
 
 	thread = ctx
 	call_params = []
