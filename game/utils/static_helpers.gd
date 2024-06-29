@@ -38,7 +38,7 @@ static func get_tilemap_global_bounds(tilemap: TileMap) -> Rect2:
 		elif (a_cell_pos.y > high_y):
 			high_y = a_cell_pos.y
 	
-	var cell_extents : Vector2 = tilemap.get_cell_size() / 2
+	var cell_extents : Vector2 = tilemap.tile_set.tile_size / 2
 	
 	var upper_left_corner_pos := tilemap.map_to_local(Vector2(low_x, low_y)) - cell_extents
 	var lower_right_corner_pos := tilemap.map_to_local(Vector2(high_x, high_y)) + cell_extents

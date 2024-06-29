@@ -10,3 +10,12 @@ res://gui/current_sc_label.gd
 res://utils/static_helpers.gd
 res://gui/street_cred_progress_bar.gd
 res://stages/load_stage.gd
+res://stages/stage_control.gd
+res://stages/test/test_stage.tscn
+res://stages/stage_cutscene_area.gd
+res://gui/earned_points.gd
+res://gui/timed_bonus.gd
+res://gui/stage_progress.gd
+res://gui/stage_progress.tscn
+res://rebel/packages_bundle.tscn
+res://gui/centered_label_button.tscn

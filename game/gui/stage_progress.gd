@@ -15,7 +15,7 @@ var _moped_rebel: MopedRebel = null
 
 func _ready() -> void:
 	#wait to initialize rebel
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	if (get_node("/root/G")):
 		_moped_rebel = G.moped_rebel_node
 	set_process(is_instance_valid(_moped_rebel))

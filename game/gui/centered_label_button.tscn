@@ -1,44 +1,46 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://btwa3bqnt5eiw"]
 
-[ext_resource path="res://gui/centered_label_button.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://gui/centered_label_button.gd" id="1"]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id="1"]
 resource_name = "flashing"
 length = 2.0
-loop = true
+loop_mode = 1
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("PressButtonLabel:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 1 ),
-"transitions": PackedFloat32Array( 1, 1 ),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [ true, false ]
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_encns"]
+_data = {
+"flashing": SubResource("1")
 }
 
 [node name="ButtonContainer" type="CenterContainer"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="PressButtonLabel" type="Label" parent="."]
-offset_left = 567.0
-offset_top = 353.0
-offset_right = 713.0
-offset_bottom = 367.0
-theme_override_colors/font_color = Color( 1, 1, 0.196078, 1 )
-theme_override_colors/font_shadow_color = Color( 0, 0, 0, 1 )
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.196078, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "Press 'DISS' button..."
-align = 1
-valign = 1
 uppercase = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_encns")
+}
 autoplay = "flashing"
-playback_speed = 1.5
-anims/flashing = SubResource( 1 )

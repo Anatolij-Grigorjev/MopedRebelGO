@@ -1,22 +1,20 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://c0suptr3iyre1"]
 
-[ext_resource path="res://gui/stage_progress_track.png" type="Texture2D" id=1]
-[ext_resource path="res://gui/stage_progress.gd" type="Script" id=2]
-[ext_resource path="res://rebel/rebel_on_moped_mid.png" type="Texture2D" id=3]
+[ext_resource type="Texture2D" uid="uid://duqos2406fmpr" path="res://gui/stage_progress_track.png" id="1"]
+[ext_resource type="Script" path="res://gui/stage_progress.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://07l2u71vlinv" path="res://rebel/rebel_on_moped_mid.png" id="3"]
 
 [node name="StageProgress" type="TextureProgressBar"]
+anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 75.0
-value = 56.0
-texture_over = ExtResource( 1 )
 nine_patch_stretch = true
-script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture_over = ExtResource("1")
+script = ExtResource("2")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
-texture = ExtResource( 3 )
-expand = true
+texture = ExtResource("3")
+expand_mode = 1

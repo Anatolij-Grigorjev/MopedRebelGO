@@ -17,7 +17,7 @@ const DEFAULT_TTL:float = 1.0
 
 @onready var points_text: Label = $HBoxContainer/PointsText
 @onready var mult_text: Label = $HBoxContainer/MultiplierText
-@onready var tween : Tween = $MoveToPoints
+@onready var tween : Tween = get_tree().create_tween()
 
 
 func _ready() -> void:

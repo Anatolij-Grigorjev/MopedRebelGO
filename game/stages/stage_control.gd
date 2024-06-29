@@ -1,8 +1,9 @@
 class_name StageControl
 extends Node2D
 """
-A general script for controlling stage aspects like 
+A general script for controlling stage aspects 
 - moving moped across tracks
+- ...
 """
 var Logger : Resource = preload("res://utils/logger.gd")
 var DissAim: Resource = preload("res://rebel/diss_aim.tscn")
@@ -14,11 +15,13 @@ var SummaryScene: Resource = preload("res://gui/tally_screen.tscn")
 @onready var HUD: HUDController = $CanvasLayer/HUD
 @onready var start_position: Marker2D = $StartPosition
 
+@onready var mover_tween : Tween = get_tree().create_tween()
+
 
 @export var stage_name := "test"
 
 
-@onready var _tile_size: Vector2 = $Road.get_cell_size()
+@onready var _tile_size: Vector2 = $Road.tile_set.tile_size
 @onready var _tile_height: int = _tile_size.y
 
 @onready var _tracks_bounds := Helpers.get_tilemap_global_bounds($Road)
@@ -116,10 +119,10 @@ func _stop_aim_citizen(citizen: CitizenRoadBlock) -> void:
 func _on_MopedRebel_swerve_direction_pressed(intended_direction: int) -> void:
 	var moped_on_tile_idx : Vector2 = $Road.local_to_map(moped_rebel.global_position)
 	var moped_next_tile_idx := moped_on_tile_idx + Vector2(0, intended_direction)
-	var moped_next_tile_type : int = $Road.get_cellv(moped_next_tile_idx)
+	var moped_next_tile_data : int = $Road.get_cell_tile_data(0, moped_next_tile_idx)
 	
 	#specified direction is an invalid move
-	if (moped_next_tile_type == TileMap.INVALID_CELL):
+	if (moped_next_tile_data == null):
 		return
 	
 	moped_rebel.perform_swerve(intended_direction, _tile_height)
@@ -206,7 +209,6 @@ func _toggle_ui_elements_visible(visible: bool) -> void:
 func _start_moped_stage_intro(cutscene_trigger: int) -> void:
 	_toggle_ui_elements_visible(false)
 	var stage_position := start_position.global_position
-	var mover_tween : Tween = $Tween
 	
 	mover_tween.interpolate_property(moped_rebel, 'global_position',
 		null, stage_position, 2.0, 

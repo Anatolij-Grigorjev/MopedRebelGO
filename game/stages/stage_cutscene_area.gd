@@ -60,10 +60,7 @@ func _process_cutscene_for_trigger(area: Area2D, trigger: int) -> void:
 	moped_rebel.disable_player_control()
 	$Camera2D.current = true
 	var cutscene_routine_owner : Node = get_node(cutscene_routine_owner_path)
-	yield(
-		cutscene_routine_owner.call(cutscene_routine_name, trigger),
-		"completed"
-	)
+	await cutscene_routine_owner.call(cutscene_routine_name, trigger)
 	if (return_control_after):
 		$Camera2D.current = false
 		moped_rebel.enable_player_control()

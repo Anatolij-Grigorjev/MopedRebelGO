@@ -35,7 +35,8 @@ func _process(delta: float) -> void:
 	if (not timer.is_stopped()):
 		value = timer.time_left
 	
-	
+
+@warning_ignore("native_method_override")
 func set_value(new_value: float) -> void:
 	if (new_value == default_value or new_value < 1.0):
 		return

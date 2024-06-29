@@ -1,154 +1,183 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=13 format=3 uid="uid://dk3gvfyi70kbc"]
 
-[ext_resource path="res://stages/stage_control.gd" type="Script" id=1]
-[ext_resource path="res://stages/tiles/diag_brown_white_metal_slanted.tres" type="TileSet" id=2]
-[ext_resource path="res://stages/group_grab_ysort.gd" type="Script" id=3]
-[ext_resource path="res://stages/non_regulation_track1.tscn" type="PackedScene" id=4]
-[ext_resource path="res://stages/non_regulation_track2.tscn" type="PackedScene" id=5]
-[ext_resource path="res://stages/non_regulation_track3.tscn" type="PackedScene" id=6]
-[ext_resource path="res://obstacles/roadblocks/tall/tall_roadblock.tscn" type="PackedScene" id=7]
-[ext_resource path="res://obstacles/citizens/white_worker.tscn" type="PackedScene" id=8]
-[ext_resource path="res://rebel/moped_rebel.tscn" type="PackedScene" id=9]
-[ext_resource path="res://stages/bg/sky_poles_bg.tscn" type="PackedScene" id=10]
-[ext_resource path="res://gui/HUD.tscn" type="PackedScene" id=11]
-[ext_resource path="res://stages/stage_cutscene_area.tscn" type="PackedScene" id=12]
+[ext_resource type="Script" path="res://stages/stage_control.gd" id="1"]
+[ext_resource type="TileSet" path="res://stages/tiles/diag_brown_white_metal_slanted.tres" id="2"]
+[ext_resource type="Script" path="res://stages/group_grab_ysort.gd" id="3"]
+[ext_resource type="PackedScene" path="res://stages/non_regulation_track1.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://stages/non_regulation_track2.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://stages/non_regulation_track3.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://obstacles/roadblocks/tall/tall_roadblock.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://obstacles/citizens/white_worker.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://t2taxsitd3t6" path="res://rebel/moped_rebel.tscn" id="9"]
+[ext_resource type="PackedScene" path="res://stages/bg/sky_poles_bg.tscn" id="10"]
+[ext_resource type="PackedScene" path="res://gui/HUD.tscn" id="11"]
+[ext_resource type="PackedScene" path="res://stages/stage_cutscene_area.tscn" id="12"]
 
 [node name="TestStage" type="Node2D"]
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="Road" type="TileMap" parent="."]
-tile_set = ExtResource( 2 )
-cell_size = Vector2( 200, 100 )
-format = 1
-tile_data = PackedInt32Array( -65542, 1, 0, -65541, 1, 0, -65540, 1, 0, -65539, 1, 0, -65538, 1, 0, -65537, 1, 0, -131072, 1, 0, -131071, 1, 0, -131070, 1, 0, -131069, 1, 0, -131068, 1, 0, -131067, 1, 0, -131066, 1, 0, -131065, 1, 0, -131064, 1, 0, -131063, 1, 0, -131062, 1, 0, -131061, 1, 0, -131060, 1, 0, -131059, 1, 0, -131058, 1, 0, -131057, 1, 0, -131056, 1, 0, -131055, 1, 0, -131054, 1, 0, -131053, 1, 0, -131052, 1, 0, -131051, 1, 0, -131050, 1, 0, -131049, 1, 0, -131048, 1, 0, -131047, 1, 0, -131046, 1, 0, -131045, 1, 0, -131044, 1, 0, -131043, 1, 0, -131042, 1, 0, -131041, 1, 0, -131040, 1, 0, -131039, 1, 0, -131038, 1, 0, -6, 1, 0, -5, 1, 0, -4, 1, 0, -3, 1, 0, -2, 1, 0, -1, 1, 0, -65536, 1, 0, -65535, 1, 0, -65534, 1, 0, -65533, 1, 0, -65532, 1, 0, -65531, 1, 0, -65530, 1, 0, -65529, 1, 0, -65528, 1, 0, -65527, 1, 0, -65526, 1, 0, -65525, 1, 0, -65524, 1, 0, -65523, 1, 0, -65522, 1, 0, -65521, 1, 0, -65520, 1, 0, -65519, 1, 0, -65518, 1, 0, -65517, 1, 0, -65516, 1, 0, -65515, 1, 0, -65514, 1, 0, -65513, 1, 0, -65512, 1, 0, -65511, 1, 0, -65510, 1, 0, -65509, 1, 0, -65508, 1, 0, -65507, 1, 0, -65506, 1, 0, -65505, 1, 0, -65504, 1, 0, -65503, 1, 0, -65502, 1, 0, -65501, 1, 0, 65530, 1, 0, 65531, 1, 0, 65532, 1, 0, 65533, 1, 0, 65534, 1, 0, 65535, 1, 0, 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0, 8, 1, 0, 9, 1, 0, 10, 1, 0, 11, 1, 0, 12, 1, 0, 13, 1, 0, 14, 1, 0, 15, 1, 0, 16, 1, 0, 17, 1, 0, 18, 1, 0, 19, 1, 0, 20, 1, 0, 21, 1, 0, 22, 1, 0, 23, 1, 0, 24, 1, 0, 25, 1, 0, 26, 1, 0, 27, 1, 0, 28, 1, 0, 29, 1, 0, 30, 1, 0, 31, 1, 0, 32, 1, 0, 33, 1, 0, 34, 1, 0, 35, 1, 0, 36, 1, 0, 37, 1, 0, 131066, 1, 0, 131067, 1, 0, 131068, 1, 0, 131069, 1, 0, 131070, 1, 0, 131071, 1, 0, 65536, 1, 0, 65537, 1, 0, 65538, 1, 0, 65539, 1, 0, 65540, 1, 0, 65541, 1, 0, 65542, 1, 0, 65543, 1, 0, 65544, 1, 0, 65545, 1, 0, 65546, 1, 0, 65547, 1, 0, 65548, 1, 0, 65549, 1, 0, 65550, 1, 0, 65551, 1, 0, 65552, 1, 0, 65553, 1, 0, 65554, 1, 0, 65555, 1, 0, 65556, 1, 0, 65557, 1, 0, 65558, 1, 0, 65559, 1, 0, 65560, 1, 0, 65561, 1, 0, 65562, 1, 0, 65563, 1, 0, 65564, 1, 0, 65565, 1, 0, 65566, 1, 0, 65567, 1, 0, 65568, 1, 0, 65569, 1, 0, 65570, 1, 0, 65571, 1, 0, 65572, 1, 0, 65573, 1, 0, 196602, 1, 0, 196603, 1, 0, 196604, 1, 0, 196605, 1, 0, 196606, 1, 0, 196607, 1, 0, 131072, 1, 0, 131073, 1, 0, 131074, 1, 0, 131075, 1, 0, 131076, 1, 0, 131077, 1, 0, 131078, 1, 0, 131079, 1, 0, 131080, 1, 0, 131081, 1, 0, 131082, 1, 0, 131083, 1, 0, 131084, 1, 0, 131085, 1, 0, 131086, 1, 0, 131087, 1, 0, 131088, 1, 0, 131089, 1, 0, 131090, 1, 0, 131091, 1, 0, 131092, 1, 0, 131093, 1, 0, 131094, 1, 0, 131095, 1, 0, 131096, 1, 0, 131097, 1, 0, 131098, 1, 0, 131099, 1, 0, 131100, 1, 0, 131101, 1, 0, 131102, 1, 0, 131103, 1, 0, 131104, 1, 0, 131105, 1, 0, 131106, 1, 0, 131107, 1, 0, 131108, 1, 0, 131109, 1, 0 )
+tile_set = ExtResource("2")
+format = 2
+layer_0/tile_data = PackedInt32Array(-65542, 1, 0, -65541, 1, 0, -65540, 1, 0, -65539, 1, 0, -65538, 1, 0, -65537, 1, 0, -131072, 1, 0, -131071, 1, 0, -131070, 1, 0, -131069, 1, 0, -131068, 1, 0, -131067, 1, 0, -131066, 1, 0, -131065, 1, 0, -131064, 1, 0, -131063, 1, 0, -131062, 1, 0, -131061, 1, 0, -131060, 1, 0, -131059, 1, 0, -131058, 1, 0, -131057, 1, 0, -131056, 1, 0, -131055, 1, 0, -131054, 1, 0, -131053, 1, 0, -131052, 1, 0, -131051, 1, 0, -131050, 1, 0, -131049, 1, 0, -131048, 1, 0, -131047, 1, 0, -131046, 1, 0, -131045, 1, 0, -131044, 1, 0, -131043, 1, 0, -131042, 1, 0, -131041, 1, 0, -131040, 1, 0, -131039, 1, 0, -131038, 1, 0, -6, 1, 0, -5, 1, 0, -4, 1, 0, -3, 1, 0, -2, 1, 0, -1, 1, 0, -65536, 1, 0, -65535, 1, 0, -65534, 1, 0, -65533, 1, 0, -65532, 1, 0, -65531, 1, 0, -65530, 1, 0, -65529, 1, 0, -65528, 1, 0, -65527, 1, 0, -65526, 1, 0, -65525, 1, 0, -65524, 1, 0, -65523, 1, 0, -65522, 1, 0, -65521, 1, 0, -65520, 1, 0, -65519, 1, 0, -65518, 1, 0, -65517, 1, 0, -65516, 1, 0, -65515, 1, 0, -65514, 1, 0, -65513, 1, 0, -65512, 1, 0, -65511, 1, 0, -65510, 1, 0, -65509, 1, 0, -65508, 1, 0, -65507, 1, 0, -65506, 1, 0, -65505, 1, 0, -65504, 1, 0, -65503, 1, 0, -65502, 1, 0, -65501, 1, 0, 65530, 1, 0, 65531, 1, 0, 65532, 1, 0, 65533, 1, 0, 65534, 1, 0, 65535, 1, 0, 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0, 8, 1, 0, 9, 1, 0, 10, 1, 0, 11, 1, 0, 12, 1, 0, 13, 1, 0, 14, 1, 0, 15, 1, 0, 16, 1, 0, 17, 1, 0, 18, 1, 0, 19, 1, 0, 20, 1, 0, 21, 1, 0, 22, 1, 0, 23, 1, 0, 24, 1, 0, 25, 1, 0, 26, 1, 0, 27, 1, 0, 28, 1, 0, 29, 1, 0, 30, 1, 0, 31, 1, 0, 32, 1, 0, 33, 1, 0, 34, 1, 0, 35, 1, 0, 36, 1, 0, 37, 1, 0, 131066, 1, 0, 131067, 1, 0, 131068, 1, 0, 131069, 1, 0, 131070, 1, 0, 131071, 1, 0, 65536, 1, 0, 65537, 1, 0, 65538, 1, 0, 65539, 1, 0, 65540, 1, 0, 65541, 1, 0, 65542, 1, 0, 65543, 1, 0, 65544, 1, 0, 65545, 1, 0, 65546, 1, 0, 65547, 1, 0, 65548, 1, 0, 65549, 1, 0, 65550, 1, 0, 65551, 1, 0, 65552, 1, 0, 65553, 1, 0, 65554, 1, 0, 65555, 1, 0, 65556, 1, 0, 65557, 1, 0, 65558, 1, 0, 65559, 1, 0, 65560, 1, 0, 65561, 1, 0, 65562, 1, 0, 65563, 1, 0, 65564, 1, 0, 65565, 1, 0, 65566, 1, 0, 65567, 1, 0, 65568, 1, 0, 65569, 1, 0, 65570, 1, 0, 65571, 1, 0, 65572, 1, 0, 65573, 1, 0, 196602, 1, 0, 196603, 1, 0, 196604, 1, 0, 196605, 1, 0, 196606, 1, 0, 196607, 1, 0, 131072, 1, 0, 131073, 1, 0, 131074, 1, 0, 131075, 1, 0, 131076, 1, 0, 131077, 1, 0, 131078, 1, 0, 131079, 1, 0, 131080, 1, 0, 131081, 1, 0, 131082, 1, 0, 131083, 1, 0, 131084, 1, 0, 131085, 1, 0, 131086, 1, 0, 131087, 1, 0, 131088, 1, 0, 131089, 1, 0, 131090, 1, 0, 131091, 1, 0, 131092, 1, 0, 131093, 1, 0, 131094, 1, 0, 131095, 1, 0, 131096, 1, 0, 131097, 1, 0, 131098, 1, 0, 131099, 1, 0, 131100, 1, 0, 131101, 1, 0, 131102, 1, 0, 131103, 1, 0, 131104, 1, 0, 131105, 1, 0, 131106, 1, 0, 131107, 1, 0, 131108, 1, 0, 131109, 1, 0)
 
 [node name="GroupGrabYSort" type="Node2D" parent="."]
-script = ExtResource( 3 )
-grab_groups = [ "nrt", "dissable", "moped_rebel_root", "obstacle" ]
+script = ExtResource("3")
+grab_groups = ["nrt", "dissable", "moped_rebel_root", "obstacle"]
 
 [node name="NRT" type="Node2D" parent="."]
 
-[node name="NonRegulationTrack1" parent="NRT" instance=ExtResource( 4 )]
-position = Vector2( 753.979, 45.7332 )
+[node name="NonRegulationTrack1" parent="NRT" instance=ExtResource("4")]
+position = Vector2(753.979, 45.7332)
 
-[node name="NonRegulationTrack2" parent="NRT" instance=ExtResource( 4 )]
-position = Vector2( 1145.8, -49.4413 )
+[node name="NonRegulationTrack2" parent="NRT" instance=ExtResource("4")]
+position = Vector2(1145.8, -49.4413)
 
-[node name="NonRegulationTrack3" parent="NRT" instance=ExtResource( 5 )]
-position = Vector2( 1747.87, 46.9692 )
+[node name="NonRegulationTrack3" parent="NRT" instance=ExtResource("5")]
+position = Vector2(1747.87, 46.9692)
 travel_nrt_points = 300.0
 nrt_cruise_speed = 500.0
 
-[node name="NonRegulationTrack4" parent="NRT" instance=ExtResource( 5 )]
-position = Vector2( 2351.05, 48.2052 )
+[node name="NonRegulationTrack4" parent="NRT" instance=ExtResource("5")]
+position = Vector2(2351.05, 48.2052)
 travel_nrt_points = 300.0
 nrt_cruise_speed = 500.0
 
-[node name="NonRegulationTrack5" parent="NRT" instance=ExtResource( 6 )]
-position = Vector2( 3136.05, -51.9134 )
-track_regular_shine = Color( 0.0352941, 0.0352941, 0.901961, 0.501961 )
+[node name="NonRegulationTrack5" parent="NRT" instance=ExtResource("6")]
+position = Vector2(3136.05, -51.9134)
+track_regular_shine = Color(0.0352941, 0.0352941, 0.901961, 0.501961)
 travel_nrt_points = 500.0
 nrt_cruise_speed = 600.0
 
-[node name="NonRegulationTrack6" parent="NRT" instance=ExtResource( 6 )]
-position = Vector2( 3949.36, 50.6773 )
-track_regular_shine = Color( 0.054902, 0.054902, 0.803922, 0.501961 )
+[node name="NonRegulationTrack6" parent="NRT" instance=ExtResource("6")]
+position = Vector2(3949.36, 50.6773)
+track_regular_shine = Color(0.054902, 0.054902, 0.803922, 0.501961)
 travel_nrt_points = 500.0
 nrt_cruise_speed = 600.0
 
 [node name="Obstacles" type="Node2D" parent="."]
 
-[node name="TallRoadblock" parent="Obstacles" instance=ExtResource( 7 )]
-position = Vector2( 1300, 62 )
-scale = Vector2( 0.5, 0.5 )
+[node name="TallRoadblock" parent="Obstacles" instance=ExtResource("7")]
+position = Vector2(1300, 62)
+scale = Vector2(0.5, 0.5)
 
-[node name="TallRoadblock2" parent="Obstacles" instance=ExtResource( 7 )]
-position = Vector2( 3956.58, -42.2529 )
-scale = Vector2( 0.5, 0.5 )
+[node name="TallRoadblock2" parent="Obstacles" instance=ExtResource("7")]
+position = Vector2(3956.58, -42.2529)
+scale = Vector2(0.5, 0.5)
 
-[node name="TallRoadblock3" parent="Obstacles" instance=ExtResource( 7 )]
-position = Vector2( 5349.11, 251.889 )
-scale = Vector2( 0.5, 0.5 )
+[node name="TallRoadblock3" parent="Obstacles" instance=ExtResource("7")]
+position = Vector2(5349.11, 251.889)
+scale = Vector2(0.5, 0.5)
 
 [node name="Citizens" type="Node2D" parent="."]
 
-[node name="WhiteWorker" parent="Citizens" instance=ExtResource( 8 )]
-position = Vector2( 596.142, -69.6646 )
-scale = Vector2( 0.5, 0.5 )
+[node name="WhiteWorker" parent="Citizens" instance=ExtResource("8")]
+position = Vector2(596.142, -69.6646)
+scale = Vector2(0.5, 0.5)
 
-[node name="WhiteWorker2" parent="Citizens" instance=ExtResource( 8 )]
-position = Vector2( 1515.82, 63.7946 )
-scale = Vector2( 0.5, 0.5 )
+[node name="WhiteWorker2" parent="Citizens" instance=ExtResource("8")]
+position = Vector2(1515.82, 63.7946)
+scale = Vector2(0.5, 0.5)
 
-[node name="WhiteWorker3" parent="Citizens" instance=ExtResource( 8 )]
-position = Vector2( 2569.26, -47.4462 )
-scale = Vector2( 0.5, 0.5 )
+[node name="WhiteWorker3" parent="Citizens" instance=ExtResource("8")]
+position = Vector2(2569.26, -47.4462)
+scale = Vector2(0.5, 0.5)
 
-[node name="WhiteWorker6" parent="Citizens" instance=ExtResource( 8 )]
-position = Vector2( 2616.67, 171.525 )
-scale = Vector2( 0.5, 0.5 )
+[node name="WhiteWorker6" parent="Citizens" instance=ExtResource("8")]
+position = Vector2(2616.67, 171.525)
+scale = Vector2(0.5, 0.5)
 
-[node name="WhiteWorker7" parent="Citizens" instance=ExtResource( 8 )]
-position = Vector2( 3000.43, -20.3569 )
-scale = Vector2( 0.5, 0.5 )
+[node name="WhiteWorker7" parent="Citizens" instance=ExtResource("8")]
+position = Vector2(3000.43, -20.3569)
+scale = Vector2(0.5, 0.5)
 
-[node name="WhiteWorker8" parent="Citizens" instance=ExtResource( 8 )]
-position = Vector2( 3140.39, 236.991 )
-scale = Vector2( 0.5, 0.5 )
+[node name="WhiteWorker8" parent="Citizens" instance=ExtResource("8")]
+position = Vector2(3140.39, 236.991)
+scale = Vector2(0.5, 0.5)
 
-[node name="WhiteWorker4" parent="Citizens" instance=ExtResource( 8 )]
-position = Vector2( 3338.92, 141.904 )
-scale = Vector2( 0.5, 0.5 )
+[node name="WhiteWorker4" parent="Citizens" instance=ExtResource("8")]
+position = Vector2(3338.92, 141.904)
+scale = Vector2(0.5, 0.5)
 
-[node name="WhiteWorker5" parent="Citizens" instance=ExtResource( 8 )]
-position = Vector2( 4350.25, 252.518 )
-scale = Vector2( 0.5, 0.5 )
+[node name="WhiteWorker5" parent="Citizens" instance=ExtResource("8")]
+position = Vector2(4350.25, 252.518)
+scale = Vector2(0.5, 0.5)
 
-[node name="MopedRebel" parent="." instance=ExtResource( 9 )]
-position = Vector2( -930, 50 )
+[node name="MopedRebel" parent="." instance=ExtResource("9")]
+position = Vector2(-930, 50)
 
-[node name="SkyPollsBg" parent="." instance=ExtResource( 10 )]
-offset = Vector2( -700, -700 )
-transform = Transform2D( 1, 0, 0, 1, -700, -700 )
-scroll_limit_begin = Vector2( 1000, 0 )
+[node name="SkyPollsBg" parent="." instance=ExtResource("10")]
+offset = Vector2(-700, -700)
+transform = Transform2D(1, 0, 0, 1, -700, -700)
+scroll_limit_begin = Vector2(1000, 0)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 5
 
 [node name="SummaryTablePosition" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="HUD" parent="CanvasLayer" instance=ExtResource( 11 )]
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("11")]
+layout_mode = 3
+anchors_preset = 15
+offset_top = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" parent="CanvasLayer/HUD" index="0"]
+layout_mode = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+
+[node name="HBox" parent="CanvasLayer/HUD/MarginContainer" index="0"]
+layout_mode = 2
+
+[node name="SCProgressTracker" parent="CanvasLayer/HUD/MarginContainer/HBox" index="0"]
+layout_mode = 2
 
 [node name="CurrentSCLabel" parent="CanvasLayer/HUD/MarginContainer/HBox/SCProgressTracker" index="0"]
-offset_bottom = 42.0
+layout_mode = 2
 
 [node name="StreetCredProgressBar" parent="CanvasLayer/HUD/MarginContainer/HBox/SCProgressTracker" index="1"]
-offset_top = 47.0
-offset_bottom = 680.0
+layout_mode = 2
 
-[node name="StartStageCutsceneArea" parent="." instance=ExtResource( 12 )]
-position = Vector2( -500, -100 )
+[node name="TimedBonus" parent="CanvasLayer/HUD/MarginContainer/HBox" index="1"]
+layout_mode = 2
+
+[node name="ReferenceRect" parent="CanvasLayer/HUD/MarginContainer/HBox" index="2"]
+layout_mode = 2
+
+[node name="StageProgress" parent="CanvasLayer/HUD/MarginContainer/HBox/ReferenceRect" index="0"]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+offset_right = 1.0
+
+[node name="StartStageCutsceneArea" parent="." instance=ExtResource("12")]
+position = Vector2(-500, -100)
 cutscene_routine_owner_path = NodePath("..")
 cutscene_routine_name = "_start_moped_stage_intro"
 
 [node name="Camera2D" parent="StartStageCutsceneArea" index="1"]
-offset = Vector2( 600, -50 )
+offset = Vector2(600, -50)
 limit_top = -600
 limit_bottom = 120
 limit_smoothed = true
 drag_horizontal_enabled = true
 
-[node name="EndStageCutsceneArea2" parent="." instance=ExtResource( 12 )]
-position = Vector2( 6600, -100 )
+[node name="EndStageCutsceneArea2" parent="." instance=ExtResource("12")]
+position = Vector2(6600, -100)
 start_cutscene_on = 2
 cutscene_routine_owner_path = NodePath("..")
 cutscene_routine_name = "_start_moped_stage_outro"
 return_control_after = false
 
 [node name="Camera2D" parent="EndStageCutsceneArea2" index="1"]
-offset = Vector2( 50, -50 )
+offset = Vector2(50, -50)
 limit_top = -600
 limit_right = 7000
 limit_bottom = 120
@@ -156,9 +185,7 @@ limit_smoothed = true
 drag_horizontal_enabled = true
 
 [node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2( -178.311, 63.4361 )
-
-[node name="Tween" type="Tween" parent="."]
+position = Vector2(-178.311, 63.4361)
 
 [editable path="CanvasLayer/HUD"]
 [editable path="CanvasLayer/HUD/MarginContainer/HBox/SCProgressTracker"]
