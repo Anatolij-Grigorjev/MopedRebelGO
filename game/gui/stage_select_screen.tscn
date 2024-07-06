@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" path="res://gui/screen_section_header.tscn" id="4"]
 [ext_resource type="Script" path="res://gui/levels_grid.gd" id="5"]
 [ext_resource type="PackedScene" path="res://gui/select_level_cell.tscn" id="6"]
-[ext_resource type="PackedScene" path="res://gui/centered_label_button.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://btwa3bqnt5eiw" path="res://gui/centered_label_button.tscn" id="7"]
 
 [node name="StageSelectScreen" type="Control"]
 layout_mode = 3

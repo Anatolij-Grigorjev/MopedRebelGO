@@ -213,6 +213,7 @@ script = ExtResource("1")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -210)
 sprite_frames = SubResource("4")
+autoplay = "default"
 frame_progress = 0.555972
 
 [node name="PackagesBundle" parent="AnimatedSprite2D" instance=ExtResource("6")]

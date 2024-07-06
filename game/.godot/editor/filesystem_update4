@@ -19,3 +19,4 @@ res://gui/stage_progress.gd
 res://gui/stage_progress.tscn
 res://rebel/packages_bundle.tscn
 res://gui/centered_label_button.tscn
+res://rebel/delivery_package.tscn

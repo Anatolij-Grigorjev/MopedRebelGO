@@ -41,6 +41,7 @@ func _ready() -> void:
 	moped_rebel.connect("anger_pulse_consumed", Callable(HUD, '_on_MopedRebel_anger_pulse_consumed'))
 	
 	#setup track size for progress
+	HUD.stage_progress.connect("changed", Callable(self, "_stage_progress_ranges_changed"))
 	HUD.stage_progress.stage_bounds = Vector2(
 		($StartStageCutsceneArea.global_position + $StartStageCutsceneArea.area_extents).x,
 		($EndStageCutsceneArea2.global_position - $EndStageCutsceneArea2.area_extents).x
@@ -265,3 +266,7 @@ func _start_moped_stage_outro(cutscene_trigger: int) -> void:
 			else C.WIN_SCENE_PATH
 		)
 		LoadingScreen.load_scene(next_scene_path)
+		
+		
+func _stage_progress_ranges_changed():
+	LOG.info("stage_progress range changed! min={}, max={}", [HUD.stage_progress.min_value, HUD.stage_progress.max_value])
